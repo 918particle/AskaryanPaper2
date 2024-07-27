@@ -1,0 +1,154 @@
+\documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{makecell}
+\usepackage{siunitx}
+\DeclareMathOperator\erfc{erfc}
+\DeclareMathOperator{\sgn}{sgn}
+\begin{document}
+
+\title{Complex Analysis of Askaryan Radiation: Towards UHE-$\nu$ energy Reconstruction via the Hilbert Envelope of Analytic Askaryan Signals}
+
+\author{Jordan C. Hanson}
+\email{jhanson2@whittier.edu}
+\affiliation{Department of Physics and Astronomy, Whittier College}
+\author{Raymond Hartig}
+\affiliation{Department of Physics and Astronomy, Whittier College}
+\date{\today}
+
+\begin{abstract}
+This is a work in progress.
+\end{abstract}
+
+\keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
+
+\maketitle
+
+\section{Introduction}
+
+The introduction.
+
+\section{Units, Definitions, and Conventions}
+\label{sec:unit}
+
+The units.
+
+\section{Collection of Main Results}
+\label{sec:onc}
+
+Here is a list of the basic results and ideas for this paper.
+
+\begin{itemize}
+\item Let the signal model $s(t)$ be
+\begin{equation}
+s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} \label{eq:s}
+\end{equation}
+This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: the longitudinal length of the UHE-$\nu$-induced cascade, and the angle at which the cascade is observed relative to the Cherenkov angle.  The parameter $E_0$ is the amplitude normalization, and it depends on two parameters: $\sigma_{\rm t}$, and $\omega_{\rm 0}$, the cutoff frequency from the cascade form factor.
+\item Let $\widehat{s}(t)$ represent the Hilbert transform of $s(t)$.  The \textit{analytic signal} of $s(t)$ is
+\begin{equation}
+s_{\rm a}(t) = s(t) + j \widehat{s}(t)
+\end{equation}
+The magnitude of the analytic signal, $|s_a(t)|$, is the \textit{envelope} of the signal.  The Hilbert transform $\widehat{s}(t)$ is equivalent to the convolution of $s(t)$ and the tempered distribution $h(t) = 1/(\pi t)$.
+\item Let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform of the analytic signal is
+\begin{equation}
+\mathcal{F}\lbrace s_{\rm a}(t) \rbrace_{f} = S_{\rm a}(f) = S(f)(1+\sgn{f}) \label{eq:sa_1}
+\end{equation}
+The sign function, $\sgn$ gives $-1$ if $f<0$, $0$ if $f=0$, and $1$ if $f>1$.
+\item Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
+\begin{equation}
+s_{\rm a}(t) = 2\int_{0}^{\infty} S(f) e^{2\pi j f t} df \label{eq:sa_2}
+\end{equation}
+\item The Fourier transform of Eq. \ref{eq:s} is
+\begin{equation}
+S(f) = E_0 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
+\end{equation}
+\item Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
+\begin{equation}
+\sigma_{\rm t} \sigma_{\rm f} \geq \frac{1}{2\pi}
+\end{equation}
+The equality is reached in the limit the far-field parameter limits to zero: $\eta \to 0$.  This makes the signal spectrum
+\begin{equation}
+S(f) = E_0 (2\pi)^{3/2} j f e^{-\frac{1}{2}\left(f/\sigma_f\right)^2}
+\end{equation}
+Inserting $S(f)$ into Eq. \ref{eq:sa_1}, $s_{\rm a}(t)$ is
+\begin{equation}
+s_{\rm a}(t) = \frac{E_0 \sigma_t^2 (2\pi)^{3/2}}{\pi} \frac{d}{dt}\int_0^{\infty} e^{-\frac{1}{2}\left(f/\sigma_f\right)^2} e^{2\pi j f t} df \label{eq:sa_3}
+\end{equation}
+\item Let the integral in Eq. \ref{eq:sa_3} be $I$, $k^2/4 = \frac{1}{2}\left(f/\sigma_f^2\right)$, and $x = t/(\sqrt{2}\sigma_t)$.  The real and imaginary parts of $I$ are
+\begin{align}
+\Re\lbrace I \rbrace &= \frac{\sigma_f}{\sqrt{2}} \int_0^{\infty} e^{-k^2/4}\cos(kx) dk \\
+\Im\lbrace I \rbrace &= \frac{\sigma_f}{\sqrt{2}} \int_0^{\infty} e^{-k^2/4}\sin(kx) dk \\
+\end{align}
+The real part of $I$ is even, so it can be extended to $(-\infty,\infty)$ if it is multiplied by $1/2$.  The result is
+\begin{equation}
+\Re\lbrace I \rbrace = \sqrt{\frac{\pi}{2}} \sigma_f e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}
+\end{equation}
+The imaginary part of $I$ is proportional to $D(x)$, known as \textit{Dawson's integral:}
+\begin{equation}
+\Im{I} = \sqrt{2}\sigma_f D(x)
+\end{equation}
+\item The overal analytic signal, $s_a(t)$, is
+\begin{equation}
+s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
+\end{equation}
+The signal envelope is $|s_a(t)|$:
+\begin{equation}
+\mathcal{E}_s(t) = E_0 \left(t^2 e^{-\left(t/\sigma_t\right)^2} + \frac{\sigma_t^2}{2\pi} \left(\frac{dD(x)}{dx}\right)^2\right)
+\end{equation}
+It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $D(x) = 1 - 2x D(x)$.
+\item Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
+\item There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
+\item Let $x(t) * y(t)$ represent the convolution of two functions $x(t)$ and $y(t)$.  Let the envelope of the convolution be $\mathcal{E}_{x * y}(t)$.  $\mathcal{E}_{x * y}(t)$, $r_a(t)$, and $s_a(t)$ are related by
+\begin{equation}
+\mathcal{E}_{x * y}(t) = \frac{1}{2}| x_a (t) * y_a(t)| \label{eq:awesome}
+\end{equation}
+The analytic signal of the Askaryan pulse is given by Eq. \ref{eq:sa_4}.  The RLC damped oscillator response and corresponding analytic signal are
+\begin{align}
+r(t) &= R_0 e^{-\gamma t} \cos(2\pi j f_0 t) \\
+r_a(t) &= R_0 e^{-\gamma t} e^{2\pi j f_0 t}
+\end{align}
+The parameter $\gamma$ is the \textit{decay constant}, and the parameter $f_0$ is the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is simply $R_0 \exp(-\gamma t)$, as it should be.
+\item The analytic signal and response convolution inside the magnitude on the right hand side of Eq. \ref{eq:awesome} can be broken into real and imaginary parts of $s_a(t)$:
+\begin{align}
+r_a (t) * s_a(t) = & \\ 
+& r_a(t) * \Re\lbrace s_a(t)\rbrace + \\ 
+& j r_a(t) * \Im\lbrace s_a(t)\rbrace
+\end{align}
+Let $\gamma' = \sqrt{2}\sigma_t \gamma$, $f_0' = \sqrt{2} \sigma_t f_0$, and $z_0 = \gamma' - 2\pi j f_0'$.  The result for $r_a(t) * \Re\lbrace s_a(t)\rbrace$ is
+\begin{align}
+r_a(t) * \Re\lbrace s_a(t)\rbrace =& \sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} \\
+Q(z_0) &= e^{z_0^2/4} \erfc(z_0/2)
+\end{align}
+Note that there is an extra factor of $\sqrt{2}\sigma_t$ to account for the measure $dt$ in the convolution upon changing the convolution integral from $dt$ to $dx$.
+\item The result for $r_a(t) * \Im\lbrace s_a(t)\rbrace$ is
+\begin{equation}
+r_a(t) * \Im\lbrace s_a(t)\rbrace = \frac{j}{2}\sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} x e^{-x^2} Q(z_0)
+\end{equation}
+Note that the complementary error function is an \textit{entire function}, so $dQ/dz_0$ is defined for all $z_0$.
+\item The convolution $r_a (t) * s_a(t)$ is therefore
+\begin{multline}
+r_a (t) * s_a(t) = \sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} \\ \left(e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} - \frac{1}{2} x e^{-x^2} Q(z_0) \right)
+\end{multline}
+\item The envelope of the convolution of $s(t)$ and $r(t)$ is therefore
+\begin{multline}
+\mathcal{E}_{r * s}(t) = \sqrt{\frac{\pi}{4}} E_0 R_0 \sigma_t^2 \\ \left|e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} - \frac{1}{2} x e^{-x^2} Q(z_0) \right|
+\end{multline}
+This result can be further simplified.
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conc}
+
+The conclusion.
+
+\appendix
+
+\section{Details}
+\label{app:a}
+
+The details.
+
+\bibliography{apssamp}
+
+\end{document}
+
