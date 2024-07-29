@@ -60,7 +60,7 @@ s_{\rm a}(t) = 2\int_{0}^{\infty} S(f) e^{2\pi j f t} df \label{eq:sa_2}
 \end{equation}
 \item The Fourier transform of Eq. \ref{eq:s} is
 \begin{equation}
-S(f) = E_0 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
+S(f) = E_0 \sigma_t^3 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
 \end{equation}
 \item Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
 \begin{equation}
@@ -68,34 +68,31 @@ S(f) = E_0 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
 \end{equation}
 The equality is reached in the limit the far-field parameter limits to zero: $\eta \to 0$.  This makes the signal spectrum
 \begin{equation}
-S(f) = E_0 (2\pi)^{3/2} j f e^{-\frac{1}{2}\left(f/\sigma_f\right)^2}
+S(f) = E_0 \sigma_t^3 (2\pi)^{3/2} j f e^{-\frac{1}{2}\left(f/\sigma_f\right)^2}
 \end{equation}
-Inserting $S(f)$ into Eq. \ref{eq:sa_1}, $s_{\rm a}(t)$ is
+Inserting $S(f)$ into Eq. \ref{eq:sa_2}, $s_{\rm a}(t)$ is
 \begin{equation}
-s_{\rm a}(t) = \frac{E_0 \sigma_t^2 (2\pi)^{3/2}}{\pi} \frac{d}{dt}\int_0^{\infty} e^{-\frac{1}{2}\left(f/\sigma_f\right)^2} e^{2\pi j f t} df \label{eq:sa_3}
+s_{\rm a}(t) = \frac{E_0 \sigma_t^3 (2\pi)^{3/2}}{\pi} \frac{d}{dt}\int_0^{\infty} e^{-\frac{1}{2}\left(f/\sigma_f\right)^2} e^{2\pi j f t} df \label{eq:sa_3}
 \end{equation}
-\item Let the integral in Eq. \ref{eq:sa_3} be $I$, $k^2/4 = \frac{1}{2}\left(f/\sigma_f^2\right)$, and $x = t/(\sqrt{2}\sigma_t)$.  The real and imaginary parts of $I$ are
+\item Let $k^2/4 = \frac{1}{2}\left(f/\sigma_f^2\right)$, and $x = t/(\sqrt{2}\sigma_t)$.  Equation \ref{eq:sa_3} can be broken into real and imaginary parts:
 \begin{align}
-\Re\lbrace I \rbrace &= \frac{\sigma_f}{\sqrt{2}} \int_0^{\infty} e^{-k^2/4}\cos(kx) dk \\
-\Im\lbrace I \rbrace &= \frac{\sigma_f}{\sqrt{2}} \int_0^{\infty} e^{-k^2/4}\sin(kx) dk \\
+s_{\rm a}(t) &= \frac{E_0 \sigma_{\rm t}}{\sqrt{2\pi}}\frac{dI}{dx} \\
+\Re\lbrace I \rbrace &= \int_0^{\infty} e^{-k^2/4}\cos(kx) dk \\
+\Im\lbrace I \rbrace &= \int_0^{\infty} e^{-k^2/4}\sin(kx) dk
 \end{align}
 The real part of $I$ is even, so it can be extended to $(-\infty,\infty)$ if it is multiplied by $1/2$.  The result is
 \begin{equation}
-\Re\lbrace I \rbrace = \sqrt{\frac{\pi}{2}} \sigma_f e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}
+\Re\lbrace I \rbrace = \sqrt{\pi} e^{-x^2}
 \end{equation}
-The imaginary part of $I$ is proportional to $D(x)$, known as \textit{Dawson's integral:}
+The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$:}
 \begin{equation}
-\Im{I} = \sqrt{2}\sigma_f D(x)
+\Im\lbrace I\rbrace = 2 D(x)
 \end{equation}
 \item The overal analytic signal, $s_a(t)$, is
 \begin{equation}
-s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
+s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
 \end{equation}
-The signal envelope is $|s_a(t)|$:
-\begin{equation}
-\mathcal{E}_s(t) = E_0 \left(t^2 e^{-\left(t/\sigma_t\right)^2} + \frac{\sigma_t^2}{2\pi} \left(\frac{dD(x)}{dx}\right)^2\right)
-\end{equation}
-It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $D(x) = 1 - 2x D(x)$.
+The signal envelope is $|s_a(t)|$.  It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.
 \item Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
 \item There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
 \item Let $x(t) * y(t)$ represent the convolution of two functions $x(t)$ and $y(t)$.  Let the envelope of the convolution be $\mathcal{E}_{x * y}(t)$.  $\mathcal{E}_{x * y}(t)$, $r_a(t)$, and $s_a(t)$ are related by
