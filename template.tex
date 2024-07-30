@@ -113,23 +113,27 @@ r_a (t) * s_a(t) = & \\
 \end{align}
 Let $\gamma' = \sqrt{2}\sigma_t \gamma$, $f_0' = \sqrt{2} \sigma_t f_0$, and $z_0 = \gamma' - 2\pi j f_0'$.  The result for $r_a(t) * \Re\lbrace s_a(t)\rbrace$ is
 \begin{align}
-r_a(t) * \Re\lbrace s_a(t)\rbrace =& \sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} \\
-Q(z_0) &= e^{z_0^2/4} \erfc(z_0/2)
+r_a(t) * \Re\lbrace s_a(t)\rbrace =& -\sqrt{\pi} E_0 R_0 \sigma_t^2 e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} \label{eq:result1} \\
+Q(z_0) &= e^{z_0^2/4} \erfc(z_0/2) \label{eq:result2}
 \end{align}
-Note that there is an extra factor of $\sqrt{2}\sigma_t$ to account for the measure $dt$ in the convolution upon changing the convolution integral from $dt$ to $dx$.
 \item The result for $r_a(t) * \Im\lbrace s_a(t)\rbrace$ is
 \begin{equation}
-r_a(t) * \Im\lbrace s_a(t)\rbrace = \frac{j}{2}\sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} x e^{-x^2} Q(z_0)
+r_a(t) * \Im\lbrace s_a(t)\rbrace = -\sqrt{\frac{\pi}{2}} R_0 E_0 \sigma_t t e^{-\frac{1}{2}(t/\sigma_t)^2} Q(z_0) \label{eq:result3}
 \end{equation}
-Note that the complementary error function is an \textit{entire function}, so $dQ/dz_0$ is defined for all $z_0$.
+Note that the complementary error function and Gaussian functions are \textit{entire functions}, so $dQ/dz_0$ is defined for all $z_0$.
+\item The results in Eqs. \ref{eq:result1}-\ref{eq:result3} may be expressed in terms of $s(t)$ and $r_{\rm a}(t)$:
+\begin{align}
+r_a(t) * \Re\lbrace s_a(t)\rbrace =& -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \\
+r_a(t) * \Im\lbrace s_a(t)\rbrace =& \sqrt{\frac{\pi}{2}} R_0 \sigma_t s(t) Q(z_0)
+\end{align}
 \item The convolution $r_a (t) * s_a(t)$ is therefore
 \begin{multline}
-r_a (t) * s_a(t) = \sqrt{\frac{\pi}{2}} E_0 R_0 \sigma_t^2 \sqrt{2} \\ \left(e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} - \frac{1}{2} x e^{-x^2} Q(z_0) \right)
+r_a (t) * s_a(t) = -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \\ + j\sqrt{\frac{\pi}{2}} R_0 \sigma_t s(t) Q(z_0)
 \end{multline}
 \item The envelope of the convolution of $s(t)$ and $r(t)$ is therefore
-\begin{multline}
-\mathcal{E}_{r * s}(t) = \sqrt{\frac{\pi}{4}} E_0 R_0 \sigma_t^2 \\ \left|e^{-\gamma t} e^{2\pi j f_0 t} \frac{dQ}{dz_0} - \frac{1}{2} x e^{-x^2} Q(z_0) \right|
-\end{multline}
+\begin{equation}
+\mathcal{E}_{r * s}(t) = \frac{1}{2}|r_{\rm a}(t) * s_{\rm a}(t)|
+\end{equation}
 This result can be further simplified.
 \end{itemize}
 
