@@ -1,7 +1,7 @@
 \documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
 \usepackage{graphicx}
 \usepackage{mathtools}
-\usepackage{makecell}
+\usepackage{empheq}
 \usepackage{siunitx}
 \DeclareMathOperator\erfc{erfc}
 \DeclareMathOperator{\sgn}{sgn}
@@ -88,7 +88,7 @@ The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$:}
 \begin{equation}
 \Im\lbrace I\rbrace = 2 D(x)
 \end{equation}
-\item The overal analytic signal, $s_a(t)$, is
+\item The overall analytic signal, $s_a(t)$, is
 \begin{equation}
 s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
 \end{equation}
@@ -123,8 +123,8 @@ r_a(t) * \Im\lbrace s_a(t)\rbrace = -\sqrt{\frac{\pi}{2}} R_0 E_0 \sigma_t t e^{
 Note that the complementary error function and Gaussian functions are \textit{entire functions}, so $dQ/dz_0$ is defined for all $z_0$.
 \item The results in Eqs. \ref{eq:result1}-\ref{eq:result3} may be expressed in terms of $s(t)$ and $r_{\rm a}(t)$:
 \begin{align}
-r_a(t) * \Re\lbrace s_a(t)\rbrace =& -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \\
-r_a(t) * \Im\lbrace s_a(t)\rbrace =& \sqrt{\frac{\pi}{2}} R_0 \sigma_t s(t) Q(z_0)
+r_a(t) * \Re\lbrace s_a(t)\rbrace =& -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \label{eq:Re} \\
+r_a(t) * \Im\lbrace s_a(t)\rbrace =& \sqrt{\frac{\pi}{2}} R_0 \sigma_t s(t) Q(z_0) \label{eq:Im}
 \end{align}
 \item The convolution $r_a (t) * s_a(t)$ is therefore
 \begin{multline}
@@ -134,7 +134,54 @@ r_a (t) * s_a(t) = -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \\ + 
 \begin{equation}
 \mathcal{E}_{r * s}(t) = \frac{1}{2}|r_{\rm a}(t) * s_{\rm a}(t)|
 \end{equation}
-This result can be further simplified.
+This result can be further simplified.  There are several intermediate steps that aid in the simplification.  First, note that $Q(z_0)$ is related to the \textit{Voigt functions} $U(x,t)$ and $V(x,t)$:
+\begin{align}
+U(x,t) &= j V(x,t) = \frac{\pi}{4 t} e^{z^2} \erfc(z) \\
+z &= \frac{1-jx}{2\sqrt{t}} \label{eq:z_def}
+\end{align}
+Note that $t$ and $x$ are real parameters, and that the Voigt functions are also real.  Let $z = \frac{1}{2}z_0$. The parameters are connected to $z_0$ by the following:
+\begin{align}
+\Re \lbrace z_0 \rbrace &= \frac{1}{\sqrt{t}} \\
+\gamma ' &= \frac{1}{\sqrt{t}} \\
+\Im \lbrace z_0 \rbrace &= -\frac{x}{\sqrt{t}} \\
+x &= \frac{2\pi f_0'}{\gamma'} = \frac{2\pi f_0}{\gamma} \label{eq:x}
+\end{align}
+It is significant that $x$ is the ratio of the detector parameters.  Thus, $Q(z_0)$ may be written in terms of $U$ and $V$:
+\begin{equation}
+Q(z_0) = \frac{2}{\gamma'\sqrt{\pi}}\left(U + j V\right)
+\end{equation}
+Equation \ref{eq:Im} simplifies:
+\begin{equation}
+\boxed{r_a(t) * \Im\lbrace s_a(t)\rbrace = \frac{R_0 s(t)}{\gamma} \left(U + j V \right)} \label{eq:int_1}
+\end{equation}
+To simplify Eq. \ref{eq:Re}, we need the derivative of $Q(z_0)$ with respect to $z_0$:
+\begin{equation}
+\frac{dQ}{dz_0} = \frac{1}{2}z_0 Q(z_0) - \frac{1}{\sqrt{\pi}} \label{eq:derivative}
+\end{equation}
+Combining Eqs. \ref{eq:Re}, \ref{eq:z_def}, and \ref{eq:derivative}, we find
+\begin{equation}
+r_a(t) * \Re\lbrace s_a(t)\rbrace = E_0 \sigma_t^2 r_a \left(1 - \frac{z_0}{\gamma'}\left(U + j V \right)\right)
+\end{equation}
+Using the definitions of $z_0$, $\gamma'$, and Eq. \ref{eq:x}, we find
+\begin{equation}
+\boxed{r_a(t) * \Re\lbrace s_a(t)\rbrace = E_0 \sigma_t^2 r_a \left(1 - \left(1 + j x \right)\left(U + j V \right)\right)} \label{eq:int_2}
+\end{equation}
+There are useful limits for Voigt functions:
+\begin{align}
+\lim_{t\to 0} U(x,t) &= \frac{1}{1+x^2} \\
+\lim_{t\to 0} V(x,t) &= \frac{x}{1+x^2}
+\end{align}
+Taking this limit for Eqs. \ref{eq:int_1} and \ref{eq:int_2}, we find, to first-order in $1/\gamma'$, 
+\begin{align}
+r_a(t) * \Im\lbrace s_a(t)\rbrace &\approx \frac{R_0s(t)}{\gamma} \\
+r_a(t) * \Re\lbrace s_a(t)\rbrace &\approx 0
+\end{align}
+\item 
+Using Eq. \ref{eq:awesome}, we find
+\begin{equation}
+\boxed{\mathcal{E}_{r * s}(t) = \frac{R_0|s(t)|}{2\gamma}}
+\end{equation}
+This result appears to have (1) the right units, (2) the right limits, and (3) the right symmetry.  However, the \textit{width} of this theoretical envelope is limited by the width of $s(t)$.  The limit that the Voigt parameter $t \to 0$ implies that $\gamma' \gg 1$.  This is not necessarily a good limit for realistic detectors.
 \end{itemize}
 
 \section{Conclusion}
