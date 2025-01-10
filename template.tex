@@ -99,12 +99,25 @@ The signal envelope is $|s_a(t)|$.  It is important to note that, though $D(x)$ 
 \begin{equation}
 \mathcal{E}_{x * y}(t) = \frac{1}{2}| x_a (t) * y_a(t)| \label{eq:awesome}
 \end{equation}
-The analytic signal of the Askaryan pulse is given by Eq. \ref{eq:sa_4}.  The RLC damped oscillator response and corresponding analytic signal are
+We should include the proof here (I have to track it down in my notebooks).
+\item The analytic signal of the Askaryan pulse is given by Eq. \ref{eq:sa_4}.  The RLC damped oscillator response and corresponding analytic signal are
 \begin{align}
 r(t) &= R_0 e^{-\gamma t} \cos(2\pi j f_0 t) \\
-r_a(t) &= R_0 e^{-\gamma t} e^{2\pi j f_0 t}
+r_a(t) &= R_0 e^{-\gamma t} e^{2\pi j f_0 t} \label{eq:ra}
 \end{align}
-The parameter $\gamma$ is the \textit{decay constant}, and the parameter $f_0$ is the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is simply $R_0 \exp(-\gamma t)$, as it should be.
+The parameter $\gamma$ is the \textit{decay constant}, and the parameter $f_0$ is the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is simply $R_0 \exp(-\gamma t)$, as it should be.  The proof of Eq. \ref{eq:ra} is as follows:
+\begin{align}
+r(t) &= R_0 e^{-\gamma t} \cos(2\pi f_0 t) \\
+R(f) &= \frac{R_0}{2\pi j} \left( \frac{f - \frac{j\gamma}{2\pi}}{(f-z_+)(f-z_-)} \right) \\
+z_+ &= f_0 + \frac{j\gamma}{2\pi} \\
+z_- &= -f_0 + \frac{j\gamma}{2\pi} \\
+\widehat{r}(t) &= \mathcal{F}^{-1}\left \lbrace - j \sgn(f) R(f) \right \rbrace \label{eq:rh} \\ 
+\widehat{r}(t) &= \frac{R_0}{2j}\left( e^{2\pi j f_0 t} - e^{-2\pi j f_0 t} \right) e^{-\gamma t} \\
+\widehat{r}(t) &= R_0 \sin(2\pi f_0 t) e^{-\gamma t} \\
+r_a (t) &= R_0 \left(\cos(2\pi f_0 t) + j\sin(2\pi f_0 t)\right) e^{-\gamma t} \\
+r_a (t) &= R_0 e^{2\pi j f_0 t} e^{-\gamma t}
+\end{align}
+In evaluating the inverse Fourier transform in Eq. \ref{eq:rh}, the poles at $z_+$ and $z_-$ must be enclosed in separate contour integrals.
 \item The analytic signal and response convolution inside the magnitude on the right hand side of Eq. \ref{eq:awesome} can be broken into real and imaginary parts of $s_a(t)$:
 \begin{align}
 r_a (t) * s_a(t) = & \\ 
@@ -136,7 +149,7 @@ r_a (t) * s_a(t) = -\sqrt{\pi} E_0 \sigma_t^2 r_{\rm a}(t) \frac{dQ}{dz_0} \\ + 
 \end{equation}
 This result can be further simplified.  There are several intermediate steps that aid in the simplification.  First, note that $Q(z_0)$ is related to the \textit{Voigt functions} $U(x,t)$ and $V(x,t)$:
 \begin{align}
-U(x,t) &= j V(x,t) = \frac{\pi}{4 t} e^{z^2} \erfc(z) \\
+U(x,t) + j V(x,t) &= \sqrt{\frac{\pi}{4 t}} e^{z^2} \erfc(z) \\
 z &= \frac{1-jx}{2\sqrt{t}} \label{eq:z_def}
 \end{align}
 Note that $t$ and $x$ are real parameters, and that the Voigt functions are also real.  Let $z = \frac{1}{2}z_0$. The parameters are connected to $z_0$ by the following:
