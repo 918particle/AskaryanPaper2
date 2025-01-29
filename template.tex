@@ -136,24 +136,22 @@ The result is
 \begin{multline}
 r_a(t) * s_a(t) = \\ -j \sqrt{\frac{2}{\pi}} R_0 E_0 \sigma_t^3 \frac{d}{dt} \int_0^\infty \frac{e^{2\pi j f(t-t_0)} e^{-\frac{1}{2}\left(\frac{f}{\sigma_f}\right)^2}}{f-z}df
 \end{multline}
-Completing the square in the exponent, and letting $x = (t-t_0)/(\sqrt{2}\sigma_t)$, $y = f/(\sqrt{2}\sigma_f)$, and $z \to f_0/(\sqrt{2}\sigma_f)+j \gamma/(2\pi\sqrt{2}\sigma_f)$, we find
+Completing the square in the exponent, and letting $x = (t-t_0)/(\sqrt{2}\sigma_t)$, $y = f/(\sqrt{2}\sigma_f)$, and $z_0 \to f_0/(\sqrt{2}\sigma_f)+j \gamma/(2\pi\sqrt{2}\sigma_f)$, we find
 \begin{multline}
 r_a(t) * s_a(t) = \\ -\frac{j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dx} \left(e^{-x^2} \int_0^{\infty} \frac{e^{(x+jy)^2}}{y-z_0} dy \right)
 \end{multline}
 Evaluating the derivative gives
 \begin{align}
-\Aboxed{r_a(t) * s_a(t) &= \frac{2R_0 E_0 \sigma_t^2}{\sqrt{\pi}} e^{-x^2} I(x,z_0)} \\
-\Aboxed{I(x,z_0) &= \int_0^{\infty} \frac{y e^{(x+jy)^2}}{y-z_0} dy}
+\Aboxed{r_a(t) * s_a(t) &= \frac{2R_0 E_0 \sigma_t^2}{\sqrt{\pi}} e^{-x^2} I(x,z_0)} \label{eq:end1} \\
+\Aboxed{I(x,z_0) &= \int_0^{\infty} \frac{y e^{(x+jy)^2}}{y-z_0} dy} \label{eq:end2}
 \end{align}
 \item Note that $I(x,0)$ has exact solutions:
 \begin{align}
 I(x,0) &= \frac{\sqrt{\pi}}{2}(1+\erf(jx)) \\
 I(x,0) &= \frac{\sqrt{\pi}}{2} + j e^{x^2} D(x)
 \end{align}
-However, approximating $I(x,z_0) \approx I(x,0)$ drops the dependance on $\gamma$ and $f_0$.  Voigt or Faddeeva functions can be introduced, if only the denominator was even in $y$.  This suggests rationalizing the denominator:
-\begin{equation}
-\frac{1}{y-z_0} = \frac{\frac{f-f_0}{\sqrt{2}\sigma_f} - \frac{j\gamma}{2\pi\sqrt{2}\sigma_f}}{\frac{(f-f_0)^2}{2\sigma_f^2} + \frac{\gamma^2}{4\pi^2 2\sigma_f^2}}
-\end{equation}
+However, approximating $I(x,z_0) \approx I(x,0)$ drops the dependance on $\gamma$ and $f_0$.
+\item To solve Eq. \ref{eq:end2}, the integral function is expanded in powers of $z_0$.  This is wise, given that the UHE-$\nu$ signal bandwidth will usually exceed that of a dipole receiver with response $r(t)$ and analytic signal $r_a(t)$.
 \end{itemize}
 
 \section{Conclusion}
