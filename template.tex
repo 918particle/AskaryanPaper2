@@ -51,7 +51,7 @@ s_{\rm a}(t) = s(t) + j \widehat{s}(t)
 The magnitude of the analytic signal, $|s_a(t)|$, is the \textit{envelope} of the signal.  The Hilbert transform $\widehat{s}(t)$ is equivalent to the convolution of $s(t)$ and the tempered distribution $h(t) = 1/(\pi t)$.
 \item Let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform of the analytic signal is
 \begin{equation}
-mathcal{F}\lbrace s_{\rm a}(t) \rbrace_{f} = S_{\rm a}(f) = S(f)(1+\sgn{f}) \label{eq:sa_1}
+\mathcal{F}\lbrace s_{\rm a}(t) \rbrace_{f} = S_{\rm a}(f) = S(f)(1+\sgn{f}) \label{eq:sa_1}
 \end{equation}
 The sign function, $\sgn$ gives $-1$ if $f<0$, $0$ if $f=0$, and $1$ if $f>1$.
 \item Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
@@ -137,53 +137,64 @@ r_a(t) * s_a(t) = \\ -j \sqrt{\frac{2}{\pi}} R_0 E_0 \sigma_t^3 \frac{d}{dt} \in
 \end{multline}
 Completing the square in the exponent, and letting $x = (t-t_0)/(\sqrt{2}\sigma_t)$, $y = f/(\sqrt{2}\sigma_f)$, and $z_0 \to f_0/(\sqrt{2}\sigma_f)+j \gamma/(2\pi\sqrt{2}\sigma_f)$, we find
 \begin{multline}
-r_a(t) * s_a(t) = \\ -\frac{j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dx} \left(e^{-x^2} \int_0^{\infty} \frac{e^{(x+jy)^2}}{y-z_0} dy \right)
+r_a(t) * s_a(t) = \\ -\frac{j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dx} \left(e^{-x^2} \int_0^{\infty} \frac{e^{(x+jy)^2}}{y-z_0} dy \right) \label{eq:withI}
 \end{multline}
-Evaluating the derivative gives
+All that remains is to evaluate the integral
+\begin{equation}
+I(z,z_0) = \int_0^{\infty} \frac{e^{(x+jy)^2}}{y-z_0} dy
+\end{equation}
+Let $z = x+jy$, $dy = -jdz$, and $z_1 = x+jz_0$.  The integral becomes, as $R \to \infty$,
+\begin{equation}
+I(x,z_0) = \int_{x}^{x+jR} \frac{e^{z^2}}{z - z_1} dz
+\end{equation}
+$I(x,z_0)$ can be evaluated via contour integration, with a rectangular contour that encloses the pole if $x > \Im\lbrace z_0\rbrace$.  Let $I_1$ extend from $(x,0)$ to ($x,jR)$.  Let $I_2$ extend from $(x,jR)$ to $(0,jR)$.  Let $I_3$ extend from $(0,jR)$ to $(0,0)$.  Finally, let $I_4$ extend from $(0,0)$ to $(x,0)$.  Note that $I_1 = I(x,z_0)$.  For the integral $I_2$, note that the exponential factor is proportional to $\exp(-R^2)$, while the denominator contains another factor of $R$.  Since $dz = dx$, the integrand goes as $\exp(-R^2)/R$, vanishing as $R \to \infty$.  For $I_3$, $x=0$.  Thus, it reduces to
+\begin{equation}
+I_3 = - \int_{0}^{R} \frac{e^{-y^2}}{y-z_0} dy
+\end{equation}
+Let $y \to -y$, so that 
+\begin{equation}
+I_3 = - \int_{0}^{R} \frac{e^{-y^2}}{y+z_0} dy = -G(z_0)
+\end{equation}
+The function $G(z_0)$ is known as the Goodwin-Staton integral.  $G(z_0)$ appears in radiation transport, neutron transport, and optical calculations.  It is commonly used in problems involving diffusion approximations, particularly in media with semi-infinite boundary conditions.  The final segment of the contour is
+\begin{equation}
+I_4 = \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
+\end{equation}
+The sum of contour segments is $I_1 + I_2 + I_3 + I_4 = I_{\rm C}$, where $I_{\rm C}$ is given by the Cauchy integral formula: $2\pi j e^{z_1^2}$.  Solving for $I(x,z_0)$, we find
+\begin{equation}
+I(x,z_0) = 2\pi j e^{z_1^2} + G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
+\end{equation}
+If $x < \Im\lbrace z_0\rbrace$,
+\begin{equation}
+I(x,z_0) = G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
+\end{equation} \\
+Inserting this result into Eq. \ref{eq:withI},
+\begin{multline}
+r_a(t) * s_a(t) = \\ -\frac{j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(\frac{dA(x,z_0)}{dx}-\frac{j}{z_0}\frac{dD(x)}{dx} \right) \label{eq:ra_sa_1}
+\end{multline}
+with
 \begin{align}
-\Aboxed{r_a(t) * s_a(t) &= \frac{2R_0 E_0 \sigma_t^2}{\sqrt{\pi}} e^{-x^2} I(x,z_0)} \label{eq:end1} \\
-\Aboxed{I(x,z_0) &= \int_0^{\infty} \frac{y e^{(x+jy)^2}}{y-z_0} dy} \label{eq:end2}
+A(x,z_0) &= 2\pi j e^{z_1^2} e^{-x^2} + G(z_0)e^{-x^2}, ~~ x > \Im \lbrace z_0 \rbrace\\
+A(x,z_0) &= G(z_0)e^{-x^2}, ~~ x < \Im \lbrace z_0 \rbrace
 \end{align}
-\item The solution for $I(x,z_0)$ in Eq. \ref{eq:end2} may be found using contour integration, and comparison with standard results from integral tables.  First, $z$ is substituted for $(x+jy)$:
-\begin{align}
-z &= x+jy \\
-dz &= j dy \\
-y &= j(x-z)
-\end{align}
-Let $z_1 = x+jz_0$. The substitution changes $I(x,z_0)$ into
+and
 \begin{equation}
-I(x,z_0) = -j \int_{x}^{x+jR} \frac{(z-x)}{(z-z_1)} e^{z^2} dz
+D(x) = e^{-x^2} \int_{0}^{x} e^{x'^2} dx'
 \end{equation}
-First, assume that $x>0$ and $x>\Im \lbrace z_0\rbrace$ so that the pole is in the first quadrant.  Define four line integrals to enclose the pole, $I_1$ through $I_4$.  First, $I_1$ extends from $x$ to $x+jR$, and is equal to $I$:
-\begin{align}
-I_1 &= -j \int_{x}^{x+jR} \frac{(x+jy-x)}{(x+jy-(x+jz_0))} e^{(x+jy)^2} j dy \\
-I_1 &= \int_0^{\infty} \frac{y e^{(x+jy)^2}}{y-z_0} dy = I(x,z_0)
-\end{align}
-Regarding the limits, $z = x$ corresponds to $y=0$, and $z = x+jR$ corresponds to $y=R$, where $R \to \infty$.  The line integral $I_2$ runs from $x+jR$ to $jR$.  The numerator goes as $\exp(z^2) \propto \exp(-R^2)$.  For $R \to \infty$, $I_2$ vanishes.  The line integral $I_3$ returns from $jR$ to $0$.  The integrand is parametrized by $z = jy$, $dz = jdy$.  Along $I_3$, $x = 0$.  The result is
+What remains is to compute the magnitude of Eq. \ref{eq:ra_sa_1}.  Let the overall scale factor in Eq. \ref{eq:ra_sa_1} be $R_0 E_0 \sigma_t^2/\sqrt{\pi}$, let $z_0 = x_0 + j y_0$, and let $x>\Im\lbrace z_0\rbrace$.  Upon taking the magnitude, the quantity in parentheses generates four terms.  The first is
+\begin{multline}
+\frac{dA^{*}}{dx}\frac{dA}{dx} = \\ 16\pi^2|z_0|^2 e^{-4x y_0 - 2x_0^2-2y_0^2} \\ + 4G(z_0)x^2 e^{-2x^2} \\ + 16\pi G(z_0) x e^{-x^2}e^{-\gamma t} e^{-x_0^2+y_0^2} \\ \times \left(x_0\cos(2x_0(x-y_0)) - y_0\sin(2x_0(x-y_0)) \right)
+\end{multline}
+The second is
 \begin{equation}
-I_3 = -\int_0^{R} \frac{ye^{-y^2}dy}{y-z_0}
+\frac{1}{z_0^2}\left(\frac{dD(x)}{dx}\right)^2 = \frac{1}{z_0^2}\left(1-4xD(x)+4x^2D^2(x) \right)
 \end{equation}
-The line integral $I_4$ finishes the loop, with limits $0$ and $x$.  However, the numerator of the integrand is proportional to $(z-x)$. Since the parameterization is $z=x$, the integrand vanishes.  Thus, only $I_1$ ane $I_3$ remain in the sum of line integrals, which enclose the pole at $z_1$.  The contour integral is therefore:
-\begin{equation}
-\oint \frac{-j(z-x)e^{z^2}dz}{(z-z_1)} = I(x,z_0) + I_3
-\end{equation}
-According to the Cauchy integral formula, the left-hand side is $2\pi j$ times the residue at $z_1$:
-\begin{equation}
-\oint \frac{-j(z-x)e^{z^2}dz}{(z-z_1)} = 2\pi j z_0 e^{(x+jz_0)^2}
-\end{equation}
-Solving for $I(x,z_0)$:
-\begin{equation}
-I(x,z_0) = 2\pi j z_0 e^{(x+jz_0)^2} + \int_0^{\infty} \frac{ye^{-y^2}dy}{y-z_0}
-\end{equation}
-The term originating from $I_3$ may be found in standard integral tables.  The result is 
-\begin{equation}
-\boxed{
-I(x,z_0) = 2\pi j z_0 e^{(x+jz_0)^2} + \frac{\pi}{2}e^{z_0^2}\erfc(z_0)}
-\end{equation}
-The final result for $\mathcal{E}_{r * s}$ is
-\begin{equation}
-\mathcal{E}_{r * s} = \frac{1}{2}| r_a(t) * s_a(t)| = R_0 E_0 \sigma_t^2 e^{-x^2} \left|\frac{I(x,z_0)}{\sqrt{\pi}}\right|
-\end{equation}
+The combination of the third and forth terms is
+\begin{multline}
+\frac{dD}{dx}\left\lbrace \frac{j}{z_0^{*}} \frac{dA}{dx} - \frac{j}{z_0} \frac{dA^{*}}{dx}\right\rbrace = \\
+-\frac{2}{|z_0|^2} \frac{dD}{dx}\frac{d}{dx} ( -2\pi y_0 e^{-2xy_0} e^{y_0^2-x_0^2}\sin(2x_0(x-x_0)) \\
++ y_0G(z_0)e^{-x^2} \\
++ 2\pi x_0 e^{-2xy_0} e^{y_0^2-x_0^2}\cos(2x_0(x-x_0)) )
+\end{multline}
 \end{itemize}
 
 \section{Conclusion}
