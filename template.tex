@@ -1,4 +1,4 @@
-\documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
+ \documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
 \usepackage{graphicx}
 \usepackage{mathtools}
 \usepackage{empheq}
@@ -149,23 +149,20 @@ I(x,z_0) = \int_{x}^{x+jR} \frac{e^{z^2}}{z - z_1} dz
 \end{equation}
 $I(x,z_0)$ can be evaluated via contour integration, with a rectangular contour that encloses the pole if $x > \Im\lbrace z_0\rbrace$.  Let $I_1$ extend from $(x,0)$ to ($x,jR)$.  Let $I_2$ extend from $(x,jR)$ to $(0,jR)$.  Let $I_3$ extend from $(0,jR)$ to $(0,0)$.  Finally, let $I_4$ extend from $(0,0)$ to $(x,0)$.  Note that $I_1 = I(x,z_0)$.  For the integral $I_2$, note that the exponential factor is proportional to $\exp(-R^2)$, while the denominator contains another factor of $R$.  Since $dz = dx$, the integrand goes as $\exp(-R^2)/R$, vanishing as $R \to \infty$.  For $I_3$, $x=0$.  Thus, it reduces to
 \begin{equation}
-I_3 = - \int_{0}^{R} \frac{e^{-y^2}}{y-z_0} dy
+I_3 = - \int_{0}^{R} \frac{e^{-y^2}}{y-z_0} dy = -G(-z_0) = G(z_0)
 \end{equation}
-Let $y \to -y$, so that 
-\begin{equation}
-I_3 = - \int_{0}^{R} \frac{e^{-y^2}}{y+z_0} dy = -G(z_0)
-\end{equation}
-The function $G(z_0)$ is known as the Goodwin-Staton integral.  $G(z_0)$ appears in radiation transport, neutron transport, and optical calculations.  It is commonly used in problems involving diffusion approximations, particularly in media with semi-infinite boundary conditions.  The final segment of the contour is
+
+The function $G(z_0)$ is a function with odd-symmetry known as the Goodwin-Staton integral.  $G(z_0)$ appears in radiation transport, neutron transport, and optical calculations.  It is commonly used in problems involving diffusion approximations, particularly in media with semi-infinite boundary conditions. The final segment of the contour is
 \begin{equation}
 I_4 = \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
 \end{equation}
 The sum of contour segments is $I_1 + I_2 + I_3 + I_4 = I_{\rm C}$, where $I_{\rm C}$ is given by the Cauchy integral formula: $2\pi j e^{z_1^2}$.  Solving for $I(x,z_0)$, we find
 \begin{equation}
-I(x,z_0) = 2\pi j e^{z_1^2} + G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
+I(x,z_0) = 2\pi j e^{z_1^2} - G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
 \end{equation}
 If $x < \Im\lbrace z_0\rbrace$,
 \begin{equation}
-I(x,z_0) = G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
+I(x,z_0) = -G(z_0) - \frac{j}{z_0}\int_{0}^{x} e^{x'^2} dx'
 \end{equation} \\
 Inserting this result into Eq. \ref{eq:withI},
 \begin{multline}
@@ -173,27 +170,24 @@ r_a(t) * s_a(t) = \\ -\frac{j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(\frac{dA(x,z
 \end{multline}
 with
 \begin{align}
-A(x,z_0) &= 2\pi j e^{z_1^2} e^{-x^2} + G(z_0)e^{-x^2}, ~~ x > \Im \lbrace z_0 \rbrace\\
-A(x,z_0) &= G(z_0)e^{-x^2}, ~~ x < \Im \lbrace z_0 \rbrace
+A(x,z_0) &= 2\pi j e^{z_1^2} e^{-x^2} - G(z_0)e^{-x^2}, ~~ x > \Im \lbrace z_0 \rbrace\\
+A(x,z_0) &= -G(z_0)e^{-x^2}, ~~ x < \Im \lbrace z_0 \rbrace
 \end{align}
 and
 \begin{equation}
 D(x) = e^{-x^2} \int_{0}^{x} e^{x'^2} dx'
 \end{equation}
-What remains is to compute the magnitude of Eq. \ref{eq:ra_sa_1}.  Let the overall scale factor in Eq. \ref{eq:ra_sa_1} be $R_0 E_0 \sigma_t^2/\sqrt{\pi}$, let $z_0 = x_0 + j y_0$, and let $x>\Im\lbrace z_0\rbrace$.  Upon taking the magnitude, the quantity in parentheses generates four terms.  The first is
+What remains is to compute the magnitude of Eq. \ref{eq:ra_sa_1}.  Let the overall scale factor in Eq. \ref{eq:ra_sa_1} be $R_0 E_0 \sigma_t^2/\sqrt{\pi}$, let $z_0 = x_0 + j y_0$, $\phi_0 = \tan^{-1}(y_0/x_0)$, and let $x>\Im\lbrace z_0\rbrace$.  Upon taking the magnitude, the quantity in parentheses generates four terms.  The first is
 \begin{multline}
-\frac{dA^{*}}{dx}\frac{dA}{dx} = \\ 16\pi^2|z_0|^2 e^{-4x y_0 - 2x_0^2-2y_0^2} \\ + 4G(z_0)x^2 e^{-2x^2} \\ + 16\pi G(z_0) x e^{-x^2}e^{-\gamma t} e^{-x_0^2+y_0^2} \\ \times \left(x_0\cos(2x_0(x-y_0)) - y_0\sin(2x_0(x-y_0)) \right)
+\left(\frac{dA}{dx}\right)^{*}\left(\frac{dA}{dx}\right) = \\ 16\pi^2|z_0|^2 e^{-4x y_0 - 2(x_0^2-y_0^2)} \\ + 4G^2(z_0)x^2 e^{-2x^2} \\ - 16\pi G(z_0) x e^{-x^2}e^{-2xy_0} e^{-x_0^2+y_0^2} \\ \times \left(|z_0|\cos(2x_0(x-y_0)+\phi_0) \right)
 \end{multline}
 The second is
 \begin{equation}
-\frac{1}{z_0^2}\left(\frac{dD(x)}{dx}\right)^2 = \frac{1}{z_0^2}\left(1-4xD(x)+4x^2D^2(x) \right)
+\frac{1}{|z_0|^2}\left(\frac{dD(x)}{dx}\right)^2 = \frac{1}{|z_0|^2}\left(1-4xD(x)+4x^2D^2(x) \right)
 \end{equation}
 The combination of the third and forth terms is
 \begin{multline}
-\frac{dD}{dx}\left\lbrace \frac{j}{z_0^{*}} \frac{dA}{dx} - \frac{j}{z_0} \frac{dA^{*}}{dx}\right\rbrace = \\
--\frac{2}{|z_0|^2} \frac{dD}{dx}\frac{d}{dx} ( -2\pi y_0 e^{-2xy_0} e^{y_0^2-x_0^2}\sin(2x_0(x-x_0)) \\
-+ y_0G(z_0)e^{-x^2} \\
-+ 2\pi x_0 e^{-2xy_0} e^{y_0^2-x_0^2}\cos(2x_0(x-x_0)) )
+j\frac{dD}{dx}\left\lbrace \frac{1}{z_0^{*}} \left(\frac{dA}{dx}\right) - \frac{1}{z_0} \left(\frac{dA}{dx}\right)^{*}\right\rbrace = \\
 \end{multline}
 \end{itemize}
 
