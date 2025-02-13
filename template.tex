@@ -185,9 +185,23 @@ The second is
 \begin{equation}
 \frac{1}{|z_0|^2}\left(\frac{dD(x)}{dx}\right)^2 = \frac{1}{|z_0|^2}\left(1-4xD(x)+4x^2D^2(x) \right)
 \end{equation}
-The combination of the third and forth terms is
+The combination of the third and fourth terms is
 \begin{multline}
-j\frac{dD}{dx}\left\lbrace \frac{1}{z_0^{*}} \left(\frac{dA}{dx}\right) - \frac{1}{z_0} \left(\frac{dA}{dx}\right)^{*}\right\rbrace = \\
+\frac{dD}{dx}\left\lbrace \frac{j}{z_0^{*}} \left(\frac{dA}{dx}\right) - \frac{j}{z_0} \left(\frac{dA}{dx}\right)^{*}\right\rbrace = \\
+\frac{1}{|z_0|}\frac{dD}{dx}\left\lbrace e^{j\phi_0+j\pi/2} \left(\frac{dA}{dx}\right) + e^{-j\phi_0-j\pi/2} \left(\frac{dA}{dx}\right)^{*}\right\rbrace = \\ 
+\frac{1}{|z_0|}\frac{dD}{dx}2\Re\left\lbrace e^{j\phi_0+j\pi/2} \left(\frac{dA}{dx}\right) \right\rbrace \label{eq:cross_terms}
+\end{multline}
+The expression in Eq. \ref{eq:cross_terms} simplifies to
+\begin{multline}
+\frac{1}{|z_0|}\frac{dD}{dx}2\Re\left\lbrace e^{j\phi_0+j\pi/2} \left(\frac{dA}{dx}\right) \right\rbrace = \\
+(8\pi\sin(2x_0(x-y_0)+2\phi_0)e^{-2xy_0}e^{-x_0^2+y_0^2} \\ -2xG(z_0)\sin(\phi_0) e^{-x^2})\frac{dD}{dx}
+\end{multline}
+Finally, we add the results of the four terms generated, and take the square root:
+\begin{multline}
+\frac{1}{2}| x_a (t) * y_a(t)| = \\
+16\pi^2|z_0|^2 e^{-4x y_0 - 2(x_0^2-y_0^2)} + \\ 4G^2(z_0)x^2 e^{-2x^2} - \\ 16\pi G(z_0) x e^{-x^2}e^{-2xy_0} e^{-x_0^2+y_0^2} \\ \times \left(|z_0|\cos(2x_0(x-y_0)+\phi_0) \right) + \\
+\frac{1}{|z_0|^2}\left(1-4xD(x)+4x^2D^2(x) \right) + \\
+\frac{dD}{dx}(8\pi\sin(2x_0(x-y_0)+2\phi_0)e^{-2xy_0}e^{-x_0^2+y_0^2} - \\ 2xG(z_0)\sin(\phi_0) e^{-x^2})
 \end{multline}
 \end{itemize}
 
