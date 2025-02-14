@@ -198,11 +198,20 @@ The expression in Eq. \ref{eq:cross_terms} simplifies to
 \end{multline}
 Finally, we add the results of the four terms generated, and take the square root:
 \begin{multline}
-\frac{1}{2}| x_a (t) * y_a(t)| = \\
+\frac{1}{2}| r_a (t) * s_a(t)| = \\
 16\pi^2|z_0|^2 e^{-4x y_0 - 2(x_0^2-y_0^2)} + \\ 4G^2(z_0)x^2 e^{-2x^2} - \\ 16\pi G(z_0) x e^{-x^2}e^{-2xy_0} e^{-x_0^2+y_0^2} \\ \times \left(|z_0|\cos(2x_0(x-y_0)+\phi_0) \right) + \\
 \frac{1}{|z_0|^2}\left(1-4xD(x)+4x^2D^2(x) \right) + \\
 \frac{dD}{dx}(8\pi\sin(2x_0(x-y_0)+2\phi_0)e^{-2xy_0}e^{-x_0^2+y_0^2} - \\ 2xG(z_0)\sin(\phi_0) e^{-x^2})
 \end{multline}
+(Still have to multiply the whole thing by $R_0 E_0 \sigma_t^2/(2\sqrt{\pi})$ and take the square root
+\item If $x < \Im\lbrace z_0\rbrace$, then 
+\begin{multline}
+\frac{1}{2}| r_a (t) * s_a(t)| = \\
+4x^2|G(z_0)|^2 e^{-2x^2} + \\
+4\frac{|G(z_0)|}{|z_0|}\frac{dD}{dx}x e^{-x^2} \cos(\phi_0 + \phi_G) + \\
+\frac{1}{|z_0|^2} \left(\frac{dD}{dx}\right)^2
+\end{multline}
+(Still have to multiply the whole thing by $R_0 E_0 \sigma_t^2/(2\sqrt{\pi})$ and take the square root
 \end{itemize}
 
 \section{Conclusion}
