@@ -147,7 +147,7 @@ Subsituting Eq. \ref{eq:fadd} into Eq. \ref{eq:conv}, and simplifying, produces
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
 -j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz}
 \end{multline}
-Turning to the convolution of $r_a(t)$ with $\Im(s_a)$, note that the imaginary part of Eq. \ref{eq:sa_4} contains $dD(x)/dx$, the derivative of the Dawson function.  To complete the convolution, the inverse Fourier transform of the product of the Fourier transforms of $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ is calculated.  To complete this step, the Fourier transform of $dD(x)/dx$ is needed:
+\item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$, note that the imaginary part of Eq. \ref{eq:sa_4} contains $dD(x)/dx$, the derivative of the Dawson function.  To complete the convolution, the inverse Fourier transform of the product of the Fourier transforms of $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ is calculated.  To complete this step, the Fourier transform of $dD(x)/dx$ is needed:
 \begin{align}
 x &= t/(\sqrt{2}\sigma_t) \\
 f' &= \sqrt{2} \sigma_t f \\
@@ -177,7 +177,29 @@ r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
 Completing the square in the exponent, factoring a unit of $j$ from the exponent, and changing the derivative from $d/dt$ to $d/dx$ gives
 \begin{multline}
 r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}e^{-x^2} \int_{-\infty}^{\infty} \frac{\sgn(y) e^{(x+jy)^2}}{y-z_1}
+-\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}e^{-x^2} \int_{-\infty}^{\infty} \frac{\sgn(y) e^{(x+jy)^2}}{y-z_1}dy
+\end{multline}
+Let $z = x+jy$, with $y = \Im(z)$.  In this substitution, $x$ is treated as a constant, so $dz = jy$.  Let $z_2 = x+j z_1$, while $z_1 = f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)$.  The result is
+\begin{multline}
+r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
+-\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}e^{-x^2} \int_{x-j\infty}^{x+j\infty} \frac{\sgn(\Im(z)) e^{z^2}}{y-z_2}dz \label{eq:cont_int}
+\end{multline}
+The integral may be finished by extending $z$ to the complex plane and using contour integration.  The location of the pole is in the first quadrant, unless $t = (\gamma \sigma_t)\sigma_t$.  In that case, $\Re(z_2)=0$, and the pole is located on the imaginary axis.  For typical values of $\sigma_t$ and $\gamma$, $t\approx 0.1$ ns. Since $r(t)=0$ if $t<0$, the location of $z_2$ is usually in the first quadrant.  Let the line integrals of the rectangular contour be: $I_1$, $(x,-jR) \to (x,jR)$, $I_2$, $(x,jR) \to (0,jR)$, $I_3$, $(0,jR) \to (0,-jR)$, and $I_4$, $(0,-jR) \to (x,-jR)$.  $I_2$ and $I_4$ are both proportional to $\exp(-R^2)$, so $I_2 \to 0$ and $I_4 \to 0$ when $R \to \infty$.  $I_1$ is the integral in Eq. \ref{eq:cont_int}.  Let $w = -y$, so that $I_3$ is
+\begin{equation}
+I_3 = -\int_0^{R} \frac{e^{-y^2}}{y-z_1} dy + \int_0^{R} \frac{e^{-w^2}}{w+z_1} dw
+\end{equation}
+Integrals of the type in $I_3$ are known as \textit{Goodwin-Staton} functions, and are related to the other error functions.  The Goodwin-Staton function, $G(z_1)$, is odd, so $-G(-z_1) = G(z_1)$.  The result for $I_3$ is
+\begin{equation}
+I_3 = -G(-z_1) + G(z_1) = 2G(z_1)
+\end{equation}
+The residue of the enclosed contour $I_C = I_1+I_2+I_3+I_4$ is $\exp(z_2^2)$.  With $I_2$, $I_3$, and $I_4$ completed, the solution for $I_1$ is
+\begin{equation}
+I_1 = 2\pi j e^{z_2^2} - 2G(z_1)
+\end{equation}
+Inserting this result into Eq. \ref{eq:cont_int}, and simplifying, gives
+\begin{multline}
+r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
+-\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}\left( 2\pi j e^{2 j x z_0 - z_0^2 \right)
 \end{multline}
 \end{itemize}
 
