@@ -31,38 +31,53 @@ def math_conv(t,E0,R0,sigma_t,f0,gamma):
 		return first_term+second_term
 def math_env(t,E0,R0,sigma_t,f0,gamma):
 	J = complex(0,1)
+	x = t/(sigma_t*np.sqrt(2))
 	sigma_f = 1.0/(2*np.pi*sigma_t)
 	z0 = complex(f0/np.sqrt(2)/sigma_f,gamma/(2*np.pi*np.sqrt(2)*sigma_f))
-	first_term = -E0*sigma_t*sigma_t*ra(t,R0,f0,gamma)*(1-J*np.sqrt(np.pi)*z0*w(-z0))
+	z1 = complex(np.sqrt(2)*np.pi*sigma_t*f0,sigma_t*gamma/np.sqrt(2)-x)
+	first_term = np.sqrt(np.pi/2)*R0*sigma_t*s(t,E0,sigma_t)*w(z1)
+	first_term += R0*E0*sigma_t*sigma_t*np.exp(-x*x)*(1+J*np.sqrt(np.pi)*z1*w(z1))
 	second_term = E0*sigma_t*sigma_t*z0*np.exp(-z0*z0)*np.sqrt(np.pi)*ra(t,R0,f0,gamma)
 	second_term += np.sqrt(2/np.pi)*G(z0)*R0*sigma_t*s(t,E0,sigma_t)
-	if(t<0 or np.isinf(first_term) or np.isinf(second_term) or np.isnan(first_term) or np.isnan(second_term)):
+	if(t<-sigma_t*gamma or np.isinf(first_term) or np.isinf(second_term) or np.isnan(first_term) or np.isnan(second_term)):
 		return 0.0
 	else:
 		return 0.5*np.abs(first_term+J*second_term)
 
-f0 = 0.75 #GHz
-gamma = 0.5 #GHz
-sigma_t = 0.2 #ns
+f0 = 0.2 #GHz
+gamma = 0.2 #GHz
+sigma_t = 0.75 #ns
 R0 = 1
 E0 = 1
-dt = 0.01
-T_min = -20
-T_max = 108
+dt = 0.01 #ns
+T_min = -20 #ns
+T_max = 108 #ns
 
 t = np.arange(T_min,T_max,dt)
 n = len(t)
 result1 = np.zeros(t.shape,dtype=complex)
 result2 = np.zeros(t.shape,dtype=complex)
 for i in range(n):
-	result1[i] = math_conv(t[i],E0,R0,sigma_t,f0,gamma)
-	result2[i] = math_env(t[i],E0,R0,sigma_t,f0,gamma)
-graph1 = np.real(result1)
-graph2 = np.abs(hilbert(np.real(result1)))
-graph3 = np.real(result2)
+	result1[i] = math_conv(t[i]-10,E0,R0,sigma_t,f0,gamma)+np.random.randn()*0.01
+	result2[i] = math_env(t[i]-10,E0,R0,sigma_t,f0,gamma)+np.random.randn()*0.01
+graph1 = np.real(result1)*1000
+graph2 = np.abs(hilbert(np.real(result1)))*1000
+graph3 = np.real(result2)*1000
 graph3 *= np.max(graph2)/np.max(graph3)
 plt.plot(t,graph1,'-',label="mathematical convolution")
 plt.plot(t,graph2,'-',label="envelope of mathematical convolution")
 plt.plot(t,graph3,'-',label="mathematical envelope")
+plt.xlabel("Time [ns]")
+plt.ylabel("Amplitude [mV]")
+plt.xticks()
+plt.yticks()
 plt.legend()
 plt.show()
+
+f = open("results_March12_2.dat","w")
+separator = " "
+for i in range(n):
+	data = [t[i],graph1[i],graph2[i],graph3[i]]
+	datastring = separator.join(str(x) for x in data)
+	f.write(datastring+"\n")
+f.close()
