@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{mathtools}
 \usepackage{empheq}
+\usepackage{verbatim}
 \DeclareMathOperator\erfc{erfc}
 \DeclareMathOperator\erf{erf}
 \DeclareMathOperator{\sgn}{sgn}
@@ -147,6 +148,11 @@ Subsituting Eq. \ref{eq:fadd} into Eq. \ref{eq:conv}, and simplifying, produces
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
 -j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz}
 \end{multline}
+Finally, the derivative of the Faddeeva function is $dw/dz = 2j/\sqrt{\pi} - 2 zw(z)$.  Substituting for $dw/dz$ gives the final result:
+\begin{multline}
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
++ R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) \label{eq:Re_result}
+\end{multline}
 \item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$, note that the imaginary part of Eq. \ref{eq:sa_4} contains $dD(x)/dx$, the derivative of the Dawson function.  To complete the convolution, the inverse Fourier transform of the product of the Fourier transforms of $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ is calculated.  To complete this step, the Fourier transform of $dD(x)/dx$ is needed:
 \begin{align}
 x &= t/(\sqrt{2}\sigma_t) \\
@@ -199,9 +205,43 @@ I_1 = 2\pi j e^{z_2^2} - 2G(z_1)
 Inserting this result into Eq. \ref{eq:cont_int}, and simplifying, gives
 \begin{multline}
 r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}\left( 2\pi j e^{2 j x z_0 - z_0^2 \right)
+-\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}\left( 2\pi j e^{2 j x z_1 - z_1^2} - 2G(z_1) e^{-x^2} \right)
 \end{multline}
+Notice that $2\pi j x z_1 = 2\pi j f_0 t - \gamma t$.  Evaluating the derivative and simplifying gives the final result:
+\begin{multline}
+r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
+\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:Im_result}
+\end{multline}
+\item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
+\begin{multline}
+r_a(t) * s_a(t) = \\
+\sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) + \\
+R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) + \\
+j\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \\
+j\sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:final}
+\end{multline}
+The units of the convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq.\ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
+\begin{align}
+z &= \sqrt{2}\sigma_t \pi f_0 + j\left(\frac{\sigma_t\gamma}{\sqrt{2}} - x\right) \\
+z_1 &= f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)
+\end{align}
+Recall that $\sigma_t = 1/(2\pi \sigma_f)$, and $x=t/(\sqrt{2}\sigma_t)$.  Substituting this into the definition of $z$ reveals that
+\begin{equation}
+z_1 = z + jx
+\end{equation}
+Thus, when $t=0$, the two poles are equal, since $t=0$ means $x=0$.  Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, gives the final result:
+\begin{equation}
+\mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) |
+\end{equation}
+\item Two examples of comparisons of Eq. \ref{eq:final} to the convolution of $s(t)$ and $r(t)$ are given in Fig. \ref{fig:fig1} below.
+\begin{figure}[hb]
+\centering
+\includegraphics[width=0.5\textwidth]{March12_plot1.pdf}
+\includegraphics[width=0.5\textwidth]{March12_plot2.pdf}
+\caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The dark gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The light gray envelope represents Eq. \ref{eq:final}. (Bottom) Same as top, for different parameter values.}
+\end{figure}
 \end{itemize}
+\clearpage
 
 \section{Conclusion}
 \label{sec:conc}
