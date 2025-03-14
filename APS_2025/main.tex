@@ -4,9 +4,11 @@
 \usepackage{tcolorbox}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{verbatim}
 \DeclareMathOperator\erfc{erfc}
-\definecolor{box_background}{RGB}{225,225,225}
-\definecolor{box_frame}{RGB}{0,0,0}
+\DeclareMathOperator\Ei{Ei}
+\definecolor{box_background}{RGB}{240,240,240}
+\definecolor{box_frame}{RGB}{40,40,40}
 \title{Complex analysis of Askaryan radiation: energy and angular reconstruction of ultra-high energy neutrinos}
 \author{Jordan C. Hanson and Raymond Hartig}
 \institute{Dept. of Physics and Astronomy \\ Whittier College \\ Whittier, CA}
@@ -32,8 +34,8 @@
 \end{itemize}
 \textbf{\alert{Event reconstruction}}
 \begin{itemize}
-\item \textbf{NuRadioMC}: MC software
 \item Mathematics $\leftrightarrow$ signals
+\item \textbf{NuRadioMC}: MC software
 \item Initial results
 \end{itemize}
 \end{column}
@@ -82,30 +84,6 @@
 \item $E_{\nu} \geq 10^{16}$ eV
 \item Flux is small
 \item \textbf{Cascades $\leftrightarrow$ RF}
-\item Ice is transparent
-\item Station arrays
-\end{itemize}
-\end{column}
-\begin{column}{0.68\textwidth}
-\begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth]{ARIANNA_principle.png}
-\includegraphics[width=0.9\textwidth]{icd.png}
-\caption{\footnotesize The Askaryan effect.}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Background: in-ice UHE-$\nu$ observations}
-\small
-\begin{columns}[T]
-\begin{column}{0.32\textwidth}
-\textbf{\alert{UHE-$\nu$ detection via the Askaryan Effect}}
-\begin{itemize}
-\item $E_{\nu} \geq 10^{16}$ eV
-\item Flux is small
-\item Cascades $\leftrightarrow$ RF
 \item \textbf{Ice is transparent}
 \item Station arrays
 \end{itemize}
@@ -113,9 +91,9 @@
 \begin{column}{0.68\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.6\textwidth]{moores_atten.png}
-\includegraphics[width=0.6\textwidth]{atten_greenland.png}
-\caption{\footnotesize RF attenuation lengths in ice.}
+\includegraphics[width=0.45\textwidth]{ARIANNA_principle.png} \\
+\includegraphics[width=0.55\textwidth]{atten_greenland.png}
+\caption{\footnotesize (Top) Detectors use the Askaryan effect. (Bottom) RF attenuation lengths in ice.}
 \end{figure}
 \end{column}
 \end{columns}
@@ -139,7 +117,7 @@
 \centering
 \includegraphics[width=0.35\textwidth]{RNO-G.png} \hspace{0.5cm}
 \includegraphics[width=0.55\textwidth]{ARA.png}
-\caption{\footnotesize In-ice UHE-$\nu$ detectors. \textbf{Left:} RNO-G (Greenland). \textbf{Right:} ARA (Antarctica).}
+\caption{\footnotesize In-ice UHE-$\nu$ detectors. (Left) RNO-G (Greenland). (Right) ARA (Antarctica).}
 \end{figure}
 \end{column}
 \end{columns}
@@ -282,17 +260,184 @@ In the far-field, $\eta \to 0$.
 \begin{frame}[fragile]{The Askaryan Signal: scanning $a$ and $\Delta\theta$}
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth,trim=2cm 9cm 2cm 10cm,clip=true]{example_scan.pdf}
-\caption{\label{fig:scan} Scanning Askaryan field equation parameters to fit NuRadioMC output.}
+\includegraphics[width=0.9\textwidth,trim=2cm 9cm 2cm 10cm,clip=true]{example_scan.pdf}
+\caption{\footnotesize \label{fig:scan} Fitting Askaryan field to NuRadioMC output. (Left) reconstruction of $a$ and $\Delta\theta$, mathematical $\vec{E}$-field vs. MC $\vec{E}$-field.  Circle: MC true.  Cross: reconstruction.}
 \end{figure}
 \textbf{Energy reconstruction potential:} $a^2 \propto \ln(E_{\rm C}/E_{\rm crit})$
 \end{frame}
 
+\section{Event Reconstruction}
+
+\begin{frame}[fragile]{Event Reconstruction: calculating $\mathcal{E}_{r * s}(t)$}
+\textbf{\alert{Stages of the calculation:}}
+\begin{itemize}
+\item Calculate $r_a(t)$ and $s_a(t)$ (already shown).
+\item Convolve $r_a(t)$ and $\Re\lbrace s_a(t)\rbrace$ (time domain).
+\item Convolve $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ (Fourier domain).
+\item Combine results and take the magnitude, multiply by $(1/2)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Event Reconstruction: $r_a(t) * \Re\lbrace s_a(t)\rbrace$}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Result for $r_a(t) * \Re\lbrace s_a(t)\rbrace$}]
+\begin{multline}
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
++ R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) \label{eq:Re_result}
+\end{multline}
+\end{tcolorbox}
+\small
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+\textbf{Complex poles:}
+\begin{itemize}
+\item $z_1 = f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)$
+\item $z_1 = z + jx$
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+\textbf{The Faddeeva function}
+\begin{itemize}
+\item $w(z) = e^{-z^2}\erfc(-jz)$
+\item $w(z) = e^{y^2}\erfc(y)$, $z\to jy$
+\end{itemize}
+\end{column}
+\end{columns} \vspace{0.25cm}
+\normalsize
+\textbf{\alert{Combine real and imaginary parts:}} $\mathcal{E}_{r * s}(t) = \frac{1}{2}|r_a(t) * s_a(t)|$
+\end{frame}
+
+\begin{frame}[fragile]{Event Reconstruction: $r_a(t) * \Im\lbrace s_a(t)\rbrace$}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Result for $r_a(t) * \Im\lbrace s_a(t)\rbrace$}]
+\begin{multline}
+r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
+\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:Im_result}
+\end{multline}
+\end{tcolorbox}
+\small
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+\textbf{Complex poles:}
+\begin{itemize}
+\item $z_1 = f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)$
+\item $z_1 = z + jx$
+\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+\textbf{The Goodwin-Staton integral}
+\begin{itemize}
+\item $G(z) = \sqrt{\pi}F(z) - \frac{1}{2}e^{-z^2}\Ei(z^2)$
+\item $\Ei(z)$ is an exponential integral
+\end{itemize}
+\end{column}
+\end{columns} \vspace{0.25cm}
+\normalsize
+\textbf{\alert{Combine real and imaginary parts:}} $\mathcal{E}_{r * s}(t) = \frac{1}{2}|r_a(t) * s_a(t)|$
+\end{frame}
+
+\begin{frame}[fragile]{Event Reconstruction: graphs of $\mathcal{E}_{r * s}(t)$}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{March12_plot1.pdf}
+\caption{\footnotesize \label{fig:fig1} Black line: $s(t) * r(t)$.  Gold line: the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. Purple line: $\mathcal{E}_{r * s}(t)$.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Event Reconstruction: graphs of $\mathcal{E}_{r * s}(t)$}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{March12_plot2.pdf}
+\caption{\footnotesize \label{fig:fig2} Same is Fig. \ref{fig:fig1}, with different parameters.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Event Reconstruction: (prelim.) reconstructed $a$ vs. $\Delta\theta$}
+\begin{figure}
+\centering
+\includegraphics[width=0.55\textwidth,height=0.5\textwidth,trim=0cm 7cm 3cmcm 5cm,clip=true]{March14_plot1.pdf}
+\includegraphics[width=0.4\textwidth]{scan_grab.png}
+\caption{\footnotesize \label{fig:fig3} (Left) Reconstructed $a$ and $\Delta\theta$, from NuRadioMC. (Right) Fig. \ref{fig:scan} (right), for comparison.}
+\end{figure}
+\end{frame}
+
 \section{Conclusion}
 
-\begin{frame}{Unit 1.1 Outline}
-Unit 1.1 covered:
+\begin{frame}{Outline: from mathematical physics to UHE-$\nu$ observations}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{\alert{Background}}
+\begin{itemize}
+\item UHE-$\nu$ flux
+\item The Askaryan effect
+\item RF UHE-$\nu$ detectors
+\end{itemize}
+\textbf{\alert{The Askaryan signal}}
+\begin{itemize}
+\item Analytic radiation model
+\item Signal \textit{envelopes}
+\item Uncertainty principles
+\end{itemize}
+\textbf{\alert{Event reconstruction}}
+\begin{itemize}
+\item Mathematics $\leftrightarrow$ signals
+\item \textbf{NuRadioMC}: MC software
+\item Initial results
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{whittier2.jpeg}
+\caption{\small Whittier College.}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
 
+\section{References}
+
+\begin{frame}{References}
+\footnotesize
+\begin{enumerate}
+\item P. Allison et al., Low-threshold ultrahigh-energy neutrino search with the Askaryan Radio Array, Phys Rev D 105, 122006 (2022).
+\item J. A. Aguilar et al., In situ, broadband measurement of the radio frequency attenuation length at Summit Station, Greenland, J. Glaciol. 68, 1234 (2022).
+\item S. Agarwal et al., Instrument design and performance of the first seven stations of RNO-G, arXiv (2024).
+\item \textbf{J. C. Hanson and R. Hartig}, Complex analysis of Askaryan radiation: A fully analytic model in the time domain, Phys Rev D 105, 123019 (2022).
+\item \textbf{J. C. Hanson and A. L. Connolly}, Complex analysis of Askaryan radiation: A fully analytic treatment including the LPM effect and Cascade Form Factor, Astroparticle Physics 91, 75 (2017).
+\item C. Glaser et al., NuRadioMC: simulating the radio emission of neutrinos from interaction to detector, European Phys J C 80, 77 (2020).
+\end{enumerate}
+\end{frame}
+
+\section{Bonus Slides}
+
+\begin{frame}[fragile]{Calculate the signal envelope with SciPy}
+\begin{verbatim}
+import numpy as np
+import scipy.signal.hilbert as hilbert
+env_out = np.abs(hilbert(sig_in))
+\end{verbatim}
+\begin{enumerate}
+\item The hilbert function computes the \textit{analytic signal}
+\item The absolute value of the analytic signal is the envelope
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Calculate the envelope of the convolution of two functions}
+\small
+\begin{verbatim}
+import numpy as np
+import scipy.signal.hilbert as hilbert
+env_out = 0.5*np.abs(np.conv(
+    hilbert(sig_in_1),
+    hilbert(sig_in_2),
+    'same'))
+\end{verbatim}
+This is equivalent to:
+\begin{verbatim}
+import numpy as np
+import scipy.signal.hilbert as hilbert
+env_out = np.abs(hilbert(
+    np.conv(sig_in_1,sig_in_2,'same')))
+\end{verbatim}
 \end{frame}
 
 \end{document}
