@@ -46,7 +46,7 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 
 f0 = 0.2 #GHz
 gamma = 0.2 #GHz
-sigma_t = 0.75 #ns
+sigma_t = 2 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
@@ -65,7 +65,7 @@ graph2 = np.abs(hilbert(np.real(result1)))*1000
 graph3 = np.real(result2)*1000
 graph3 *= np.max(graph2)/np.max(graph3)
 plt.plot(t,graph1,'-',label="mathematical convolution")
-plt.plot(t,graph2,'-',label="envelope of mathematical convolution")
+plt.plot(t,-graph2,'-',label="envelope of mathematical convolution")
 plt.plot(t,graph3,'-',label="mathematical envelope")
 plt.xlabel("Time [ns]")
 plt.ylabel("Amplitude [mV]")
@@ -74,7 +74,7 @@ plt.yticks()
 plt.legend()
 plt.show()
 
-f = open("results_March12_2.dat","w")
+f = open("results_March12_3.dat","w")
 separator = " "
 for i in range(n):
 	data = [t[i],graph1[i],graph2[i],graph3[i]]
