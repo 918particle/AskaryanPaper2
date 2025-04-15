@@ -220,7 +220,7 @@ R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) + \\
 j\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \\
 j\sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:final}
 \end{multline}
-The units of the convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq.\ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
+The units of the convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq.\ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters within $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
 \begin{align}
 z &= \sqrt{2}\sigma_t \pi f_0 + j\left(\frac{\sigma_t\gamma}{\sqrt{2}} - x\right) \\
 z_1 &= f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)
@@ -240,8 +240,63 @@ Thus, when $t=0$, the two poles are equal, since $t=0$ means $x=0$.  Taking the 
 \includegraphics[width=0.5\textwidth]{March12_plot2.pdf}
 \caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The dark gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The light gray envelope represents Eq. \ref{eq:final}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
+\item It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain.  Starting with the definitions of $s(t)$, $r(t)$, and the convolution integral:
+\begin{align}
+s * r &= \int_0^{\infty} r(\tau) s(t-\tau) d\tau \\
+s * r &= -E_0 \int_0^{\infty} r(\tau) (t-\tau) e^{-\frac{1}{2}\left(\frac{t-\tau}{\sigma_t}\right)^2}d\tau \\
+s * r &= \left(s(t) + E_0 \sigma_t^2 e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dt} \right)I(t,\sigma_t) \label{eq:conv_1} \\
+I(t,\sigma_t) &= \int_0^{\infty} r(\tau) e^{(t\tau)/\sigma_t^2} e^{-\frac{1}{2}\left(\frac{\tau}{\sigma_t}\right)^2}d\tau
+\end{align}
+To compute $I(t,\sigma_t)$, let
+\begin{align}
+z &= \gamma - 2\pi j f_0 \\
+z_0 &= \sqrt{2}\sigma_t z\\
+x &= t/(\sqrt{2} \sigma_t) \\
+y &= \tau/(\sqrt{2} \sigma_t) \\
+r(\tau) &= \Re\left\lbrace R_0 e^{-z\tau}\right\rbrace
+\end{align}
+These substitutions simply $I(t,\sigma_t)$ to
+\begin{equation}
+I(t,\sigma_t) = \sqrt{2} \sigma_t R_0 \Re \left\lbrace\int_0^{\infty} e^{(2y-z_0)x} e^{-x^2} dx \right\rbrace
+\end{equation}
+Let $b = y-z_0/2$, Completing the square in the exponent gives
+\begin{equation}
+I(t,\sigma_t) = \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\left\lbrace e^{b^2} \erfc(-b) \right\rbrace
+\end{equation}
+Let $b = jc$, so that
+\begin{align}
+I(t,\sigma_t) &= \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\lbrace e^{-c^2} \erfc(-jc) \rbrace \\
+I(t,\sigma_t) &= \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\lbrace w(c) \rbrace
+\end{align}
+The Faddeeva function $w(z)$ may be broken into real and imaginary parts using the Voigt functions:
+\begin{equation}
+U(p,q) + jV(p,q) = \sqrt{\frac{\pi}{4q}} w(z)
+\end{equation}
+The relationship between $p$, $q$, and $z$ is $z=(1-jp)/(2\sqrt{q})$.  Using this relationship, we find
+\begin{align}
+p &= \left(\frac{t}{\sigma_t}\right)\left(\frac{\sigma_f}{f_0}\right) - \frac{\gamma}{2\pi f_0} \\
+q &= \frac{1}{2}\left(\frac{\sigma_f}{f_0}\right)^2
+\end{align}
+Thus, the integral $I(t,\sigma_t)$ becomes
+\begin{equation}
+I(t,\sigma_t) = \sigma_t R_0 \left(\frac{\sigma_f}{f_0}\right) U(p,q)
+\end{equation}
+Substituting the result for $I(t,\sigma_t)$ in Eq. \ref{eq:conv_1} gives
+\begin{multline}
+s * r = \\
+ R_0\sigma_t \left(\frac{\sigma_f}{f_0}\right) \left(s(t) + E_0 \sigma_t^2 e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dt} \right) U(p,q) \label{eq:conv_2}
+\end{multline}
+Equation \ref{eq:conv_2} can be simplified in two ways.  First, note that $\sigma_t \sigma_f = 1/(2\pi)$, so $R_0\sigma_t (\sigma_f/f_0) = R_0/(2\pi f_0)$.  Second, the derivative of the Voigt function may be simplified using the chain rule:
+\begin{equation}
+\frac{dU(p,q)}{dt} = \frac{dU(p,q)}{dp}\frac{dp}{dt} = \frac{dU(p,q)}{dp} \frac{\sigma_f}{\sigma_t f_0}
+\end{equation}
+Thus, Eq. \ref{eq:conv_2} becomes
+\begin{multline}
+s * r = \\
+\frac{R_0}{2\pi f_0}\left(s(t) + E_0 \sigma_t \left(\frac{\sigma_f}{f_0}\right) e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dp}\right)U(p,q) \label{eq:conv_3}
+\end{multline}
+The envelope of Eq. \ref{eq:conv_3} can be computed numerically, which represents an alternative approach to that represented by Eq. \ref{eq:awesome}.
 \end{itemize}
-\clearpage
 
 \section{Conclusion}
 \label{sec:conc}
