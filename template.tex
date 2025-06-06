@@ -96,32 +96,48 @@ s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigm
 The signal envelope is $|s_a(t)|$.  It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.
 \item Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
 \item There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
-\item Let $x(t) * y(t)$ represent the convolution of two functions $x(t)$ and $y(t)$.  Let the envelope of the convolution be $\mathcal{E}_{x * y}(t)$.  $\mathcal{E}_{x * y}(t)$, $x_a(t)$, and $y_a(t)$ are related by
+\item Let $s(t) * r(t)$ represent the convolution of $s(t)$ and $r(t)$.  Let the envelope of the convolution be $\mathcal{E}_{s * r}(t)$.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
 \begin{equation}
-\mathcal{E}_{x * y}(t) = \frac{1}{2}| x_a (t) * y_a(t)| \label{eq:awesome}
+\mathcal{E}_{s * r}(t) = \frac{1}{2}| s_a (t) * r_a(t)| \label{eq:awesome}
 \end{equation}
-We should include the proof here (I have to track it down in my notebooks).
-\item The analytic signal of the Askaryan pulse is given by Eq. \ref{eq:sa_4}.  The RLC damped oscillator response and corresponding analytic signal are
+The proof of Eq. \ref{eq:awesome} is based on two ideas.  First, the Hilbert transform of a function $s(t)$ is equivalent to convolving it with the ``tempered distribution'' $h(t) = 1/(\pi t)$.  Second, computing the Hilbert transform twice yields the original function, multiplied by $-1$: $h * h * s = -s$.  Given the definitions of the analytic signal and the Hilbert transform,
 \begin{align}
-r(t) &= R_0 e^{-\gamma t} \cos(2\pi f_0 t) \\
-r_a(t) &= R_0 e^{-\gamma t} e^{2\pi j f_0 t} \label{eq:ra}
+(s * r)_a (t) &= s * r + j ~ \widehat{s*r} \\
+\mathcal{E}_{s * r}(t) &= | s * r + j s * r * h|
 \end{align}
-The parameter $\gamma$ is the \textit{decay constant}, and the parameter $f_0$ is the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is simply $R_0 \exp(-\gamma t)$, as it should be.  The proof of Eq. \ref{eq:ra} is as follows:
+However,
 \begin{align}
-r(t) &= R_0 e^{-\gamma t} \cos(2\pi f_0 t) \\
-R(f) &= \frac{R_0}{2\pi j} \left( \frac{f - \frac{j\gamma}{2\pi}}{(f-z_+)(f-z_-)} \right) \\
-z_+ &= f_0 + \frac{j\gamma}{2\pi} \\
-z_- &= -f_0 + \frac{j\gamma}{2\pi} \\
-\widehat{r}(t) &= \mathcal{F}^{-1}\left \lbrace - j \sgn(f) R(f) \right \rbrace \label{eq:rh} \\ 
-\widehat{r}(t) &= \frac{R_0}{2j}\left( e^{2\pi j f_0 t} - e^{-2\pi j f_0 t} \right) e^{-\gamma t} \\
-\widehat{r}(t) &= R_0 \sin(2\pi f_0 t) e^{-\gamma t} \\
-r_a (t) &= R_0 \left(\cos(2\pi f_0 t) + j\sin(2\pi f_0 t)\right) e^{-\gamma t} \\
-r_a (t) &= R_0 e^{2\pi j f_0 t} e^{-\gamma t}
+r_a * s_a &= (r + j \hat{r}) * (s + j \hat{s}) \\
+r_a * s_a &= r * s + j r * \hat{s} + j \hat{r} * s - \hat{r} * \hat{s} \\
+r_a * s_a &= r * s - r * h * s * h + 2 j h * r * s \\
+r_a * s_a &= r * s - h * h * r * s + 2 j h * r * s \\
+r_a * s_a &= 2 r * s + 2 j h * r * s
 \end{align}
-In evaluating the inverse Fourier transform in Eq. \ref{eq:rh}, the poles at $z_+$ and $z_-$ must be enclosed in separate contour integrals.
+Multiplying both sides $1/2$ and taking the magnitude completes the proof:
+\begin{equation}
+\frac{1}{2} |r_a * s_a| = |r * s + j h * r * s| = \mathcal{E}_{s * r}(t) \\
+\end{equation}
+\item The RLC damped oscillator impulse response and corresponding analytic signal are
+\begin{align}
+r(t) &= R_0 e^{-2 \pi \gamma_f t} \cos(2\pi f_0 t) \label{eq:r} \\
+r_a(t) &= R_0 e^{-2 \pi \gamma_f t} e^{2\pi j f_0 t} \label{eq:ra}
+\end{align}
+The parameters $\gamma_f$ and $f_0$ are the \textit{decay constant} that corresponds to the \textit{fall time} of the output signal, and the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is $R_0 \exp(-2 \pi \gamma_f t)$, as expected.  To prove Eq. \ref{eq:ra}, first compute the Fourier transform of $r(t)$:
+\begin{align}
+R(f) &= \frac{R_0}{4\pi j} \left( \frac{1}{f - z_{+}} + \frac{1}{1- z_{-}} \right) \\
+z_{+} &= f_0 + j \gamma_f \\
+z_{-} &= -f_0 + j \gamma_f
+\end{align}
+Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result.
+%\item The behavior of the RLC oscillator can be extended to the charging state, and the decaying state, via the time-reversal of Eq. \ref{eq:r}.  Times with $t\leq 0$ correspond to the charging state, $t=0$ corresponds to peak response, and $t\geq 0$ corresponds to the decaying state.  For the charging state:
+%\begin{align}
+%r(t) &= R_0 e^{2 \pi \gamma_r t} \cos(2\pi f_0 t) \label{eq:rc} \\
+%r_a(t) &= R_0 e^{2 \pi \gamma_r t} e^{2\pi j f_0 t} \label{eq:rac}
+%\end{align}
+%The resonance frequency remains the same as the decaying state, and $\gamma_r$ corresponds to the \textit{rise time} in the same way that $\gamma_f$ corresponds to the \textit{fall time.}  In general, the rise and fall times do not have to be equal.
 \item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The real part of $s_a(t)$ can be convolved with $r_a(t)$ in the time domain.  As in Eq. \ref{eq:sa_4}, real part of $s_a(t)$ is $s(t)$.  Since $r_a(t<0)=0$, the convolution is written
 \begin{equation}
-r_a(t) * \Re\lbrace s_a(t) \rbrace = \int_0^{\infty} r(\tau) s(t-\tau) d\tau
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \int_0^{\infty} r_a(\tau) s(t-\tau) d\tau
 \end{equation}
 Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z_0 = \sqrt{2}\sigma_t(\gamma-2\pi jf_0)$. The convolution may be organized as follows
 \begin{equation}
@@ -143,15 +159,10 @@ Thus, the integral is proportional to the \textit{Faddeeva function}, $w(z)$:
 \begin{equation}
 I(x,z_0) = \sqrt{\frac{\pi}{2}} \sigma_t w(z) \label{eq:fadd}
 \end{equation}
-Subsituting Eq. \ref{eq:fadd} into Eq. \ref{eq:conv}, and simplifying, produces
+Substituting Eq. \ref{eq:fadd} into Eq. \ref{eq:conv}, and simplifying, produces
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
--j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz}
-\end{multline}
-Finally, the derivative of the Faddeeva function is $dw/dz = 2j/\sqrt{\pi} - 2 zw(z)$.  Substituting for $dw/dz$ gives the final result:
-\begin{multline}
-r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
-+ R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) \label{eq:Re_result}
+-j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz} \label{eq:Re_result}
 \end{multline}
 \item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$, note that the imaginary part of Eq. \ref{eq:sa_4} contains $dD(x)/dx$, the derivative of the Dawson function.  To complete the convolution, the inverse Fourier transform of the product of the Fourier transforms of $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ is calculated.  To complete this step, the Fourier transform of $dD(x)/dx$ is needed:
 \begin{align}
@@ -163,7 +174,7 @@ f' &= \sqrt{2} \sigma_t f \\
 \end{align}
 Let $z_0 = (\gamma - 2\pi jf_0)$, so that the Fourier transform of $r_a$ is 
 \begin{align}
-\mathcal{F}\left\lbrace r_a(t)\right\rbrace &= R_0\int_{-\infty}^{\infty} e^{-zt} e^{-2\pi j ft} dt \\
+\mathcal{F}\left\lbrace r_a(t)\right\rbrace &= R_0\int_{0}^{\infty} e^{-z_0 t} e^{-2\pi j ft} dt \\
 \mathcal{F}\left\lbrace r_a(t)\right\rbrace &= \frac{R_0}{z_0+2\pi j f}
 \end{align}
 Let $z_1 = f_0 + j\gamma/(2\pi)$. Multiplying the Fourier transforms, and simplifying, yields
@@ -215,12 +226,10 @@ r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
 \item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
 \begin{multline}
 r_a(t) * s_a(t) = \\
-\sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) + \\
-R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2}(1+j\sqrt{\pi} z w(z)) + \\
-j\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \\
-j\sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:final}
+\sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) - j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz} + \\
+j\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + j\sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:final}
 \end{multline}
-The units of the convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq.\ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters within $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
+The units of convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq. \ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters within $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
 \begin{align}
 z &= \sqrt{2}\sigma_t \pi f_0 + j\left(\frac{\sigma_t\gamma}{\sqrt{2}} - x\right) \\
 z_1 &= f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)
