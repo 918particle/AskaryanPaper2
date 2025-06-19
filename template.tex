@@ -117,7 +117,7 @@ Multiplying both sides $1/2$ and taking the magnitude completes the proof:
 \begin{equation}
 \frac{1}{2} |r_a * s_a| = |r * s + j h * r * s| = \mathcal{E}_{s * r}(t) \\
 \end{equation}
-\item The RLC damped oscillator impulse response and corresponding analytic signal are
+\item Assume that a signal arrives in an RLC damped oscillator at $t=0$.  For $t\geq 0$, the impulse response and corresponding analytic signal are
 \begin{align}
 r(t) &= R_0 e^{-2 \pi \gamma_f t} \cos(2\pi f_0 t) \label{eq:r} \\
 r_a(t) &= R_0 e^{-2 \pi \gamma_f t} e^{2\pi j f_0 t} \label{eq:ra}
@@ -135,94 +135,63 @@ Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \text
 %r_a(t) &= R_0 e^{2 \pi \gamma_r t} e^{2\pi j f_0 t} \label{eq:rac}
 %\end{align}
 %The resonance frequency remains the same as the decaying state, and $\gamma_r$ corresponds to the \textit{rise time} in the same way that $\gamma_f$ corresponds to the \textit{fall time.}  In general, the rise and fall times do not have to be equal.
-\item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The real part of $s_a(t)$ can be convolved with $r_a(t)$ in the time domain.  As in Eq. \ref{eq:sa_4}, real part of $s_a(t)$ is $s(t)$.  Since $r_a(t<0)=0$, the convolution is written
-\begin{equation}
-r_a(t) * \Re\lbrace s_a(t) \rbrace = \int_0^{\infty} r_a(\tau) s(t-\tau) d\tau
-\end{equation}
-Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z_0 = \sqrt{2}\sigma_t(\gamma-2\pi jf_0)$. The convolution may be organized as follows
-\begin{equation}
-r_a(t) * \Re\lbrace s_a(t) \rbrace = R_0 s(t) I + R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t^2)} \frac{dI}{dt} \label{eq:conv}
-\end{equation}
-with
-\begin{equation}
-I(x,z_0) = \sqrt{2}\sigma_t \int_0^{\infty} e^{-y^2 + (2x-z_0)y} dy
-\end{equation}
-Let $b = x-z_0/2$. Completing the square in the exponent produces
-\begin{equation}
-I(x,z_0) = \sqrt{2}\sigma_t e^{b^2} \int_0^{\infty} e^{-(y-b)^2} dy
-\end{equation}
-The integral may be cast as a complementary error function by substituting $u=y-b$ and letting $b=jz$:
-\begin{equation}
-I(x,z_0) = \sqrt{\frac{\pi}{2}}\sigma_t e^{-z^2}\erfc(-jz)
-\end{equation}
-Thus, the integral is proportional to the \textit{Faddeeva function}, $w(z)$:
-\begin{equation}
-I(x,z_0) = \sqrt{\frac{\pi}{2}} \sigma_t w(z) \label{eq:fadd}
-\end{equation}
-Substituting Eq. \ref{eq:fadd} into Eq. \ref{eq:conv}, and simplifying, produces
+\item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
 \begin{multline}
-r_a(t) * \Re\lbrace s_a(t) \rbrace = \sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) \\
--j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz} \label{eq:Re_result}
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ R_0 e^{2\pi j f_0 t} e^{-2\pi\gamma t} u(t) * \left(-E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}\right)
 \end{multline}
-\item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$, note that the imaginary part of Eq. \ref{eq:sa_4} contains $dD(x)/dx$, the derivative of the Dawson function.  To complete the convolution, the inverse Fourier transform of the product of the Fourier transforms of $r_a(t)$ and $\Im\lbrace s_a(t)\rbrace$ is calculated.  To complete this step, the Fourier transform of $dD(x)/dx$ is needed:
-\begin{align}
-x &= t/(\sqrt{2}\sigma_t) \\
-f' &= \sqrt{2} \sigma_t f \\
-\mathcal{F}\left\lbrace \frac{dD(x)}{dx}\right\rbrace &= \int_{-\infty}^{\infty} \frac{dD(x)}{dx}e^{-2\pi jft} dt \\
-\mathcal{F}\left\lbrace \frac{dD(x)}{dx}\right\rbrace &= \sqrt{2}\sigma_t(2\pi jf') \int_{-\infty}^{\infty} D(x) e^{-2\pi jf'x} dx \\
-\mathcal{F}\left\lbrace \frac{dD(x)}{dx}\right\rbrace &= 2\pi^2 \sigma_t^2 f e^{-\frac{1}{2}(f/\sigma_f)^2} \sgn(f)
-\end{align}
-Let $z_0 = (\gamma - 2\pi jf_0)$, so that the Fourier transform of $r_a$ is 
-\begin{align}
-\mathcal{F}\left\lbrace r_a(t)\right\rbrace &= R_0\int_{0}^{\infty} e^{-z_0 t} e^{-2\pi j ft} dt \\
-\mathcal{F}\left\lbrace r_a(t)\right\rbrace &= \frac{R_0}{z_0+2\pi j f}
-\end{align}
-Let $z_1 = f_0 + j\gamma/(2\pi)$. Multiplying the Fourier transforms, and simplifying, yields
+Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z = (2\pi j f_0 - 2\pi\gamma)\sqrt{2}\sigma_t$.  Changing variables while accounting for the relationship between $u(t)$, $x$, and $y$, gives
 \begin{multline}
-\mathcal{F}\left\lbrace r_a(t) * \Im\left\lbrace s_a(t)\right\rbrace \right\rbrace = \\ -j \sqrt{2\pi} R_0 E_0 \sigma^3 \frac{f\sgn(f) e^{-\frac{1}{2}(f/\sigma_f)^2}}{f-z_1}
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -2R_0 E_0 \sigma_t^2 \int_{-\infty}^{x} e^{z(x-y)} y e^{-y^2} dy
 \end{multline}
-The inverse Fourier transform now gives $r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace$:
-\begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--j\sqrt{2\pi} R_0 E_0 \sigma_t^3 \int_{-\infty}^{\infty} \frac{f\sgn(f)e^{-\frac{1}{2}(f/\sigma_f)^2}e^{2\pi jft}}{f-z_1} df
-\end{multline}
-Let $y = f/(\sqrt{2}\sigma_f)$, $x=t/(\sqrt{2}\sigma_t)$, $\sgn(f) = \sgn(y)$, and $z_1 \to f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)$.  The inverse Fourier transform can be organized as:
-\begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^3}{\sqrt{2\pi}}\frac{d}{dt}\int_{-\infty}^{\infty} \frac{\sgn(y) e^{-y^2+2jxy}}{y-z_1} dy
-\end{multline}
-Completing the square in the exponent, factoring a unit of $j$ from the exponent, and changing the derivative from $d/dt$ to $d/dx$ gives
-\begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}e^{-x^2} \int_{-\infty}^{\infty} \frac{\sgn(y) e^{(x+jy)^2}}{y-z_1}dy
-\end{multline}
-Let $z = x+jy$, with $y = \Im(z)$.  In this substitution, $x$ is treated as a constant, so $dz = jy$.  Let $z_2 = x+j z_1$, while $z_1 = f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)$.  The result is
-\begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}e^{-x^2} \int_{x-j\infty}^{x+j\infty} \frac{\sgn(\Im(z)) e^{z^2}}{y-z_2}dz \label{eq:cont_int}
-\end{multline}
-The integral may be finished by extending $z$ to the complex plane and using contour integration.  The location of the pole is in the first quadrant, unless $t = (\gamma \sigma_t)\sigma_t$.  In that case, $\Re(z_2)=0$, and the pole is located on the imaginary axis.  For typical values of $\sigma_t$ and $\gamma$, $t\approx 0.1$ ns. Since $r(t)=0$ if $t<0$, the location of $z_2$ is usually in the first quadrant.  Let the line integrals of the rectangular contour be: $I_1$, $(x,-jR) \to (x,jR)$, $I_2$, $(x,jR) \to (0,jR)$, $I_3$, $(0,jR) \to (0,-jR)$, and $I_4$, $(0,-jR) \to (x,-jR)$.  $I_2$ and $I_4$ are both proportional to $\exp(-R^2)$, so $I_2 \to 0$ and $I_4 \to 0$ when $R \to \infty$.  $I_1$ is the integral in Eq. \ref{eq:cont_int}.  Let $w = -y$, so that $I_3$ is
+Note that the units for the convolution of $r(t)$ and $s(t)$ correspond to $R_0 E_0 \sigma_t^2$.  Let $u = x-y$, so that $du = -dy$. The result is
 \begin{equation}
-I_3 = -\int_0^{R} \frac{e^{-y^2}}{y-z_1} dy + \int_0^{R} \frac{e^{-w^2}}{w+z_1} dw
+r_a(t) * \Re\lbrace s_a(t) \rbrace = 2R_0 E_0 \sigma_t^2\left(\frac{dI(x,z)}{dz}-xI(x,z)\right)
 \end{equation}
-Integrals of the type in $I_3$ are known as \textit{Goodwin-Staton} functions, and are related to the other error functions.  The Goodwin-Staton function, $G(z_1)$, is odd, so $-G(-z_1) = G(z_1)$.  The result for $I_3$ is
+where
 \begin{equation}
-I_3 = -G(-z_1) + G(z_1) = 2G(z_1)
+I(x,z) = \int_0^{\infty} e^{zu} e^{-(u-x)^2} du
 \end{equation}
-The residue of the enclosed contour $I_C = I_1+I_2+I_3+I_4$ is $\exp(z_2^2)$.  With $I_2$, $I_3$, and $I_4$ completed, the solution for $I_1$ is
+Let $b = x+\frac{1}{2} z$. Completing the square in the exponent and substituting $k = u-b$ gives
+\begin{multline}
+I(x,z) = e^{-x^2} e^{b^2} \int_{-b}^{\infty} e^{-k^2} dk \\ = \frac{\sqrt{\pi}}{2} e^{-x^2} e^{b^2} \erfc(-b)
+\end{multline}
+Let $b = jq$, and $w(q)$ be the \textit{Faddeeva function}.  The integral becomes
 \begin{equation}
-I_1 = 2\pi j e^{z_2^2} - 2G(z_1)
+I(x,z) = \frac{\sqrt{\pi}}{2} e^{-x^2} w(q)
 \end{equation}
-Inserting this result into Eq. \ref{eq:cont_int}, and simplifying, gives
+The chain rule is required to find $dI/dz$:
+\begin{equation}
+\frac{dI}{dz} = \frac{dI}{dq}\frac{dq}{dz} = -\left(\frac{j}{2}\right)\frac{dI}{dq}
+\end{equation}
+The final result is
 \begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
--\frac{R_0E_0\sigma_t^2}{2\sqrt{\pi}}\frac{d}{dx}\left( 2\pi j e^{2 j x z_1 - z_1^2} - 2G(z_1) e^{-x^2} \right)
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right) \label{eq:Re_result}
 \end{multline}
-Notice that $2\pi j x z_1 = 2\pi j f_0 t - \gamma t$.  Evaluating the derivative and simplifying gives the final result:
+\item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$,
 \begin{multline}
-r_a(t) * \Im\left\lbrace s_a(t) \right\rbrace = \\
-\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + \sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:Im_result}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \left(R_0 e^{2\pi j f_0 t} e^{-2\pi \gamma t} u(t)\right) * \left(\frac{2 E_0 \sigma_t^2}{\sqrt{\pi}}\frac{dD(t/\sqrt{2}\sigma_t)}{dt} \right)
 \end{multline}
+Note that $f'(t) * g(t) = f(t) * g'(t) = (f(t) * g(t))'$.  Thus,
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dt}\left(e^{2\pi j f_0 t}e^{-2\pi\gamma t} u(t) * D(t/\sqrt{2}\sigma_t) \right)
+\end{multline}
+Accounting for the step function in the convolution gives
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dt} \int_{-\infty}^{t} e^{(2\pi j f_0 - 2\pi\gamma)(t-\tau)}D(\tau/\sqrt{2}\sigma_t)d\tau
+\end{multline}
+Adopting the earlier definitions of $x$, $y$, and $z$ gives
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dx} \int_{-\infty}^{x} e^{z(x-y)} D(y) dy
+\end{multline}
+Using the fundamental theorem of calculus, 
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + z\int_{-\infty}^{x} e^{z(x-y)} D(y) dy \right)
+\end{multline}
+Let $u = x-y$, so that $du = -dy$ and note that $D(x)$ is an odd function.  The substitution gives
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) - z\int_{0}^{\infty} e^{zu} D(u-x) du \right)
+\end{multline}
+The integral is the Laplace transform of the shifted Dawson function, evaluated at $-z$.
 \item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
 \begin{multline}
 r_a(t) * s_a(t) = \\
