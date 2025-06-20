@@ -187,11 +187,14 @@ Using the fundamental theorem of calculus,
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + z\int_{-\infty}^{x} e^{z(x-y)} D(y) dy \right)
 \end{multline}
-Let $u = x-y$, so that $du = -dy$ and note that $D(x)$ is an odd function.  The substitution gives
+Let $u = x-y$, $z=-k$, and note that $D(x)$ is an odd function.  These substitutions give
 \begin{multline}
-r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) - z\int_{0}^{\infty} e^{zu} D(u-x) du \right)
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\int_{0}^{\infty} e^{-ku} D(u-x) du \right)
 \end{multline}
-The integral is the Laplace transform of the shifted Dawson function, evaluated at $-z$.
+The integral is the Laplace transform of the shifted Dawson function, with respect to $k$.  Let $v = u-x$, so that
+\begin{multline}
+k\int_{0}^{\infty} e^{-ku} D(u-x) du = \\ k e^{-kx} \left( \mathcal{L}\lbrace D(v) \rbrace_k - \int_0^{x} e^{kv} D(v) dv\right)
+\end{multline}
 \item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
 \begin{multline}
 r_a(t) * s_a(t) = \\
