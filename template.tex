@@ -191,10 +191,24 @@ Let $u = x-y$, $z=-k$, and note that $D(x)$ is an odd function.  These substitut
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\int_{0}^{\infty} e^{-ku} D(u-x) du \right)
 \end{multline}
-The integral is the Laplace transform of the shifted Dawson function, with respect to $k$.  Let $v = u-x$, so that
-\begin{multline}
-k\int_{0}^{\infty} e^{-ku} D(u-x) du = \\ k e^{-kx} \left( \mathcal{L}\lbrace D(v) \rbrace_k - \int_0^{x} e^{kv} D(v) dv\right)
-\end{multline}
+The remaining integral may be expressed in terms of the Laplace transform of the shifted Dawson function.  Obtaining a closed form, however, is difficult.  A more practical approach is to let the upper limit be $T \gg x$, and expand $D(u-x)$ in its Taylor series:
+\begin{align}
+I(x,k) &= k\int_{0}^{T} e^{-ku} D(u-x) du \\
+D(u-x) &= \sum_{n=0}^{\infty} \frac{(-1)^n 2^n(u-x)^{2n+1}}{(2n+1)!!}
+\end{align}
+Let $t = u-x$, and $a_n = (-1)^n 2^n / (2n+1)!!$.  Substituting the power series for the Dawson function gives:
+\begin{equation}
+I(x,k) = k e^{-k x} \sum_{n=0}^{\infty} a_n \int_{-x}^{T-x} e^{-kt} t^{2n+1} dt
+\end{equation}
+Since $T\gg x$, the upper limit $T-x\gg 0$, and the lower limit $-x <0$. The exponential $\exp(-kx)$ is decaying in the right half-plane (since $\Re(k)>0$).  Hence, for moderate x,the contribution of the integral over $t>0$, and 
+\begin{equation}
+\int_{-x}^{T-x} e^{-kt} t^{2n+1} dt \approx \int_{0}^{T-x} e^{-kt} t^{2n+1} dt
+\end{equation}
+The right-hand side is known as a \textit{lower incomplete gamma-function, $\gamma(2n+2,k(T-x))$.} Thus, the solution is 
+\begin{equation}
+I(x,k) = e^{-k x} \sum_{n=0}^{\infty} a_n \frac{\gamma(2n+2,k(T-x))}{k^{2n+1}}
+\end{equation}
+Requiring that $T$ be much larger than $x$, but finite, is similar to the \textit{symmetric approximation} made in the derivation of $s(t)$ \cite{PhysRevD.105.123019}.
 \item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
 \begin{multline}
 r_a(t) * s_a(t) = \\

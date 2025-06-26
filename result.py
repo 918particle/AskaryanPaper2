@@ -2,7 +2,8 @@ import numpy as np
 from scipy.signal import convolve,hilbert
 from scipy.special import dawsn as D
 from scipy.special import wofz as w
-from scipy.special import erf
+from scipy.special import gamma as gamma_f
+from scipy.special import gammainc,factorial2
 import matplotlib.pyplot as plt
 
 def dwdq(q):
@@ -40,7 +41,13 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 	z = (2*np.pi*J*f0-2*np.pi*gamma)*np.sqrt(2)*sigma_t
 	q = -J*(x+z/2)
 	first_term = -np.sqrt(np.pi)*units*(x*np.exp(-x*x)*w(q)+0.5*J*np.exp(-x*x)*dwdq(q))
+	T = 10*x
+	N = 10
+	k = -z
 	second_term = 0
+	for n in range(N):
+		an = np.power(-1,n)*np.power(2,n)/factorial2(2*n+1)
+		second_term+=an*gamma_f(2*n+2)*gammainc(2*n+2,k*(T-x))*np.exp(-k*x)/np.power(k,2*n+2)
 	result = first_term+J*second_term
 	if(np.isinf(result) or np.isnan(result)):
 		return 0
@@ -48,8 +55,8 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 		return 0.5*np.abs(result)
 
 f0 = 0.33 #GHz
-gamma = 0.04 #GHz
-sigma_t = 1 #ns
+gamma = 0.06 #GHz
+sigma_t = 0.5 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
@@ -69,11 +76,9 @@ result2 = np.zeros(t.shape,dtype=complex)
 for i in range(n):
 	u = t[i]
 	result1[i] = math_conv(u,E0,R0,sigma_t,f0,2*np.pi*gamma)
-	u = u+0.5
-	u*=0.2
-	result2[i] = 2*np.exp(-0.5*u*u)*(0.5*(1+erf(a*u/np.sqrt(2))))/1.6
+	result2[i] = math_env(u,E0,R0,sigma_t,f0,gamma)
 graph1 = np.abs(hilbert(np.real(result1)))*1000
-graph2 = np.real(result2)*1000
+graph2 = np.real(result2)*1000*2
 plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
 plt.xlabel("Time [ns]")
