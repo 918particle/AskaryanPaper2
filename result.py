@@ -2,9 +2,16 @@ import numpy as np
 from scipy.signal import convolve,hilbert
 from scipy.special import dawsn as D
 from scipy.special import wofz as w
-from scipy.special import gamma as gamma_f
-from scipy.special import gammainc,factorial2
+from scipy.special import factorial2
+from mpmath import gamma as gammaFunction
+from mpmath import gammainc
 import matplotlib.pyplot as plt
+from scipy.integrate import quad
+
+def shifted_laplace_transform(f,s,t0,t_max=1000):
+    real_integral = quad(lambda t: np.exp(-s.real*t)*np.cos(s.imag*t)*f(t-t0),0,t_max)[0]
+    imag_integral = quad(lambda t: np.exp(-s.real*t)*np.sin(s.imag*t)*f(t-t0),0,t_max)[0]
+    return complex(real_integral,-imag_integral)
 
 def dwdq(q):
 	J = complex(0,1)
@@ -39,37 +46,26 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 	J = complex(0,1)
 	x = t/(sigma_t*np.sqrt(2))
 	z = (2*np.pi*J*f0-2*np.pi*gamma)*np.sqrt(2)*sigma_t
+	k=-z
 	q = -J*(x+z/2)
 	first_term = -np.sqrt(np.pi)*units*(x*np.exp(-x*x)*w(q)+0.5*J*np.exp(-x*x)*dwdq(q))
-	T = 10*x
-	N = 10
-	k = -z
-	second_term = 0
-	for n in range(N):
-		an = np.power(-1,n)*np.power(2,n)/factorial2(2*n+1)
-		second_term+=an*gamma_f(2*n+2)*gammainc(2*n+2,k*(T-x))*np.exp(-k*x)/np.power(k,2*n+2)
-	result = first_term+J*second_term
-	if(np.isinf(result) or np.isnan(result)):
-		return 0
+	second_term = 2/np.sqrt(np.pi)*units*(D(x) + k*shifted_laplace_transform(D,k,x))
+	if(np.isinf(first_term) or np.isinf(second_term) or np.isnan(first_term) or np.isnan(second_term)):
+		return 0.0
 	else:
-		return 0.5*np.abs(result)
+		result = first_term+J*second_term
+	return 0.5*np.abs(result)
 
-f0 = 0.33 #GHz
-gamma = 0.06 #GHz
+f0 = 0.25 #GHz
+gamma = 0.075 #GHz
 sigma_t = 0.5 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
-T_min = -50 #ns
+T_min = -20 #ns
 T_max = 50 #ns
 t = np.arange(T_min,T_max,dt)
 n = len(t)
-
-J = complex(0,1)
-x = t/(sigma_t*np.sqrt(2))
-z = (2*np.pi*J*f0-2*np.pi*gamma)*np.sqrt(2)*sigma_t
-q = -J*(x+z/2)
-a=4
 
 result1 = np.zeros(t.shape,dtype=complex)
 result2 = np.zeros(t.shape,dtype=complex)
@@ -78,9 +74,11 @@ for i in range(n):
 	result1[i] = math_conv(u,E0,R0,sigma_t,f0,2*np.pi*gamma)
 	result2[i] = math_env(u,E0,R0,sigma_t,f0,gamma)
 graph1 = np.abs(hilbert(np.real(result1)))*1000
-graph2 = np.real(result2)*1000*2
+graph2 = np.real(result2)*1000
+graph3 = np.real(result1)*1000
 plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
+plt.plot(t,graph3,'-',label="math conv")
 plt.xlabel("Time [ns]")
 plt.ylabel("Amplitude [mV]")
 plt.xticks()
