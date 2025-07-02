@@ -1,7 +1,7 @@
 \documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
 \usepackage{graphicx}
 \usepackage{mathtools}
-\usepackage{empheq}
+%\usepackage{empheq}
 \usepackage{verbatim}
 \DeclareMathOperator\erfc{erfc}
 \DeclareMathOperator\erf{erf}
@@ -129,12 +129,6 @@ z_{+} &= f_0 + j \gamma_f \\
 z_{-} &= -f_0 + j \gamma_f
 \end{align}
 Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result.
-%\item The behavior of the RLC oscillator can be extended to the charging state, and the decaying state, via the time-reversal of Eq. \ref{eq:r}.  Times with $t\leq 0$ correspond to the charging state, $t=0$ corresponds to peak response, and $t\geq 0$ corresponds to the decaying state.  For the charging state:
-%\begin{align}
-%r(t) &= R_0 e^{2 \pi \gamma_r t} \cos(2\pi f_0 t) \label{eq:rc} \\
-%r_a(t) &= R_0 e^{2 \pi \gamma_r t} e^{2\pi j f_0 t} \label{eq:rac}
-%\end{align}
-%The resonance frequency remains the same as the decaying state, and $\gamma_r$ corresponds to the \textit{rise time} in the same way that $\gamma_f$ corresponds to the \textit{fall time.}  In general, the rise and fall times do not have to be equal.
 \item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ R_0 e^{2\pi j f_0 t} e^{-2\pi\gamma t} u(t) * \left(-E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}\right)
@@ -193,43 +187,22 @@ r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 
 \end{multline}
 The remaining integral is the Laplace transform of the shifted Dawson function, $\mathcal{L}\lbrace D(u-x)\rbrace_k$.  The final result is
 \begin{equation}
-r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right)
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:Im_result}
 \end{equation}
-%A more practical approach is to let the upper limit be $T \gg x$, and expand $D(u-x)$ in its Taylor series:
-%\begin{align}
-%I(x,k) &= k\int_{0}^{T} e^{-ku} D(u-x) du \\
-%D(u-x) &= \sum_{n=0}^{\infty} \frac{(-1)^n 2^n(u-x)^{2n+1}}{(2n+1)!!}
-%\end{align}
-%Let $t = u-x$, and $a_n = (-1)^n 2^n / (2n+1)!!$.  Substituting the power series for the Dawson function gives:
-%\begin{equation}
-%I(x,k) = k e^{-k x} \sum_{n=0}^{\infty} a_n \int_{-x}^{T-x} e^{-kt} t^{2n+1} dt
-%\end{equation}
-%Since $T\gg x$, the upper limit $T-x\gg 0$, and the lower limit $-x <0$. The exponential $\exp(-kx)$ is decaying in the right half-plane (since $\Re(k)>0$).  The integral may be approximated
-%\begin{equation}
-%\int_{-x}^{T-x} e^{-kt} t^{2n+1} dt \approx \int_{0}^{T-x} e^{-kt} t^{2n+1} dt
-%\end{equation}
-%The right-hand side is known as a \textit{lower incomplete gamma-function, $\gamma(2n+2,k(T-x))$.} Thus, the solution is 
-%\begin{equation}
-%I(x,k) = e^{-k x} \sum_{n=0}^{\infty} a_n \frac{\gamma(2n+2,k(T-x))}{k^{2n+1}}
-%\end{equation}
-%Requiring that $T$ be much larger than $x$, but finite, is similar to the \textit{symmetric approximation} made in the derivation of $s(t)$ \cite{PhysRevD.105.123019}.
-
-\item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
-\begin{multline}
-r_a(t) * s_a(t) = \\
-\sqrt{\frac{\pi}{2}}R_0 \sigma_t s(t) w(z) - j\frac{\sqrt{\pi}}{2} R_0 E_0 \sigma_t^2 e^{-\frac{1}{2}(t/\sigma_t)^2} \frac{dw(z)}{dz} + \\
-j\sqrt{\pi}E_0 \sigma_t^2 z_1 e^{-z_1^2}r_a(t) + j\sqrt{\frac{2}{\pi}} G(z_1) R_0 \sigma_t s(t) \label{eq:final}
-\end{multline}
-The units of convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq. \ref{eq:final} has these units.  The first term is proportional to $R_0 \sigma_t s(t)$, and $s(t)$ has units of $E_0 \sigma_t$, so the unit product is $R_0 E_0\sigma_t^2$.  The units of the second term are $R_0 E_0\sigma_t^2$.  The third term has units of $E_0\sigma_t^2 r_a(t)$, and $r_a(t)$ has units of $R_0$, so the unit product is $R_0 E_0\sigma_t^2$.  The fourth term has units of $R_0 \sigma_t s(t)$, like the first term.  Thus, all units check.  To check the limits, the parameters within $z$ and $z_1$ must be recalled.  Combining prior definitions, the results are
-\begin{align}
-z &= \sqrt{2}\sigma_t \pi f_0 + j\left(\frac{\sigma_t\gamma}{\sqrt{2}} - x\right) \\
-z_1 &= f_0/(\sqrt{2}\sigma_f) + j\gamma/(2\pi \sqrt{2} \sigma_f)
-\end{align}
-Recall that $\sigma_t = 1/(2\pi \sigma_f)$, and $x=t/(\sqrt{2}\sigma_t)$.  Substituting this into the definition of $z$ reveals that
+Though a closed analytic form for $\mathcal{L}\lbrace D(u-x)\rbrace_k$ is elusive, finishing this calculation through numerical integration is straightforward.
+\item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$, since
 \begin{equation}
-z_1 = z + jx
+r_a(t) * s_a(t) = r_a(t) * \Re\lbrace s_a(t)\rbrace + j r_a(t) * \Im\lbrace s_a(t)\rbrace
 \end{equation}
-Thus, when $t=0$, the two poles are equal, since $t=0$ means $x=0$.  Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, gives the final result:
+which yields
+\begin{multline}
+r_a(t) * s_a(t) = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right) + \\ \frac{2j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:final}
+\end{multline}
+The units of convolution should be $R_0 E_0\sigma_t^2$, and each term in Eq. \ref{eq:final} has these units.  Remember that the relationship between $q$ and $x$ is given by
+\begin{equation}
+q = -jb = -j\left(x + \frac{z}{2}\right) \\
+\end{equation}
+Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, yields the \textbf{Hilbert envelope of the convolution of $s(t)$ with $r(t)$:}
 \begin{equation}
 \mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) |
 \end{equation}
@@ -240,62 +213,40 @@ Thus, when $t=0$, the two poles are equal, since $t=0$ means $x=0$.  Taking the 
 \includegraphics[width=0.5\textwidth]{March12_plot2.pdf}
 \caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The dark gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The light gray envelope represents Eq. \ref{eq:final}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
-\item It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain.  Starting with the definitions of $s(t)$, $r(t)$, and the convolution integral:
-\begin{align}
-s * r &= \int_0^{\infty} r(\tau) s(t-\tau) d\tau \\
-s * r &= -E_0 \int_0^{\infty} r(\tau) (t-\tau) e^{-\frac{1}{2}\left(\frac{t-\tau}{\sigma_t}\right)^2}d\tau \\
-s * r &= \left(s(t) + E_0 \sigma_t^2 e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dt} \right)I(t,\sigma_t) \label{eq:conv_1} \\
-I(t,\sigma_t) &= \int_0^{\infty} r(\tau) e^{(t\tau)/\sigma_t^2} e^{-\frac{1}{2}\left(\frac{\tau}{\sigma_t}\right)^2}d\tau
-\end{align}
-To compute $I(t,\sigma_t)$, let
-\begin{align}
-z &= \gamma - 2\pi j f_0 \\
-z_0 &= \sqrt{2}\sigma_t z\\
-x &= t/(\sqrt{2} \sigma_t) \\
-y &= \tau/(\sqrt{2} \sigma_t) \\
-r(\tau) &= \Re\left\lbrace R_0 e^{-z\tau}\right\rbrace
-\end{align}
-These substitutions simply $I(t,\sigma_t)$ to
+\clearpage
+\item It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
 \begin{equation}
-I(t,\sigma_t) = \sqrt{2} \sigma_t R_0 \Re \left\lbrace\int_0^{\infty} e^{(2y-z_0)x} e^{-x^2} dx \right\rbrace
+s * r = \int_{-\infty}^{\infty} s(t-\tau) r(\tau) d\tau 
 \end{equation}
-Let $b = y-z_0/2$, Completing the square in the exponent gives
-\begin{equation}
-I(t,\sigma_t) = \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\left\lbrace e^{b^2} \erfc(-b) \right\rbrace
-\end{equation}
-Let $b = jc$, so that
-\begin{align}
-I(t,\sigma_t) &= \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\lbrace e^{-c^2} \erfc(-jc) \rbrace \\
-I(t,\sigma_t) &= \sqrt{\frac{\pi}{2}} \sigma_t R_0 \Re\lbrace w(c) \rbrace
-\end{align}
-The Faddeeva function $w(z)$ may be broken into real and imaginary parts using the Voigt functions:
-\begin{equation}
-U(p,q) + jV(p,q) = \sqrt{\frac{\pi}{4q}} w(z)
-\end{equation}
-The relationship between $p$, $q$, and $z$ is $z=(1-jp)/(2\sqrt{q})$.  Using this relationship, we find
-\begin{align}
-p &= \left(\frac{t}{\sigma_t}\right)\left(\frac{\sigma_f}{f_0}\right) - \frac{\gamma}{2\pi f_0} \\
-q &= \frac{1}{2}\left(\frac{\sigma_f}{f_0}\right)^2
-\end{align}
-Thus, the integral $I(t,\sigma_t)$ becomes
-\begin{equation}
-I(t,\sigma_t) = \sigma_t R_0 \left(\frac{\sigma_f}{f_0}\right) U(p,q)
-\end{equation}
-Substituting the result for $I(t,\sigma_t)$ in Eq. \ref{eq:conv_1} gives
+Inserting the definitions of $s(t)$ and $r(t)$,
 \begin{multline}
-s * r = \\
- R_0\sigma_t \left(\frac{\sigma_f}{f_0}\right) \left(s(t) + E_0 \sigma_t^2 e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dt} \right) U(p,q) \label{eq:conv_2}
+s * r = \\ -E_0 R_0 \int_{-\infty}^{\infty} (t-\tau) e^{-\frac{1}{2}\left(\frac{t-\tau}{\sigma_t}\right)^2} \Re\left\lbrace e^{2\pi j f_0 \tau} e^{-2\pi\gamma \tau} \right\rbrace u(\tau) d\tau
 \end{multline}
-Equation \ref{eq:conv_2} can be simplified in two ways.  First, note that $\sigma_t \sigma_f = 1/(2\pi)$, so $R_0\sigma_t (\sigma_f/f_0) = R_0/(2\pi f_0)$.  Second, the derivative of the Voigt function may be simplified using the chain rule:
+Using the previous definitions of $x$, $y$, and $z$ gives
 \begin{equation}
-\frac{dU(p,q)}{dt} = \frac{dU(p,q)}{dp}\frac{dp}{dt} = \frac{dU(p,q)}{dp} \frac{\sigma_f}{\sigma_t f_0}
+s * r = -2R_0 E_0 \sigma_t^2 \int_{0}^{\infty} (x-y) e^{-(x-y)^2} \Re\left\lbrace e^{zy} \right\rbrace dy
 \end{equation}
-Thus, Eq. \ref{eq:conv_2} becomes
+Note that the $\Re\lbrace \rbrace$ operator can encompass the whole integral, since $s(t)$ is real.  Splitting the integral and employing differentiation under the equals sign yields
 \begin{multline}
-s * r = \\
-\frac{R_0}{2\pi f_0}\left(s(t) + E_0 \sigma_t \left(\frac{\sigma_f}{f_0}\right) e^{-\frac{1}{2}\left(\frac{t}{\sigma_t}\right)^2} \frac{d}{dp}\right)U(p,q) \label{eq:conv_3}
+s * r = \\ -2R_0 E_0 \sigma_t^2 \Re\left\lbrace xe^{-x^2}I(x,z) - \frac{1}{2}e^{-x^2} \frac{dI(x,z)}{dx} \right\rbrace \label{eq:conv_sr}
 \end{multline}
-The envelope of Eq. \ref{eq:conv_3} can be computed numerically, which represents an alternative approach to that represented by Eq. \ref{eq:awesome}.
+with
+\begin{equation}
+I(x,z) = \int_0^{\infty} e^{-y^2 + (2x + z)y}dy
+\end{equation}
+Let $b=x+\frac{1}{2}z$, and $a = -jb$.  Completing the square in the exponent of $I(x,z)$ gives
+\begin{equation}
+I(x,z) = \frac{\sqrt{\pi}}{2} w(a)
+\end{equation}
+where $w(a)$ is the Faddeeva function.  Note that the Faddeeva function is \textit{entire}, meaning the $\Re\lbrace \rbrace$ operator and differentiation commute.  Inserting this result into Eq. \ref{eq:conv_sr}, and distributing the $\Re\lbrace \rbrace$ operator to the instances of $I(x,z)$, gives
+\begin{multline}
+s * r = \\ -\sqrt{\pi}R_0 E_0 \sigma_t^2 \left(xe^{-x^2} \Re\left\lbrace w(a)\right\rbrace - \frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(a)\rbrace}{dx} \right)
+\end{multline}
+The Faddeeva function may be split into real and imaginary parts via the \textit{Voigt functions}:
+\begin{align}
+w(a) &= U(p,q) + jV(p,q) \\
+p &= 
+\end{align}
 \end{itemize}
 
 \section{Conclusion}

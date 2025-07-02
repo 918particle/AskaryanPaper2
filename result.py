@@ -57,13 +57,13 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 	return 0.5*np.abs(result)
 
 f0 = 0.25 #GHz
-gamma = 0.075 #GHz
+gamma = 0.05 #GHz
 sigma_t = 0.5 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
 T_min = -20 #ns
-T_max = 50 #ns
+T_max = 100 #ns
 t = np.arange(T_min,T_max,dt)
 n = len(t)
 
@@ -76,7 +76,14 @@ for i in range(n):
 graph1 = np.abs(hilbert(np.real(result1)))*1000
 graph2 = np.real(result2)*1000
 graph3 = np.real(result1)*1000
-plt.plot(t,graph1,'-',label="env of math conv")
+
+with open("results_June27th.dat","w") as file:
+	for i in range(n):
+		writeString = str(t[i])+" "+str(graph3[i])+" "+str(graph1[i])+" "+str(graph2[i])+"\n"
+		file.write(writeString)
+file.close()
+
+'''plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
 plt.plot(t,graph3,'-',label="math conv")
 plt.xlabel("Time [ns]")
@@ -84,4 +91,4 @@ plt.ylabel("Amplitude [mV]")
 plt.xticks()
 plt.yticks()
 plt.legend()
-plt.show()
+plt.show()'''
