@@ -85,7 +85,7 @@ The real part of $I$ is even, so it can be extended to $(-\infty,\infty)$ if it 
 \begin{equation}
 \Re\lbrace I \rbrace = \sqrt{\pi} e^{-x^2}
 \end{equation}
-The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$:}
+The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$} \cite{NIST:DLMF}:
 \begin{equation}
 \Im\lbrace I\rbrace = 2 D(x)
 \end{equation}
@@ -149,7 +149,7 @@ Let $b = x+\frac{1}{2} z$. Completing the square in the exponent and substitutin
 \begin{multline}
 I(x,z) = e^{-x^2} e^{b^2} \int_{-b}^{\infty} e^{-k^2} dk \\ = \frac{\sqrt{\pi}}{2} e^{-x^2} e^{b^2} \erfc(-b)
 \end{multline}
-Let $b = jq$, and $w(q)$ be the \textit{Faddeeva function}.  The integral becomes
+Let $b = jq$, and $w(q)$ be the \textit{Faddeeva function} \cite{NIST:DLMF}.  The integral becomes
 \begin{equation}
 I(x,z) = \frac{\sqrt{\pi}}{2} e^{-x^2} w(q)
 \end{equation}
@@ -204,16 +204,8 @@ q = -jb = -j\left(x + \frac{z}{2}\right) \\
 \end{equation}
 Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, yields the \textbf{Hilbert envelope of the convolution of $s(t)$ with $r(t)$:}
 \begin{equation}
-\mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) |
+\mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) | \label{eq:final2}
 \end{equation}
-\item Two examples of comparisons of Eq. \ref{eq:final} to the convolution of $s(t)$ and $r(t)$ are given in Fig. \ref{fig:fig1} below.
-\begin{figure}[hb]
-\centering
-\includegraphics[width=0.5\textwidth]{March12_plot1.pdf}
-\includegraphics[width=0.5\textwidth]{March12_plot2.pdf}
-\caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The dark gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The light gray envelope represents Eq. \ref{eq:final}. (Bottom) Same as top, for different parameter values.}
-\end{figure}
-\clearpage
 \item It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
 \begin{equation}
 s * r = \int_{-\infty}^{\infty} s(t-\tau) r(\tau) d\tau 
@@ -234,19 +226,25 @@ with
 \begin{equation}
 I(x,z) = \int_0^{\infty} e^{-y^2 + (2x + z)y}dy
 \end{equation}
-Let $b=x+\frac{1}{2}z$, and $a = -jb$.  Completing the square in the exponent of $I(x,z)$ gives
+As above, let $b=x+\frac{1}{2}z$, and $b = j q$.  In a procedure resembling the calculation for $r_a(t) * \Re\lbrace s_a(t)\rbrace$, the result for $I(x,z)$ is
 \begin{equation}
-I(x,z) = \frac{\sqrt{\pi}}{2} w(a)
+I(x,z) = \frac{\sqrt{\pi}}{2} w(q)
 \end{equation}
-where $w(a)$ is the Faddeeva function.  Note that the Faddeeva function is \textit{entire}, meaning the $\Re\lbrace \rbrace$ operator and differentiation commute.  Inserting this result into Eq. \ref{eq:conv_sr}, and distributing the $\Re\lbrace \rbrace$ operator to the instances of $I(x,z)$, gives
+where $w(q)$ is the Faddeeva function.  Note that the Faddeeva function is \textit{entire}, meaning the $\Re\lbrace \rbrace$ operator and differentiation commute.  Inserting this result into Eq. \ref{eq:conv_sr}, and distributing the $\Re\lbrace \rbrace$ operator to the instances of $I(x,z)$, gives
 \begin{multline}
-s * r = \\ -\sqrt{\pi}R_0 E_0 \sigma_t^2 \left(xe^{-x^2} \Re\left\lbrace w(a)\right\rbrace - \frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(a)\rbrace}{dx} \right)
+s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\right\rbrace - \frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(q)\rbrace}{dx} \right)
 \end{multline}
-The Faddeeva function may be split into real and imaginary parts via the \textit{Voigt functions}:
-\begin{align}
-w(a) &= U(p,q) + jV(p,q) \\
-p &= 
-\end{align}
+From the definition of $q$ and the chain rule, $dw(q)/dx = -jdw(q)/dq$, and $dw(q)/dq = -2qw(q)+2j/\sqrt{\pi}$ \cite{NIST:DLMF}.  The final result is left in terms of the real part of the Faddeeva function, which may be computed using the \textit{Voigt function} $U(x,t)$ \cite{NIST:DLMF,PhysRevD.105.123019}.
+\begin{multline}
+s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\right\rbrace + j\frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(q)\rbrace}{dq} \right) \label{eq:final3}
+\end{multline}
+\item To illustrate the accuracy and efficiency of the model, Eq. \ref{eq:final}-\ref{eq:final2} and \ref{eq:final3}, are shown in Fig. \ref{fig:fig1}.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{March12_plot1.pdf}
+\includegraphics[width=0.5\textwidth]{March12_plot2.pdf}
+\caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The dark gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The light gray envelope represents Eq. \ref{eq:final}. (Bottom) Same as top, for different parameter values.}
+\end{figure}
 \end{itemize}
 
 \section{Conclusion}
