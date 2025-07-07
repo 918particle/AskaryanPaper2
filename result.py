@@ -52,9 +52,9 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 		result = first_term+J*second_term
 	return 0.5*np.abs(result)
 
-f0 = 0.3 #GHz
-gamma = 0.05 #GHz
-sigma_t = 0.5 #ns
+f0 = 0.15 #GHz
+gamma = 0.033 #GHz
+sigma_t = 1.0 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
@@ -69,11 +69,11 @@ for i in range(n):
     u = t[i]
     result1[i] = math_conv(u,E0,R0,sigma_t,f0,gamma)
     result2[i] = math_env(u,E0,R0,sigma_t,f0,gamma)
-graph1 = np.abs(hilbert(np.real(result1)))*1000
-graph2 = np.real(result2)*1000
-graph3 = np.real(result1)*1000
+graph1 = np.real(result1)*1000
+graph2 = np.abs(hilbert(np.real(result1)))*1000
+graph3 = np.real(result2)*1000
 
-plt.plot(t,graph1,'-',label="env of math conv")
+'''plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
 plt.plot(t,graph3,'-',label="math conv")
 plt.xlabel("Time [ns]")
@@ -81,4 +81,10 @@ plt.ylabel("Amplitude [mV]")
 plt.xticks()
 plt.yticks()
 plt.legend()
-plt.show()
+plt.show()'''
+
+with(open('results_July3rd.dat','w') as file):
+	for i in range(n):
+		write_string = str(t[i])+" "+str(graph1[i])+" "+str(graph2[i])+" "+str(graph3[i])+"\n"
+		file.write(write_string)
+file.close()
