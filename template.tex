@@ -1,7 +1,6 @@
 \documentclass[amsmath,amssymb,aps,prd,10pt,twocolumn,showkeys]{revtex4}
 \usepackage{graphicx}
 \usepackage{mathtools}
-%\usepackage{empheq}
 \usepackage{verbatim}
 \DeclareMathOperator\erfc{erfc}
 \DeclareMathOperator\erf{erf}
@@ -243,7 +242,14 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \centering
 \includegraphics[width=0.5\textwidth]{July3rd_plot1.pdf}
 \includegraphics[width=0.5\textwidth]{July3rd_plot2.pdf}
-\caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The light gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 package scipy.special.hilbert. The dark gray envelope represents Eq. \ref{eq:final}-\ref{eq:final2}. (Bottom) Same as top, for different parameter values.}
+\caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The light gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 SciPy function scipy.special.hilbert. The dark gray envelope represents Eq. \ref{eq:final}-\ref{eq:final2}. (Bottom) Same as top, for different parameter values.}
+\end{figure}
+\item To demonstrate that \textit{numerical convolution} of $s(t)$ and $r(t)$ produces the same results as the \textit{mathematical convolution} of $s(t)$ and $r(t)$ (Eq. \ref{eq:final3}), the corresponding waveforms are shown in Fig. \ref{fig:fig2}.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{July7th_plot1.pdf}
+\includegraphics[width=0.5\textwidth]{July7th_plot2.pdf}
+\caption{\label{fig:fig2} (Top) The thin black line represents $s(t) * r(t)$, produced using the Python3 SciPy function scipy.signal.convolve. The dark gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
 \end{itemize}
 

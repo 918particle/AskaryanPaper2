@@ -52,26 +52,46 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 		result = first_term+J*second_term
 	return 0.5*np.abs(result)
 
-f0 = 0.15 #GHz
-gamma = 0.033 #GHz
-sigma_t = 1.0 #ns
+f0 = 0.3 #GHz
+gamma = 0.05 #GHz
+sigma_t = 0.5 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
-T_min = -10 #ns
+T_min = -100 #ns
 T_max = 100 #ns
 t = np.arange(T_min,T_max,dt)
 n = len(t)
 
 result1 = np.zeros(t.shape,dtype=complex)
 result2 = np.zeros(t.shape,dtype=complex)
+signal = np.zeros(t.shape,dtype=float)
+response = np.zeros(t.shape,dtype=float)
 for i in range(n):
     u = t[i]
+    signal[i] = s(u,E0,sigma_t)
+    response[i] = r(u,R0,f0,gamma)
     result1[i] = math_conv(u,E0,R0,sigma_t,f0,gamma)
     result2[i] = math_env(u,E0,R0,sigma_t,f0,gamma)
 graph1 = np.real(result1)*1000
 graph2 = np.abs(hilbert(np.real(result1)))*1000
 graph3 = np.real(result2)*1000
+graph4 = convolve(signal,response,"same")*dt*1000
+
+'''plt.plot(t,graph4,'-',label="numerical convolution")
+plt.plot(t,graph1,'-',label="math conv")
+plt.xlabel("Time [ns]")
+plt.ylabel("Amplitude [mV]")
+plt.xticks()
+plt.yticks()
+plt.legend()
+plt.show()'''
+
+with(open('results_July7th.dat','w') as file):
+	for i in range(n):
+		write_string = str(t[i])+" "+str(graph4[i])+" "+str(graph1[i])+"\n"
+		file.write(write_string)
+file.close()
 
 '''plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
@@ -83,8 +103,8 @@ plt.yticks()
 plt.legend()
 plt.show()'''
 
-with(open('results_July3rd.dat','w') as file):
+'''with(open('results_July3rd.dat','w') as file):
 	for i in range(n):
 		write_string = str(t[i])+" "+str(graph1[i])+" "+str(graph2[i])+" "+str(graph3[i])+"\n"
 		file.write(write_string)
-file.close()
+file.close()'''
