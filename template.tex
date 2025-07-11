@@ -43,7 +43,7 @@ Here is a list of the basic results and ideas for this paper.
 \begin{equation}
 s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} \label{eq:s}
 \end{equation}
-This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: the longitudinal length of the UHE-$\nu$-induced cascade, and the angle at which the cascade is observed relative to the Cherenkov angle.  The parameter $E_0$ is the amplitude normalization, and it depends on two parameters: $\sigma_{\rm t}$, and $\omega_{\rm 0}$, the cutoff frequency from the cascade form factor.
+This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: the longitudinal length of the UHE-$\nu$-induced cascade, and the angle at which the cascade is observed relative to the Cherenkov angle.  The parameter $E_0$ is the amplitude normalization, and it depends on two parameters: $\sigma_{\rm t}$, and $\omega_{\rm 0}$, the cutoff frequency from the cascade form factor.  In Sec. \ref{sec:onc}, $E_0$ and $\sigma_t$ will be treated as constants, since neither depends on time.  In Sec. \ref{sec:amp}, the implications of these dependencies will be explored.
 \item Let $\widehat{s}(t)$ represent the Hilbert transform of $s(t)$.  The \textit{analytic signal} of $s(t)$ is
 \begin{equation}
 s_{\rm a}(t) = s(t) + j \widehat{s}(t)
@@ -235,7 +235,7 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \end{multline}
 From the definition of $q$ and the chain rule, $dw(q)/dx = -jdw(q)/dq$, and $dw(q)/dq = -2qw(q)+2j/\sqrt{\pi}$ \cite{NIST:DLMF}.  The final result is left in terms of the real part of the Faddeeva function, which may be computed using the \textit{Voigt function} $U(x,t)$ \cite{NIST:DLMF,PhysRevD.105.123019}.
 \begin{multline}
-s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\right\rbrace + j\frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(q)\rbrace}{dq} \right) \label{eq:final3}
+s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\right\rbrace + \left(\frac{j}{2}\right)e^{-x^2} \frac{d\Re\lbrace w(q)\rbrace}{dq} \right) \label{eq:final3}
 \end{multline}
 \item To illustrate the accuracy and efficiency of the model, Eq. \ref{eq:final}-\ref{eq:final2} and \ref{eq:final3}, are shown in Fig. \ref{fig:fig1}.
 \begin{figure}
@@ -247,10 +247,42 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \item To demonstrate that \textit{numerical convolution} of $s(t)$ and $r(t)$ produces the same results as the \textit{mathematical convolution} of $s(t)$ and $r(t)$ (Eq. \ref{eq:final3}), the corresponding waveforms are shown in Fig. \ref{fig:fig2}.
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{July7th_plot1.pdf}
 \includegraphics[width=0.5\textwidth]{July7th_plot2.pdf}
+\includegraphics[width=0.5\textwidth]{July7th_plot1.pdf}
 \caption{\label{fig:fig2} (Top) The thin black line represents $s(t) * r(t)$, produced using the Python3 SciPy function scipy.signal.convolve. The dark gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
+\end{itemize}
+
+\section{The Amplitude of The Signal Model, $s(t)$}
+\label{sec:amp}
+
+\begin{itemize}
+\item The result for $\mathcal{E}_{r*s}(t)$, Eqs. \ref{eq:final} and \ref{eq:final2}, depends on the model for $s(t)$, Eq. \ref{eq:s}.  The parameters $E_0$ and $\sigma_t$ in Eq. \ref{eq:s} were held constant in Sec. \ref{sec:onc}, because neither depends on time.  The full expression for $s(t)$ was first derived by the authors of \cite{PhysRevD.105.123019}:
+\begin{equation}
+s(t) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}te^{-\frac{t^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
+\end{equation}
+The parameters of Eq. \ref{eq:s_full} are defined in Tab. \ref{tab:param}.
+\begin{table*}
+\small
+\begin{tabular}{| c | c | c | c |} \hline
+\textbf{Variable} & \textbf{Definition} & \textbf{Units} & \textbf{Typical Value}\\ \hline
+$c$ & speed of light & meter GHz & 0.299792458 \\ 
+$\theta_{\rm C}$ & Cherenkov angle & radians & 0.9739 \\ 
+$\theta$ & viewing angle from cascade axis & radians & $|\theta-\theta_{\rm C}| = \mathcal{O}(1)$ degree \\ 
+$a$ & longitudinal length of cascade (see \cite{10.1103/physrevd.65.016003}) & meter & $\approx 4.2$ at $\approx 10^{16}$ eV \\ 
+$n_{max}$ & peak excess charged cascade particles (see \cite{10.1103/physrevd.65.016003})  & none & $\mathcal{O}(10^6)$ at $\approx 10^{16}$ eV \\
+$E_{\rm 0}$ & $\propto n_{\rm max}a$ (see \cite{10.1103/physrevd.65.016003}) & V m$^{-1}$ GHz$^{-2}$ & $\approx 1.2$ at $\approx 10^{16}$ eV \\
+$p$ & $\frac{1}{2}(a/c)^2 \left(\cos\theta - \cos\theta_C\right)^2$ (see \cite{PhysRevD.105.123019}) & ns$^2$ & depends on $\theta$, $\sqrt{2 p} \approx$ 1 ns \\ 
+$\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(n\sin\theta)$ (see \cite{10.1016/j.astropartphys.2017.03.008}) & GHz & depends on $\theta$, $\omega_0/(2\pi)$ is $\mathcal{O}(1)$ GHz \\
+$\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys.2017.03.008}) & m$^{-1}$ & $\approx 20$ m$^{-1}$ at $\approx 10^{17}$ eV \\
+$n$ & index of refraction, ice & none & $1.778 \pm 0.006$ for RF bandwidth \\ \hline
+\end{tabular}
+\caption{\label{tab:param} things.}
+\end{table*}
+There is a deep connection between $s(t)$, Eqs. \ref{eq:final}-\ref{eq:final2}, and the natural logarithm of the UHE-$\nu$ cascade energy, $\ln(E_{\rm C}/E_{\rm crit})$. The authors of \cite{PhysRevD.105.123019} have shown that
+\begin{equation}
+a\Delta\theta = \frac{c \sigma_t}{\sin\theta_{\rm C}}
+\end{equation}
 \end{itemize}
 
 \section{Conclusion}
