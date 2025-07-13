@@ -234,19 +234,15 @@ with
 \begin{equation}
 I(x,z) = \int_0^{\infty} e^{-y^2 + (2x + z)y}dy
 \end{equation}
-Let $b=x+\frac{1}{2}z$, and $a = -jb$.  Completing the square in the exponent of $I(x,z)$ gives
+As above, let $b=x+\frac{1}{2}z$, and $b = j q$.  In a procedure resembling the calculation for $r_a(t) * \Re{s_a(t)}$, the result for $I(x,z)$ is
 \begin{equation}
-I(x,z) = \frac{\sqrt{\pi}}{2} w(a)
+I(x,z) = \frac{\sqrt{\pi}}{2} w(q)
 \end{equation}
-where $w(a)$ is the Faddeeva function.  Note that the Faddeeva function is \textit{entire}, meaning the $\Re\lbrace \rbrace$ operator and differentiation commute.  Inserting this result into Eq. \ref{eq:conv_sr}, and distributing the $\Re\lbrace \rbrace$ operator to the instances of $I(x,z)$, gives
+where $w(q)$ is the Faddeeva function.  Note that the Faddeeva function is \textit{entire}, meaning the $\Re\lbrace \rbrace$ operator and differentiation commute.  Inserting this result into Eq. \ref{eq:conv_sr}, and distributing the $\Re\lbrace \rbrace$ operator to the instances of $I(x,z)$, gives
 \begin{multline}
-s * r = \\ -\sqrt{\pi}R_0 E_0 \sigma_t^2 \left(xe^{-x^2} \Re\left\lbrace w(a)\right\rbrace - \frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(a)\rbrace}{dx} \right)
+s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\right\rbrace - \frac{1}{2}e^{-x^2} \frac{d\Re\lbrace w(q)\rbrace}{dx} \right)
 \end{multline}
-The Faddeeva function may be split into real and imaginary parts via the \textit{Voigt functions}:
-\begin{align}
-w(a) &= U(p,q) + jV(p,q) \\
-p &= 
-\end{align}
+Because the Faddeeva function is \textit{entire}, the derivative commutes with the $\Re\lbrace\rbrace$ operator.  From the definition of $q$ and the chain rule, $dw(q)/dx = -jdw(q)/dq$.  The complex derivative 
 \end{itemize}
 
 \section{Conclusion}
