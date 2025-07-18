@@ -259,26 +259,29 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \begin{itemize}
 \item The result for $\mathcal{E}_{r*s}(t)$, Eqs. \ref{eq:final} and \ref{eq:final2}, depends on the model for $s(t)$, Eq. \ref{eq:s}.  The parameters $E_0$ and $\sigma_t$ in Eq. \ref{eq:s} were held constant in Sec. \ref{sec:onc}, because neither depends on time.  The full expression for $s(t)$ was first derived by the authors of \cite{PhysRevD.105.123019}:
 \begin{equation}
-s(t) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}te^{-\frac{t^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
+r\vec{E}(t_{\rm r},\theta) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}t_{\rm r}e^{-\frac{t_{\rm r}^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
 \end{equation}
 The parameters of Eq. \ref{eq:s_full} are defined in Tab. \ref{tab:param}.
-\begin{table*}
+\begin{table}
 \small
-\begin{tabular}{| c | c | c | c |} \hline
-\textbf{Variable} & \textbf{Definition} & \textbf{Units} & \textbf{Typical Value}\\ \hline
-$c$ & speed of light & meter GHz & 0.299792458 \\ 
-$\theta_{\rm C}$ & Cherenkov angle & radians & 0.9739 \\ 
-$\theta$ & viewing angle from cascade axis & radians & $|\theta-\theta_{\rm C}| = \mathcal{O}(1)$ degree \\ 
-$a$ & longitudinal length of cascade (see \cite{10.1103/physrevd.65.016003}) & meter & $\approx 4.2$ at $\approx 10^{16}$ eV \\ 
-$n_{max}$ & peak excess charged cascade particles (see \cite{10.1103/physrevd.65.016003})  & none & $\mathcal{O}(10^6)$ at $\approx 10^{16}$ eV \\
-$E_{\rm 0}$ & $\propto n_{\rm max}a$ (see \cite{10.1103/physrevd.65.016003}) & V m$^{-1}$ GHz$^{-2}$ & $\approx 1.2$ at $\approx 10^{16}$ eV \\
-$p$ & $\frac{1}{2}(a/c)^2 \left(\cos\theta - \cos\theta_C\right)^2$ (see \cite{PhysRevD.105.123019}) & ns$^2$ & depends on $\theta$, $\sqrt{2 p} \approx$ 1 ns \\ 
-$\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(n\sin\theta)$ (see \cite{10.1016/j.astropartphys.2017.03.008}) & GHz & depends on $\theta$, $\omega_0/(2\pi)$ is $\mathcal{O}(1)$ GHz \\
-$\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys.2017.03.008}) & m$^{-1}$ & $\approx 20$ m$^{-1}$ at $\approx 10^{17}$ eV \\
-$n$ & index of refraction, ice & none & $1.778 \pm 0.006$ for RF bandwidth \\ \hline
+\begin{tabular}{| c | c | c |} \hline
+\textbf{Variable} & \textbf{Definition} & \textbf{Units}\\ \hline
+$c$ & speed of light in medium & m ns$^{-1}$ \\ 
+$r$ & distance to cascade peak & m \\
+$t_{\rm r}$ & $t-r/c$ & ns \\
+$\theta_{\rm C}$ & Cherenkov angle & radians \\ 
+$\theta$ & viewing angle from cascade axis & radians \\ 
+$a$ & longitudinal cascade length (see \cite{10.1103/physrevd.65.016003}) & m \\ 
+$n_{max}$ & max excess cascade particles (see \cite{10.1103/physrevd.65.016003})  & none \\
+$E_{\rm 0}$ & $\propto n_{\rm max}a$ (see \cite{10.1103/physrevd.65.016003}) & V GHz$^{-2}$ \\
+$p$ & $\frac{1}{2}(a/c)^2 \left(\cos\theta - \cos\theta_C\right)^2$ (see \cite{PhysRevD.105.123019}) & ns$^2$ \\ 
+$\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(\sin\theta)$ (see \cite{10.1016/j.astropartphys.2017.03.008}) & GHz \\
+$\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys.2017.03.008}) & m$^{-1}$ \\ \hline
 \end{tabular}
 \caption{\label{tab:param} things.}
-\end{table*}
+\end{table}
+Though the authors of \cite{10.1103/physrevd.65.016003} use $c$ for the vaccuum value of the speed of light, the formulae for $r \vec{E}$ presented in \cite{10.1103/physrevd.65.016003} typically refer to the wavenumber $k$ in the medium, which is proptional to the index of refraction. Thus, the use of $c$ in this work refers to the speed of light in the medium.  For example, a phase factor of $\exp(j k r)$ could also be written $\exp(j r \omega/c)$, if $c$ refers to the value in the medium.  From the ``acceleration argument'' in \cite{10.1103/physrevd.65.016003}, $r$ is the distance to ... The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, typically quoted as 55.8 degrees in the RF bandwidth.  The authors of \cite{10.1103/physrevd.65.016003} define the longitudinal cascade length, $a$, relative to the length over which the Askaryan ra
+
 There is a deep connection between $s(t)$, Eqs. \ref{eq:final}-\ref{eq:final2}, and the natural logarithm of the UHE-$\nu$ cascade energy, $\ln(E_{\rm C}/E_{\rm crit})$. The authors of \cite{PhysRevD.105.123019} have shown that
 \begin{equation}
 a\Delta\theta = \frac{c \sigma_t}{\sin\theta_{\rm C}}
