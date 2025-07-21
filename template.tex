@@ -261,7 +261,6 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \begin{equation}
 r\vec{E}(t_{\rm r},\theta) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}t_{\rm r}e^{-\frac{t_{\rm r}^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
 \end{equation}
-The parameters of Eq. \ref{eq:s_full} are defined in Tab. \ref{tab:param}.
 \begin{table}
 \small
 \begin{tabular}{| c | c | c |} \hline
@@ -280,7 +279,16 @@ $\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys
 \end{tabular}
 \caption{\label{tab:param} things.}
 \end{table}
-Though the authors of \cite{10.1103/physrevd.65.016003} use $c$ for the vaccuum value of the speed of light, the formulae for $r \vec{E}$ presented in \cite{10.1103/physrevd.65.016003} typically refer to the wavenumber $k$ in the medium, which is proptional to the index of refraction. Thus, the use of $c$ in this work refers to the speed of light in the medium.  For example, a phase factor of $\exp(j k r)$ could also be written $\exp(j r \omega/c)$, if $c$ refers to the value in the medium.  From the ``acceleration argument'' in \cite{10.1103/physrevd.65.016003}, $r$ is the distance to ... The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, typically quoted as 55.8 degrees in the RF bandwidth.  The authors of \cite{10.1103/physrevd.65.016003} define the longitudinal cascade length, $a$, relative to the length over which the Askaryan ra
+
+The parameters of Eq. \ref{eq:s_full} are shown in Tab. \ref{tab:param}.  Though Ralston and Buniy (RB) \cite{10.1103/physrevd.65.016003} used $c$ for the vaccuum value of the speed of light, the formulae for $r \vec{E}$ presented in \cite{10.1103/physrevd.65.016003} refer to the wavenumber $k$ in the medium, which is proptional to the index of refraction. Thus, the use of $c$ in this work refers to the speed of light in the medium.  For example, a phase factor of $\exp(j k r)$ could also be written $\exp(j r \omega/c)$, if $c$ refers to the value in the medium.  The distance $r$ is between the observer and the radiating charge at the cascade peak.  The longitudinal length over which $\Delta r < \lambda$, the RF wavelength in ice, is named the \textit{coherence zone} $\Delta z_{\rm coh}$ in the RB model.  The $\Delta z_{\rm coh}$ is limited by what RB call the ``acceleration argument,'' that $r(t)$ is accelerating while keeping $\Delta r < \lambda$.
+
+The longitudinal cascade length, $a$, is set by the cascade physics.  The ratio $\eta = (a/\Delta z_{\rm coh})^2$ corresponds to the far-field limit as $\eta \to 0$, but this is not a requirement of the RB model.  In fact, the RB equations are valid when $\eta > 1$.  Hanson and Connolly (JCH+AC) have shown that $\eta$ corresponds to low-pass filter with cutoff $\omega_{\rm C}$ that limits the RF emissions, $\eta = \omega/\omega_{\rm C}$ \cite{10.1016/j.astropartphys.2017.03.008}.  JCH+AC also studied $\omega_{\rm C}$ over the frequency and $a$ parameter space, because this parameter space is relevant for the LPM effect.
+
+The time $t$ is the independent variable of the inverse Fourier transform of the equations in \cite{10.1103/physrevd.65.016003}. The delayed time is $t_{\rm r} = t-r/c$.  The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, $n$, via $\cos\theta_{\rm C} = 1/n$.  The value often quoted for the RF bandwidth in ice ($n=1.78$) is 55.8 degrees.  The viewing angle $\theta$ is measured relative to the cascade axis, and the Askaryan radiation is concentrated when $\theta$ is close to $\theta_{\rm C}$.  The $n_{\rm max}$ parameter is the maximum excess negative charge in the cascade, and the overall RF amplitude is propotional to $n_{\rm max} a$.  Hanson and Hartig (HH) have shown that the parameter $p$ is related to the pulse width \cite{PhysRevD.105.123019}:
+
+\begin{equation}
+\sigma_t = \sqrt{2p}
+\end{equation}
 
 There is a deep connection between $s(t)$, Eqs. \ref{eq:final}-\ref{eq:final2}, and the natural logarithm of the UHE-$\nu$ cascade energy, $\ln(E_{\rm C}/E_{\rm crit})$. The authors of \cite{PhysRevD.105.123019} have shown that
 \begin{equation}
