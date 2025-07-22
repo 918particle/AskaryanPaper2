@@ -284,16 +284,19 @@ The parameters of Eq. \ref{eq:s_full} are shown in Tab. \ref{tab:param}.  Though
 
 The longitudinal cascade length, $a$, is set by the cascade physics.  The ratio $\eta = (a/\Delta z_{\rm coh})^2$ corresponds to the far-field limit as $\eta \to 0$, but this is not a requirement of the RB model.  In fact, the RB equations are valid when $\eta > 1$.  Hanson and Connolly (JCH+AC) have shown that $\eta$ corresponds to low-pass filter with cutoff $\omega_{\rm C}$ that limits the RF emissions, $\eta = \omega/\omega_{\rm C}$ \cite{10.1016/j.astropartphys.2017.03.008}.  JCH+AC also studied $\omega_{\rm C}$ over the frequency and $a$ parameter space, because this parameter space is relevant for the LPM effect.
 
-The time $t$ is the independent variable of the inverse Fourier transform of the equations in \cite{10.1103/physrevd.65.016003}. The delayed time is $t_{\rm r} = t-r/c$.  The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, $n$, via $\cos\theta_{\rm C} = 1/n$.  The value often quoted for the RF bandwidth in ice ($n=1.78$) is 55.8 degrees.  The viewing angle $\theta$ is measured relative to the cascade axis, and the Askaryan radiation is concentrated when $\theta$ is close to $\theta_{\rm C}$.  The $n_{\rm max}$ parameter is the maximum excess negative charge in the cascade, and the overall RF amplitude is propotional to $n_{\rm max} a$.  Hanson and Hartig (HH) have shown that the parameter $p$ is related to the pulse width \cite{PhysRevD.105.123019}:
+The time $t$ is the independent variable of the inverse Fourier transform of the equations in \cite{10.1103/physrevd.65.016003}. The delayed time is $t_{\rm r} = t-r/c$.  The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, $n$, via $\cos\theta_{\rm C} = 1/n$.  The value for the RF bandwidth in solid ice ($n=1.78$) is 55.8 degrees.  More detail on the index of refraction in polar ice is given in \cite{Barwick:2018497,ALLISON201963}.  The viewing angle $\theta$ is measured relative to the cascade axis, and the Askaryan radiation is concentrated when $\theta \approx \theta_{\rm C}$.  The $n_{\rm max}$ parameter is the maximum excess negative charge in the cascade, and the overall RF amplitude is propotional to $n_{\rm max} a$.  Hanson and Hartig (HH) have shown that the parameter $p$ is related to $\sigma_t$ \cite{PhysRevD.105.123019}:
 
 \begin{equation}
-\sigma_t = \sqrt{2p}
+\sigma_t = \sqrt{2p} \label{eq:pulse_width}
 \end{equation}
 
-There is a deep connection between $s(t)$, Eqs. \ref{eq:final}-\ref{eq:final2}, and the natural logarithm of the UHE-$\nu$ cascade energy, $\ln(E_{\rm C}/E_{\rm crit})$. The authors of \cite{PhysRevD.105.123019} have shown that
+The authors of \cite{PhysRevD.105.123019} have shown that, because $\cos\theta - \cos\theta_{\rm C} \approx -\sin\theta_{\rm C}(\theta-\theta_{\rm C})$ to first order in $\Delta\theta = (=\theta-\theta_{\rm C}$, $p \propto \Delta\theta^2$ to second order, and 
+
 \begin{equation}
 a\Delta\theta = \frac{c \sigma_t}{\sin\theta_{\rm C}}
 \end{equation}
+
+Qualitatively, this notion was identified by RB in Sec. III of \cite{10.1103/physrevd.65.016003}.  Discuss error prop to lnE
 \end{itemize}
 
 \section{Conclusion}
