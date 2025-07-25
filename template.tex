@@ -7,7 +7,7 @@
 \DeclareMathOperator{\sgn}{sgn}
 \begin{document}
 
-\title{Complex Analysis of Askaryan Radiation: Towards UHE-$\nu$ energy Reconstruction via the Hilbert Envelope of Observed Signals}
+\title{Complex Analysis of Askaryan Radiation: UHE-$\nu$ Energy Reconstruction via the Hilbert Envelope of Observed Signals}
 
 \author{Jordan C. Hanson}
 \email{jhanson2@whittier.edu}
@@ -17,7 +17,7 @@
 \date{\today}
 
 \begin{abstract}
-This is a work in progress.
+The detection of cosmogenic and astrophysical neutrinos with energies greater than 10 PeV has been a long-time goal of the astroparticle physics community.  Due to the small flux of such particles, a key strategy has been to deploy autonomous, radio-frequency (RF) detetectors in polar regions that rely on the Askaryan effect for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium.  Neutrinos with energies greater than 10 PeV can induce cascades that radiate in the radio-frequency (RF) bandwidth.  To identify neutrino signals in future data from autonomous RF detectors, mathematical models of the Askaryan electromagnetic field have been created and compared to simulations and laboratory measurements.  In the past, mathematical models have only described the Askaryan electromagnetic field, leaving the effect of the RF detection channels on the observed waveforms to simulation packages (NuRadioMC).  In this work, we present a fully analytic model that accounts for the effect of an RF detection channel.  We provide a formula for the observed voltage trace, and a formula for the Hilbert envelope of the trace.  We compare our models to traces and envelopes recorded from large-scale simulations of Askaryan-class neutrino detectors (NuRadioMC).  Our equations match NuRadioMC with correlation coefficients greater than 0.95, and power differences of less than 5\%.
 \end{abstract}
 
 \keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
@@ -26,7 +26,19 @@ This is a work in progress.
 
 \section{Introduction}
 
-The introduction.
+Extrasolar neutrinos with energies between [0.01–1] PeV have been detected by the IceCube and KM3NeT collaborations \cite{10.1126/science.1242856,aartsen2013first-bff,collaboration2016observation-03b,collaboration2018neutrino-2a0,collaboration2021detection-6fa,collaboration2022evidence-a08,collaboration2023observation-08b,collaboration2025observation-22f}. Previous analyses indicate that the discovery of neutrinos above 5 PeV to 20 EeV will  require large Askaryan-class detectors \cite{10.1103/physrevd.98.062003}.  Neutrinos with energies in the EeV range could potentially reveal the source of ultra-high energy cosmic rays.  Further, studying electroweak interactions at these energies is virtually impossible on Earth, and Askaryan-class neutrino detectors could provide new data.
+
+%of ultra-high-energy neutrinos (UHE-ν) will require an
+%expansion in detector volume because the flux is expected
+%to decrease with energy [2–6]. The UHE-ν flux could
+%potentially explain the origin of UHE cosmic rays
+%(UHECR), and provides the opportunity to study electro-
+%weak interactions at record-breaking energies [7,8].
+%Utilizing the Askaryan effect expands the effective volume
+%of UHE-ν detector designs, because this effect offers a way
+%to detect UHE-ν with radio pulses that travel more than
+%1 km in sufficiently RF-transparent media such as Antarctic
+%and Greenlandic ice [9–11].
 
 \section{Units, Definitions, and Conventions}
 \label{sec:unit}
@@ -36,8 +48,7 @@ The introduction.
 \begin{equation}
 r\vec{E}(t_{\rm r},\theta) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}t_{\rm r}e^{-\frac{t_{\rm r}^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
 \end{equation}
-\begin{table}
-\small
+\begin{table*}
 \begin{tabular}{| c | c | c |} \hline
 \textbf{Variable} & \textbf{Definition} & \textbf{Units}\\ \hline
 $c$ & speed of light in medium & m ns$^{-1}$ \\ 
@@ -53,7 +64,7 @@ $\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(\sin\theta)$ 
 $\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys.2017.03.008}) & m$^{-1}$ \\ \hline
 \end{tabular}
 \caption{\label{tab:param} things.}
-\end{table}
+\end{table*}
 
 The parameters of Eq. \ref{eq:s_full} are shown in Tab. \ref{tab:param}.  Though Ralston and Buniy (RB) \cite{10.1103/physrevd.65.016003} used $c$ for the vaccuum value of the speed of light, the formulae for $r \vec{E}$ presented in \cite{10.1103/physrevd.65.016003} refer to the wavenumber $k$ in the medium, which is proptional to the index of refraction. Thus, the use of $c$ in this work refers to the speed of light in the medium.  For example, a phase factor of $\exp(j k r)$ could also be written $\exp(j r \omega/c)$, if $c$ refers to the value in the medium.  The distance $r$ is between the observer and the radiating charge at the cascade peak.  The longitudinal length over which $\Delta r < \lambda$, the RF wavelength in ice, is named the \textit{coherence zone} $\Delta z_{\rm coh}$ in the RB model.  The $\Delta z_{\rm coh}$ is limited by what RB call the ``acceleration argument,'' that $r(t)$ is accelerating while keeping $\Delta r < \lambda$.
 
