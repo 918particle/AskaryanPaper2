@@ -7,7 +7,7 @@
 \DeclareMathOperator{\sgn}{sgn}
 \begin{document}
 
-\title{Complex Analysis of Askaryan Radiation: UHE-$\nu$ Energy Reconstruction via the Hilbert Envelope of Observed Signals}
+\title{Complex Analysis of Askaryan Radiation: UHE-$\nu$ Identification and Reconstruction via the Hilbert Envelope of Observed Signals}
 
 \author{Jordan C. Hanson}
 \email{jhanson2@whittier.edu}
@@ -17,7 +17,7 @@
 \date{\today}
 
 \begin{abstract}
-The detection of neutrinos with energies greater than 10 PeV has been a long-time goal of the astroparticle physics community.  A key strategy has been to deploy autonomous, radio-frequency (RF) detetectors in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium.  Neutrinos with energies above 10 PeV can induce cascades that radiate in the radio-frequency (RF) bandwidth above thermal backgrounds.  To identify neutrino signals in future data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and compared to simulations and laboratory measurements.  In the past, these models have only described the Askaryan electromagnetic field, leaving the effect of the RF detection channels on the field to simulation packages.  In this work, we present a fully analytic Askaryan model that accounts for the effect of an RF detection channel.  We provide formulas for the observed voltage trace, and for the Hilbert envelope of the trace.  We compare our analytic envelope equation to simulated data computed with NuRadioMC, a key Monte Carlo toolset in high-energy neutrino detection.  Our equation matches the data with correlation coefficients greater than 0.95.  Using the analytic envelope technique, we reconstruct key neutrino properties.
+The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal of the astroparticle physics community.  A key strategy has been to deploy autonomous, radio-frequency (RF) detetectors in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium.  UHE-$\nu$ can induce cascades that radiate in the radio-frequency (RF) bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in future data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and compared to simulations and laboratory measurements.  In the past, these models have only described the Askaryan electromagnetic field, leaving the effect of the RF detection channels on the field to simulation packages.  In this work, we present a fully analytic Askaryan model that accounts for the effect of an RF detection channel.  We provide formulas for the observed voltage trace, and for the Hilbert envelope of the trace.  We match the equations to data computed with NuRadioMC, a key Monte Carlo toolset in UHE-$\nu$ detection.  Our analytic model and NuRadioMC match, with correlation coefficients $>0.95$.  Using this correlation, we demonstrate that RF thermal noise and UHE-$\nu$ signals can be classified to better than xxx.  Finally, we reconstruct the logarithm of the UHE-$\nu$ cascade energy using the analytic model, with a precision of yyy.
 \end{abstract}
 
 \keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
@@ -26,19 +26,10 @@ The detection of neutrinos with energies greater than 10 PeV has been a long-tim
 
 \section{Introduction}
 
-Cosmic neutrinos with energies up to 100 PeV have been detected by the IceCube and KM3NeT collaborations \cite{10.1126/science.1242856,aartsen2013first-bff,collaboration2016observation-03b,collaboration2018neutrino-2a0,collaboration2021detection-6fa,collaboration2022evidence-a08,collaboration2023observation-08b,collaboration2025observation-22f}. Previous analyses indicate that the discovery of neutrinos above 5 PeV to 20 EeV will  require large Askaryan-class detectors \cite{10.1103/physrevd.98.062003}.  Neutrinos with energies in the EeV range could potentially reveal the source of ultra-high energy cosmic rays.  Further, studying electroweak interactions at these energies is virtually impossible on Earth, and Askaryan-class neutrino detectors could provide new data.
+Cosmic neutrinos with energies up to 100 PeV have been detected by the IceCube and KM3NeT collaborations \cite{10.1126/science.1242856,aartsen2013first-bff,collaboration2016observation-03b,collaboration2018neutrino-2a0,collaboration2021detection-6fa,collaboration2022evidence-a08,collaboration2023observation-08b,collaboration2025observation-22f}. Previous analyses indicate that the discovery of neutrinos above 5 PeV to 20 EeV will  require large Askaryan-class detectors \cite{10.1103/physrevd.98.062003}.  Neutrinos with energies in the EeV range could potentially reveal the source of ultra-high energy cosmic rays (see sections 3.1-3.3 of \cite{10.48550/arxiv.2008.04323}).  Further, studying electroweak interactions at these energies is impossible on Earth, and Askaryan-class neutrino detectors provide new data (see section 3.4 of \cite{10.48550/arxiv.2008.04323}).
 
-%of ultra-high-energy neutrinos (UHE-ν) will require an
-%expansion in detector volume because the flux is expected
-%to decrease with energy [2–6]. The UHE-ν flux could
-%potentially explain the origin of UHE cosmic rays
-%(UHECR), and provides the opportunity to study electro-
-%weak interactions at record-breaking energies [7,8].
-%Utilizing the Askaryan effect expands the effective volume
-%of UHE-ν detector designs, because this effect offers a way
-%to detect UHE-ν with radio pulses that travel more than
-%1 km in sufficiently RF-transparent media such as Antarctic
-%and Greenlandic ice [9–11].
+This work is the first application of the Hanson and Hartig (HH) model for the purposes of reconstruction.
+
 
 \section{Units, Definitions, and Conventions}
 \label{sec:unit}
@@ -194,7 +185,7 @@ R(f) &= \frac{R_0}{4\pi j} \left( \frac{1}{f - z_{+}} + \frac{1}{1- z_{-}} \righ
 z_{+} &= f_0 + j \gamma_f \\
 z_{-} &= -f_0 + j \gamma_f
 \end{align}
-Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result.
+Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result. (Check the sign of time here, to ensure that it is positive).
 \item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ R_0 e^{2\pi j f_0 t} e^{-2\pi\gamma t} u(t) * \left(-E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}\right)

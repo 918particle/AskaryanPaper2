@@ -87,11 +87,11 @@ plt.yticks()
 plt.legend()
 plt.show()'''
 
-with(open('results_July7th.dat','w') as file):
+'''with(open('results_July7th.dat','w') as file):
 	for i in range(n):
 		write_string = str(t[i])+" "+str(graph4[i])+" "+str(graph1[i])+"\n"
 		file.write(write_string)
-file.close()
+file.close()'''
 
 '''plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
@@ -103,8 +103,8 @@ plt.yticks()
 plt.legend()
 plt.show()'''
 
-'''with(open('results_July3rd.dat','w') as file):
+with(open('results_July3rd.dat','w') as file):
 	for i in range(n):
 		write_string = str(t[i])+" "+str(graph1[i])+" "+str(graph2[i])+" "+str(graph3[i])+"\n"
 		file.write(write_string)
-file.close()'''
+file.close()
