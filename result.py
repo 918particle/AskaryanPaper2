@@ -52,9 +52,9 @@ def math_env(t,E0,R0,sigma_t,f0,gamma):
 		result = first_term+J*second_term
 	return 0.5*np.abs(result)
 
-f0 = 0.3 #GHz
-gamma = 0.05 #GHz
-sigma_t = 0.5 #ns
+f0 = 0.15 #GHz
+gamma = 0.033 #GHz
+sigma_t = 1.0 #ns
 R0 = 1
 E0 = 1
 dt = 0.01 #ns
@@ -87,11 +87,11 @@ plt.yticks()
 plt.legend()
 plt.show()'''
 
-'''with(open('results_July7th.dat','w') as file):
+with(open('results_July7th_2.dat','w') as file):
 	for i in range(n):
 		write_string = str(t[i])+" "+str(graph4[i])+" "+str(graph1[i])+"\n"
 		file.write(write_string)
-file.close()'''
+file.close()
 
 '''plt.plot(t,graph1,'-',label="env of math conv")
 plt.plot(t,graph2,'-',label="math env")
@@ -103,8 +103,8 @@ plt.yticks()
 plt.legend()
 plt.show()'''
 
-with(open('results_July3rd.dat','w') as file):
+'''with(open('results_July3rd_2.dat','w') as file):
 	for i in range(n):
 		write_string = str(t[i])+" "+str(graph1[i])+" "+str(graph2[i])+" "+str(graph3[i])+"\n"
 		file.write(write_string)
-file.close()
+file.close()'''
