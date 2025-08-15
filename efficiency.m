@@ -2,7 +2,7 @@ clear;
 close;
 home;
 pkg load optim
-fontsize = 18;
+fontsize = 16;
 markersize = 8;
 signal_linewidth = 3.0;
 noise_linewidth = 1.5;
@@ -14,6 +14,9 @@ bins = bin_min:bin_delta:bin_max;
 n = length(bins);
 [y1,x1] = hist(results(:,8),bins,1);
 [y2,x2] = hist(results(:,5),bins,1);
+[~,pk_index] = max(y2);
+pk_corr = x2(pk_index);
+
 [~,exp_limit_index] = max(y1);
 exp_limit = x1(exp_limit_index)+7*bin_delta;
 exp_limit_index = find(x1>=exp_limit,1);
@@ -35,7 +38,7 @@ while(noise_events>1)
 	signal_efficiency = sum(y2(sig_ll:end));
 	noise_events = 5*365*24*60*60*noise_rate*sum(yfit2(noise_ll:end));
 endwhile
-display([cut_limit signal_efficiency noise_events])
+display([exp_limit pk_corr cut_limit signal_efficiency noise_events])
 
 figure(1);
 hold on;
