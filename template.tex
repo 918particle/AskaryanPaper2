@@ -5,6 +5,7 @@
 \DeclareMathOperator\erfc{erfc}
 \DeclareMathOperator\erf{erf}
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\snr}{SNR}
 \begin{document}
 
 \title{Complex Analysis of Askaryan Radiation: UHE-$\nu$ Identification and Reconstruction via the Hilbert Envelope of Observed Signals}
@@ -17,7 +18,7 @@
 \date{\today}
 
 \begin{abstract}
-The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal of the astroparticle physics community.  A key strategy has been to deploy autonomous, radio-frequency (RF) detetectors in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium, and UHE-$\nu$ can induce such cascades that radiate in the radio-frequency (RF) bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in future data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and compared to simulations and laboratory measurements.  These models have correctly described the Askaryan electromagnetic field, while leaving the effect of the RF detection channels on the field to simulation packages.  In this work, we present a fully analytic Askaryan model that accounts for the effect of an RF detection channel.  We provide formulas for the observed voltage trace, and for the Hilbert envelope of the trace.  We match the equations to data computed with NuRadioMC, a key Monte Carlo toolset in UHE-$\nu$ detection.  Our analytic model and NuRadioMC match, with correlation coefficients $>0.95$.  Using this correlation, UHE-$\nu$ signals can be distinguished from RF backgrounds with an efficiency of xxx.  Finally, we reconstruct the logarithm of the UHE-$\nu$ cascade energy with a precision of yyy using a single string of RF channels.
+The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal of the astroparticle physics community.  A key strategy has been to deploy autonomous, radio-frequency (RF) detetectors in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium, and UHE-$\nu$ can induce such cascades that radiate in the radio-frequency (RF) bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in future data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and compared to simulations and laboratory measurements.  These models have correctly described the Askaryan electromagnetic field, while leaving the effect of the RF detection channels on the field to simulation packages.  In this work, we present a fully analytic Askaryan model that accounts for the effect of an RF detection channel.  First, we derive formulas for the observed voltage trace, and for the Hilbert envelope of the trace.  Second, we match the analytic model to data computed for a detector with a single string of 8 RF detection channels in NuRadioMC, a key Monte Carlo toolset in UHE-$\nu$ detection.  Third, we find that a correlation threshold of 0.438 accepts 92\% of UHE-$\nu$ signals, and just 0.95 out of $1.57 \times 10^8$ RF thermal triggers.  At a thermal trigger rate of 1 Hz, this corresponds to 5 years of continuous operation.  Finally, we reconstruct the logarithm of the UHE-$\nu$ cascade energy with a precision of yyy.
 \end{abstract}
 
 \keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
@@ -80,8 +81,8 @@ a\Delta\theta = \frac{c \sigma_t}{\sin\theta_{\rm C}} \label{eq:uncert}
 Qualitatively, this notion was identified by RB in Sec. III of \cite{10.1103/physrevd.65.016003}.  HH analyzed the relationship between $a$, the cascade energy $E_{\rm C}$ and the critical energy $E_{\rm crit}$ for electromagnetic and hadronic cascades \cite{PhysRevD.105.123019}.  Let $E_{\rm C}/E_{\rm crit} = \Lambda$.  Assuming the Greisen and Gaisser-Hillas parameterizaions for electromagnetic and hadronic cascades, respectively, HH found the relationship
 
 \begin{align}
-a &= c_{\rm em} \sqrt{\ln\Lambda} \\
-a &= c_{\rm had} \sqrt{\ln\Lambda}
+a &= c_{\rm em} \sqrt{\ln\Lambda} \label{eq:em} \\
+a &= c_{\rm had} \sqrt{\ln\Lambda} \label{eq:had}
 \end{align}
 
 \begin{equation}
@@ -310,7 +311,7 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \caption{\label{fig:fig2} (Top) The thin black line represents $s(t) * r(t)$, produced using the Python3 SciPy function scipy.signal.convolve. The dark gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
 
-\item A Monte Carlo data set was generated using NuRadioMC for UHE-$\nu$ interactions in a cylindrical ice volume with a depth of 0.65 km and a radius of 0.850 km.  The UHE-$\nu$ energies ranged from 10-100 PeV, with roughly equal numbers of UHE-$\nu$ in each 10 PeV bin.  The detector had one string of 8 RF dipole antennas.  Each RF channel had a filtered, amplified passpand of [80,1000] MHz, with 256 samples per channel at a 1 GHz sampling rate.  The RF trigger responded when 3 of the 8 voltage traces exceeded $\pm 3$ times the $v_{\rm rms}$ of the thermal noise within 256 ns.  For each signal, the Hilbert envelope of the coherently summed waveform (CSW) was calculated and correlated against Eqs. \ref{eq:final}-\ref{eq:final2}.  A quick optimization over the whole data set yielded 0.15 GHz and 0.025 GHz for the $f_0$ and $\gamma$ parameters, respectively.  Each correlation was maximized by varying the just the $\sigma_t$ parameter, yielding an optimized analytical envelope for each event.  A thermal noise waveform reflective of the channel properties was also generated for each event.  The noise waveform was also correlated against the optimized analytical envelope.  Both correlation distributions are shown in Fig. \ref{fig:fig3}.
+\item A Monte Carlo data set was generated using NuRadioMC for UHE-$\nu$ interactions in a cylindrical ice volume with a depth of 0.65 km and a radius of 0.85 km.  The UHE-$\nu$ energies ranged from 10-100 PeV, with roughly equal numbers of UHE-$\nu$ in each 10 PeV bin.  The detector had one string of 8 RF dipole antennas.  Each RF channel had a filtered, amplified passpand of [80,1000] MHz, with 256 samples per channel at a 1 GHz sampling rate.  The RF trigger responded when 3 of the 8 voltage traces exceeded $\pm 3$ times the $v_{\rm rms}$ of the thermal noise within 256 ns.  For each signal, the Hilbert envelope of the coherently summed waveform (CSW) was calculated and correlated against Eqs. \ref{eq:final}-\ref{eq:final2}.  A quick optimization over the whole data set yielded 0.15 GHz and 0.025 GHz for the $f_0$ and $\gamma$ parameters, respectively.  Each correlation was maximized by varying the just the $\sigma_t$ parameter, yielding an optimized analytical envelope for each event.  A thermal noise waveform reflective of the channel properties was also generated for each event.  The noise waveform was also correlated against the optimized analytical envelope.  Both correlation distributions are shown in Fig. \ref{fig:fig3}.
 
 \begin{figure}
 \centering
@@ -318,12 +319,28 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q)\ri
 \caption{\label{fig:fig3} (Black circles) Noise distribution. (Gray dashed line) Fitting function to noise distribution.  (Solid black line) Exponential fit to tail of noise distribution.  (Solid gray line) UHE-$\nu$ signal distribution.  (Dashed black line) Optimized correlation coefficient threshold value.}
 \end{figure}
 
-In Fig. \ref{fig:fig3}, the black circles represent the normalized histogram of the correlation coefficent between the optimized analytic envelope and the thermal noise waveform.  Functions of the forms $x^2 \exp(-0.5 x^2)$ and $\exp(-x)$ were fit to the noise distribution on the intervals [0.1,1.0] and [0.28,1], respectively.  The former is represented by the gray dashed line, and the latter is represented by the solid black line.  The solid gray line represents the signal distribution, which peaks at a correlation value of 0.96.  The vertical black dashed line represents a threshold of 0.438.  For the simulated UHE-$\nu$, 92\% of correlations between CSWs and optimized analytic envelopes are greater than or equal to this threshold.  Assuming the solid black line describes the noise distribution tail, with a noise trigger rate of 1 Hz, the threshold is equivalent to 0.95 noise events every 5 years.
+In Fig. \ref{fig:fig3}, the circles represent the normalized histogram of the correlation coefficent between the optimized analytic envelope and the thermal noise.  Functions of the forms $x^2 \exp(-0.5 x^2)$ and $\exp(-x)$ were fit to the noise distribution on the intervals [0.1,1.0] and [0.28,1], respectively.  The former is represented by the gray dashed line, and the latter is represented by the solid black line.  The solid gray line represents the signal distribution, which peaks at a correlation value of 0.96.  The vertical black dashed line represents a threshold of 0.438.  For the simulated UHE-$\nu$, 92\% of correlations between CSWs and optimized analytic envelopes are greater than or equal to this threshold.  Assuming the solid black line describes the noise distribution tail, with a noise trigger rate of 1 Hz, the threshold is equivalent to 0.95 noise events every 5 years.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{Aug15_plot2.png}
-\caption{\label{fig:fig3} Larger font without cutting it off, add noise data}
+\includegraphics[width=0.5\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{Aug15_plot2.pdf}
+\caption{\label{fig:fig4} The correlation versus SNR (dB) for UHE-$\nu$ signals (upper distribution) and RF thermal noise (lower distribution).  Color scale: normalized histogram value, with five equally spaced contours between 0.0 and 0.003.}
+\end{figure}
+
+The correlation between the optimized analytical envelope and UHE-$\nu$ signals depends on the signal to noise ratio (SNR).  Let $v_{\rm pp}$ and $v_{\rm rms}$ represent the peak-to-peak and rms values a voltage traces, respectively.  The SNR, in decibels, is defined as
+
+\begin{equation}
+\snr_{\rm dB} = 20\log_{10}\left(\frac{1}{2}\frac{v_{\rm pp}}{v_{\rm rms}}\right)
+\end{equation}
+
+In Fig. \ref{fig:fig4}, the correlation coefficient is plotted versus the SNR in dB for the data shown in Fig. \ref{fig:fig3}.  The upper distribution corresponds to CSWs from UHE-$\nu$ events, and the flat distribution corresponds to the CSWs from RF thermal noise.  UHE-$\nu$ events with SNR values $>5$ dB tend to maximize the correlation coefficient, and the correlation coefficient decreases linearly with decreasing SNR (dB).  As expected, the correlation coefficient for thermal noise does not depend on SNR, since the thermal fluctuations that increase the SNR do not resemble the optimized analytic envelope.  Note that the SNR of a CSW does not equal the SNR of the individual voltage traces.  Rather, the individual voltage traces will have SNR values approximately 5-10 dB \textit{lower} than the CSW SNR.  If $N$ voltage traces contain signal, computing the CSW raises the linear SNR by a factor of $\sqrt{N}$, and adds to the SNR in dB a factor of $20\log_{10}(N)$.  For an event with 3 of 8 channels containing signal, $20\log_{10}(3)\approx 5$ dB, while $20\log_{10}(8)\approx 9$ dB.  The exact increase in SNR from traces to CSW depends on how many RF channels contain significant signal.
+
+\item Equations \ref{eq:uncert}-\ref{eq:a_err} are used to reconstruct the natural logarithm of the UHE-$\nu$ cascade energy.  For Eq. \ref{eq:uncert}, $\sigma_t$ is measured from the optimized analytic envelope, $c$ and $\theta_{\rm C}$ are known constants, and an assumption must be made for $\Delta\theta$.  We do not compute $\Delta\theta$ from a single string
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{Aug18_plot1.pdf}
+\caption{\label{fig:fig5} (Black circles) Viewing angle from NuRadioMC. (Solid black line) Gaussian fit, with $\mu = 55.6$ deg, and $\sigma = 5.77$ deg.  (Black dashed line) Cherenkov angle, $\theta_{\rm C}$.}
 \end{figure}
 
 \end{itemize}

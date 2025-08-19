@@ -50,5 +50,5 @@ plot([cut_limit cut_limit],[1e-9 1],'--','color','#444444','linewidth',signal_li
 axis([0 1 1e-7 1]);
 set(gca(),'fontname','courier','fontsize',fontsize,'box','on');
 xlabel('Correlation coefficient','fontname','courier','fontsize',fontsize);
-ylabel('Probability density','fontname','courier','fontsize',fontsize);
+ylabel('Probability (Normalized)','fontname','courier','fontsize',fontsize);
 print('Aug15_plot1.pdf','-dpdf');
