@@ -335,13 +335,43 @@ The correlation between the optimized analytical envelope and UHE-$\nu$ signals 
 
 In Fig. \ref{fig:fig4}, the correlation coefficient is plotted versus the SNR in dB for the data shown in Fig. \ref{fig:fig3}.  The upper distribution corresponds to CSWs from UHE-$\nu$ events, and the flat distribution corresponds to the CSWs from RF thermal noise.  UHE-$\nu$ events with SNR values $>5$ dB tend to maximize the correlation coefficient, and the correlation coefficient decreases linearly with decreasing SNR (dB).  As expected, the correlation coefficient for thermal noise does not depend on SNR, since the thermal fluctuations that increase the SNR do not resemble the optimized analytic envelope.  Note that the SNR of a CSW does not equal the SNR of the individual voltage traces.  Rather, the individual voltage traces will have SNR values approximately 5-10 dB \textit{lower} than the CSW SNR.  If $N$ voltage traces contain signal, computing the CSW raises the linear SNR by a factor of $\sqrt{N}$, and adds to the SNR in dB a factor of $20\log_{10}(N)$.  For an event with 3 of 8 channels containing signal, $20\log_{10}(3)\approx 5$ dB, while $20\log_{10}(8)\approx 9$ dB.  The exact increase in SNR from traces to CSW depends on how many RF channels contain significant signal.
 
-\item Equations \ref{eq:uncert}-\ref{eq:a_err} are used to reconstruct the natural logarithm of the UHE-$\nu$ cascade energy.  For Eq. \ref{eq:uncert}, $\sigma_t$ is measured from the optimized analytic envelope, $c$ and $\theta_{\rm C}$ are known constants, and an assumption must be made for $\Delta\theta$.  We do not compute $\Delta\theta$ from a single string
-
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{Aug18_plot1.pdf}
 \caption{\label{fig:fig5} (Black circles) Viewing angle from NuRadioMC. (Solid black line) Gaussian fit, with $\mu = 55.6$ deg, and $\sigma = 5.77$ deg.  (Black dashed line) Cherenkov angle, $\theta_{\rm C}$.}
 \end{figure}
+
+\item Equations \ref{eq:uncert}-\ref{eq:a_err} may be used to reconstruct the natural logarithm of the UHE-$\nu$ cascade energy, $\ln\Lambda$.  For Eq. \ref{eq:uncert}, $\sigma_t$ is measured from the optimized analytic envelope, $c$ and $\theta_{\rm C}$ are known constants, and an assumption must be made for $\Delta\theta$.  We will make the assumption that $\Delta\theta \approx \Delta\theta_{\rm rms}$.  Relying on a single string of RF channels makes calculating $\Delta\theta$ difficult, and geometric event reconstruction usually requires interferometry with multiple strings (cite).  However, the assumption is justified since the $\Delta\theta$ distribution is Gaussian.  The MC truth for $\Delta\theta$ in this analysis is shown in Fig. \ref{fig:fig5}, with a Gaussian fit ($\mu=55.6$ deg, $\sigma=5.77$ deg).  The rms and the $\sigma$ parameter are identical for Gaussian distributions, so we assume $\Delta\theta \approx 5.77$ deg.  The fractional error $\sigma_{\Delta\theta}/\Delta\theta$ is then set to 1.0, reflecting our uncertainty in this parameter.  Solving Eq. \ref{eq:uncert} for $a$ gives
+
+\begin{equation}
+a = \frac{c\sigma_t}{\Delta\theta_{\rm rms} \sin\theta_{\rm C}}
+\end{equation}
+
+The result for the fractional error in $a$ is found by propagating error from $\sigma_t$ and $\Delta\theta$, defined as $\epsilon$ and $\sigma_{\Delta\theta}$, respectively.  The result is
+
+\begin{equation}
+\frac{\sigma_a}{a} = \left(\left(\frac{\epsilon}{\sigma_t}\right)^2 +  \left(\frac{\sigma_{\Delta\theta}}{\Delta\theta}\right)^2\right)^{1/2}
+\end{equation}
+
+The first term is small compared to the second, as it is limited by the scan resolution for $\sigma_t$ in the optimization of the analytic envelope and the number of samples per envelope.  The scan resolution is set to 50 ps in the optimization, and there are typically $>10$ samples per envelope.  Thus, the main source of error is $\sigma_{\Delta\theta}$, and
+
+\begin{equation}
+\frac{\sigma_a}{a} = \left|\frac{\sigma_{\Delta\theta}}{\Delta\theta}\right| = \left|\frac{\Delta\theta_{\rm rms}}{\Delta\theta_{\rm rms}}\right|\approx 1
+\end{equation}
+
+Setting the ratio to 1 reflects the idea that the rms is equal to $\sigma$ for a normal distribution.  Inserting this assumption into Eq. \ref{eq:a_err} gives
+
+\begin{equation}
+\frac{\sigma_{\ln\Lambda}}{\ln\Lambda} \approx 2 \label{eq:a_err_2}
+\end{equation}
+
+Using Eqs. \ref{eq:em} and \ref{eq:had}, the logarithm of the energy is
+
+\begin{equation}
+\ln\Lambda = \left( \frac{c\sigma_t}{c_{\rm em/had} \Delta\theta_{\rm rms}\sin\theta_{\rm C}} \right)^2 \label{eq:lnLambda}
+\end{equation}
+
+The constants $c_{\rm em}$ and $c_{\rm had}$ were found to be 0.80 and 0.93 meters, respectively, using Eqs. 10 and 12 from HH (\cite{PhysRevD.105.123019}), at FWHM for the high-energy cascades ($R=0.5$).  Using Eq. \ref{eq:lnLambda}, the $\sigma_t$ results from the optimized envelope fits to UHE-$\nu$ CSWs may be used to deduce the UHE-$\nu$ energy distribution.
 
 \end{itemize}
 
