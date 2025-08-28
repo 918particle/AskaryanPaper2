@@ -5,7 +5,7 @@ pkg load optim
 fontsize = 16;
 markersize = 6;
 linewidth = 1.5;
-results = load('all_results.dat');
+results = load('all_results_2.dat');
 theta = results(:,9)*180.0/pi;
 x_bin_delta = 2.0;
 x_bin_min = 0.0;
