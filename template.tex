@@ -311,7 +311,7 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q) \r
 \caption{\label{fig:fig2} (Top) The thin black line represents $s(t) * r(t)$, produced using the Python3 SciPy function scipy.signal.convolve. The dark gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
 
-\item A Monte Carlo data set was generated using NuRadioMC for UHE-$\nu$ interactions in a cylindrical ice volume with a depth of 0.65 km and a radius of 0.85 km.  The UHE-$\nu$ energies ranged from 10-100 PeV, with roughly equal numbers of UHE-$\nu$ in each 10 PeV bin.  The detector just a single string of 8 RF dipole antennas.  Each RF channel had a filtered, amplified passpand of [80,1000] MHz, with 256 samples per channel at a 1 GHz sampling rate.  The RF trigger responded when 3 of the 8 voltage traces exceeded $\pm 3$ times the $v_{\rm rms}$ of the thermal noise within 256 ns.  For each signal, the Hilbert envelope of the coherently summed waveform (CSW) was calculated and correlated against Eqs. \ref{eq:final}-\ref{eq:final2}.  A quick optimization over the whole data set yielded 0.15 GHz and 0.025 GHz for the $f_0$ and $\gamma$ parameters, respectively.  Each correlation was maximized by varying the just the $\sigma_t$ parameter, yielding an optimized analytical envelope for each event.  A thermal noise waveform reflective of the channel properties was also generated for each event.  The noise waveform was also correlated against the optimized analytical envelope.  Both correlation distributions are shown in Fig. \ref{fig:fig3}.
+\item A data set was generated using NuRadioMC for UHE-$\nu$ interactions in a cylindrical ice volume (see Tab. \ref{tab:1}).  The 100 PeV interactions included charged and neutral electroweak currents, and the LPM effect.  The detector was \textit{a single string} of 8 RF dipoles.  The ice volume had a depth and radius of 0.65 km and 0.85 km, respectively, and the dielectric properties of the South Pole.  Each RF channel had a filtered, amplified passband of [0.08-1] GHz, and 256 samples at a 1 GHz sampling rate.  The RF trigger responded when any 3 of the 8 voltage traces exceeded $\pm 3 v_{\rm rms}$ of the thermal noise (233K) within a 256 ns window.  The Hilbert envelope of the coherently summed waveform (CSW) was calculated from the traces and correlated against Eqs. \ref{eq:final}-\ref{eq:final2}.  Each correlation was maximized by varying $\sigma_t$.  A rough optimization over a noiseless data set yielded 0.15 GHz and 0.025 GHz for the $f_0$ and $\gamma$ parameters, respectively.  For each signal, a separate thermal noise trace satisfying the RF trigger was generated and correlated against the best-fit analytic envelope.  The results are shown in Fig. \ref{fig:fig3}.
 
 \begin{figure}
 \centering
@@ -319,7 +319,26 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q) \r
 \caption{\label{fig:fig3} (Black circles) Noise distribution. (Gray dashed line) Fitting function to noise distribution.  (Solid gray line) UHE-$\nu$ signal distribution.  (Dashed black line) Optimized correlation coefficient threshold value.}
 \end{figure}
 
-In Fig. \ref{fig:fig3}, the circles represent the normalized histogram of the correlation coefficent between the optimized analytic envelope and thermal noise.  A fitting function of the form $x^2 \exp(-0.5 x^2)$ was fit to the noise distribution, and is represented by the gray dashed line.  The solid gray line represents the signal distribution, which peaks at a correlation value of 0.96.  Lower signal correlation values correspond to lower SNR values (Fig. \ref{fig:fig4}).  The vertical black dashed line represents a threshold of 0.386.  For the simulated UHE-$\nu$, 97\% of correlations between CSWs and optimized analytic envelopes are greater than or equal to this threshold.  Assuming the gray dashed line describes accurately the noise distribution tail, and assuming a thermal trigger rate of 1 Hz, the correlation threshold is equivalent to 0.88 noise events every 5 years.
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c |}
+\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{Note} \\
+Ice Model & South Pole & 2015 measurements \\
+Signal Model & ARZ2020 & (see \cite{PhysRevD.101.083005}) \\
+Trigger & 3 of 8 channels & high-low trigger at $3v_{\rm rms}$ \\
+RF channels & 8 & RF bicone (in firn) \\
+Noise Temperature & 233K &  \\
+Sampling Rate & 1 GHz &  \\
+Samples per channel & 256 &  \\
+Channel depths & [-4,-6,-8,...-18] m & cable delays included \\
+RF cable type & LMR-400 & \\
+\hline
+\end{tabular}
+\caption{\label{tab:1}}
+\end{table}
+
+In Fig. \ref{fig:fig3}, the circles represent the normalized histogram of the correlation coefficent between the optimized analytic envelope and thermal noise.  A fitting function of the form $x^2 \exp(-0.5 x^2)$ was fit to the noise distribution, and is represented by the gray dashed line.  The solid gray line represents the signal distribution, which peaks at a correlation value of 0.94.  Lower signal correlation values correspond to lower SNR values (Fig. \ref{fig:fig4}).  The vertical black dashed line represents a threshold of 0.4.  For the simulated UHE-$\nu$, 99.99\% of correlations between CSWs and analytic envelopes are greater than or equal to this threshold.  Assuming the gray dashed line describes accurately the noise distribution, and assuming a thermal trigger rate of 1 Hz, the correlation threshold is equivalent to 0.2 noise events every 5 years.
 
 \begin{figure}
 \centering

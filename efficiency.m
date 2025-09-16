@@ -6,39 +6,39 @@ fontsize = 16;
 markersize = 8;
 signal_linewidth = 3.0;
 noise_linewidth = 1.5;
-results = load('all_results_2.dat');
+results = load('all_results.dat');
 bin_delta = 0.02;
 bin_min = 0.1;
 bin_max = 1.0;
 bins = bin_min:bin_delta:bin_max;
-n = length(bins);
+jj = find(results(:,6)<10.0);
 [y1,x1] = hist(results(:,8),bins,1);
 [y2,x2] = hist(results(:,5),bins,1);
 [~,pk_index] = max(y2);
 pk_corr = x2(pk_index);
 
-[~,exp_limit_index] = max(y1);
-exp_limit = x1(exp_limit_index)+5*bin_delta;
-exp_limit_index = find(x1>=exp_limit,1);
+%[~,exp_limit_index] = max(y1);
+%exp_limit = x1(exp_limit_index)+5*bin_delta;
+%exp_limit_index = find(x1>=exp_limit,1);
 p0 = [0.08,0.05,0.05];
-p1 = [exp_limit,0.012];
+%p1 = [exp_limit,0.012];
 [p2,~] = lsqcurvefit(@fit_function,p0,x1,y1);
-[p3,~] = lsqcurvefit(@fit_function_2,p1,x1(exp_limit_index:end),y1(exp_limit_index:end));
+%[p3,~] = lsqcurvefit(@fit_function_2,p1,x1(exp_limit_index:end),y1(exp_limit_index:end));
 xfit = linspace(bin_min,bin_max,length(bins)*100);
 yfit1 = fit_function(p2,xfit);
-yfit2 = fit_function_2(p3,xfit);
+%yfit2 = fit_function_2(p3,xfit);
 noise_events = 100;
 cut_limit = 0.25;
 signal_efficiency = 0;
 noise_rate = 1;
 while(noise_events>1)
-	cut_limit += 0.001;
+	cut_limit += 0.01;
 	sig_ll = find(x2>=cut_limit,1);
 	noise_ll = find(xfit>=cut_limit,1);
 	signal_efficiency = sum(y2(sig_ll:end));
 	noise_events = 5*365*24*60*60*noise_rate*sum(yfit1(noise_ll:end));
 endwhile
-display([exp_limit pk_corr cut_limit signal_efficiency noise_events])
+display([pk_corr cut_limit signal_efficiency noise_events])
 
 figure(1);
 hold on;
