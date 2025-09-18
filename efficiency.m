@@ -44,10 +44,9 @@ figure(1);
 hold on;
 semilogy(x1,y1,'o','color','black','markersize',markersize);
 semilogy(xfit,yfit1,'--','color','#999999','linewidth',noise_linewidth)
-%semilogy(xfit,yfit2,'-','color','black','linewidth',noise_linewidth)
 semilogy(x2,y2,'-','color','#999999','linewidth',signal_linewidth)
 plot([cut_limit cut_limit],[1e-9 1],'--','color','#444444','linewidth',signal_linewidth)
-axis([0 1 1e-7 1]);
+axis([0 1 1e-4 1]);
 set(gca(),'fontname','courier','fontsize',fontsize,'box','on');
 xlabel('Correlation coefficient','fontname','courier','fontsize',fontsize);
 ylabel('Probability (Normalized)','fontname','courier','fontsize',fontsize);
