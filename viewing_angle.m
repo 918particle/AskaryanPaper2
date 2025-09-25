@@ -5,9 +5,9 @@ pkg load optim
 fontsize = 16;
 markersize = 6;
 linewidth = 1.5;
-results = load('all_results.dat');
+results = load('all_results_100PeV.dat');
 theta = results(:,9)*180.0/pi;
-x_bin_delta = 2.5;
+x_bin_delta = 2.0;
 x_bin_min = 0.0;
 x_bin_max = 90.0;
 xbins = x_bin_min:x_bin_delta:x_bin_max;
@@ -23,7 +23,7 @@ figure(1);
 hold on;
 plot(x1-55.8,y1,'o','color','black','markersize',markersize);
 plot(xfit-55.8,yfit,'-','color','black','linewidth',linewidth);
-axis([-30 30 1e-4 0.75]);
+axis([-30 30 1e-4 0.5]);
 legendString = ['\mu: ' num2str(p1(1)-55.8,3) ' \sigma: ' num2str(p1(2),3)];
 h = legend('NuRadioMC output',legendString,'location','northwest');
 set(h,'fontname','courier','fontsize',fontsize)
