@@ -18,7 +18,7 @@
 \date{\today}
 
 \begin{abstract}
-The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal in astroparticle physics.  Autonomous, radio-frequency (RF) UHE-$\nu$ detetectors have been deployed in polar regions.  These detectors rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium.  UHE-$\nu$ can induce such cascades that radiate in the RF bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and matched to simulations and laboratory measurements.  These models have correctly described the Askaryan electromagnetic field, while leaving the effects of attenuation from polar ice propagation and RF detection channels to simulation packages.  In this work, a fully analytic Askaryan model is that accounts for these effects is presented.  First, formulas for the observed voltage trace and for the Hilbert envelope of the trace are calculated.  Second, the analytic model is compared to UHE-$\nu$ signals at 100 PeV from NuRadioMC, a key Monte Carlo toolset in UHE-$\nu$ detection.  For UHE-$\nu$ signals, correlation coefficients between the analytic signal envelope and MC data in excess of $0.94$ are found, and 99.99\% of UHE-$\nu$ signals pass a correlation threshold of 0.4.  Integrating the normalized PDF of the correlation distribution for RF thermal noise reveals that just 0.2 thermal background events pass the correlation threshold in 5 years at a 1 Hz thermal trigger rate.  Finally, we present a preliminary reconstruction of the UHE-$\nu$ cascade energy from a single string of RF channels.
+The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal in astroparticle physics.  Autonomous, radio-frequency (RF) UHE-$\nu$ detetectors have been deployed in polar regions.  These detectors rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a high-energy cascade radiates in a dense medium.  UHE-$\nu$ can induce such cascades that radiate in the RF bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and matched to simulations and laboratory measurements.  These models have correctly described the Askaryan electromagnetic field, but leave the effects of attenuation from signal propagation through polar ice and RF channel response to simulation packages.  In this work, a fully analytic Askaryan model that accounts for these effects is presented.  First, formulas for the observed voltage trace and its Hilbert envelope are calculated.  Second, the analytic model is compared to UHE-$\nu$ signals at 100 PeV from NuRadioMC, a key Monte Carlo toolset in UHE-$\nu$ detection.  Correlation coefficients between the analytic signal envelope and MC data in excess of $0.94$ are found, and 99.99\% of UHE-$\nu$ signals pass a correlation threshold of 0.4.  Analysis of RF thermal noise reveals that just 0.2 thermal background events pass the correlation threshold in 5 years at a 1 Hz thermal trigger rate.  Finally, we present a preliminary reconstruction of the logarithm of the UHE-$\nu$ cascade energy from a single string of RF channels.
 \end{abstract}
 
 \keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
@@ -27,21 +27,27 @@ The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 
 
 \section{Introduction}
 
-Cosmic neutrinos with energies up to 100 PeV have been detected by the IceCube and KM3NeT collaborations \cite{10.1126/science.1242856,aartsen2013first-bff,collaboration2016observation-03b,collaboration2018neutrino-2a0,collaboration2021detection-6fa,collaboration2022evidence-a08,collaboration2023observation-08b,collaboration2025observation-22f}. Previous analyses indicate that the discovery of neutrinos above 5 PeV to 20 EeV will  require large Askaryan-class detectors \cite{10.1103/physrevd.98.062003}.  Neutrinos with energies in the EeV range could potentially reveal the source of ultra-high energy cosmic rays (see sections 3.1-3.3 of \cite{10.48550/arxiv.2008.04323}).  Further, studying electroweak interactions at these energies is impossible on Earth, and Askaryan-class neutrino detectors provide new data (see section 3.4 of \cite{10.48550/arxiv.2008.04323}).
+Cosmic neutrinos with energies up to 100 PeV have been detected by the IceCube and KM3NeT collaborations \cite{10.1126/science.1242856,aartsen2013first-bff,collaboration2016observation-03b,collaboration2018neutrino-2a0,collaboration2021detection-6fa,collaboration2022evidence-a08,collaboration2023observation-08b,collaboration2025observation-22f}. Previous analyses indicate that the discovery of UHE-$\nu$ flux above 5 PeV requires large Askaryan-class detectors \cite{10.1103/physrevd.98.062003}.  UHE-$\nu$ could reveal the source of ultra-high energy cosmic rays (see sections 3.1-3.3 of \cite{10.48550/arxiv.2008.04323}).  Further, studying electroweak interactions at these energies is impossible on Earth, and Askaryan-class neutrino detectors provide new data (see section 3.4 of \cite{10.48550/arxiv.2008.04323}).
 
-J. C. Hanson and R. Hartig presented the first fully analytic model of the Askaryan field in the time-domain (HH) \cite{PhysRevD.105.123019}.  When correlated against semi-analytic parameterizations used in NuRadioMC, which involve numeric convolution of UHE-$\nu$ cascade data with an analytic vector potential, the HH model yields correlation coefficients in excess of 0.95 \cite{PhysRevD.105.123019}.  This allows precise reconstruction of UHE-$\nu$ cascade parameters, but is limited to comparisons between the simulated and theoretical electromagnetic field, $\vec{E}$.  Askaryan-class detectors actually observe voltage traces that represent the RF detection channel response, convolved with $\vec{E}$-fields that have propagated through kilometers of polar ice.  NuRadioMC accounts for these effects by incorporating measurements from the lab and the field \cite{10.1016/j.astropartphys.2014.09.002,10.3189/2015jog14j214,10.3189/2015jog15j057,saltzberg,10.1103/PhysRevD.74.043002,ask_ice,10.1140/epjc/s10052-020-7612-8,Barwick:2018497,ALLISON201963,10.1088/1748-0221/15/09/p09039,deaconu2018measurements-182,welling2024brief-b47}.
+J. C. Hanson and R. Hartig presented the first fully analytic model of the Askaryan field in the time-domain (HH) \cite{PhysRevD.105.123019}.  The model builds on earlier work from J. C. Hanson and A. L. Connolly (JCH+AC) for spectral filtering due to coherence effects and the form factor of the instantaneous charge distribution (ICD) \cite{10.1016/j.astropartphys.2017.03.008}.  When correlated against semi-analytic parameterizations used in NuRadioMC (ARHZ2020), which involve numeric convolution of UHE-$\nu$ cascade data with an analytic vector potential, the HH model yields correlation coefficients in excess of 0.95 \cite{PhysRevD.101.083005,PhysRevD.105.123019}.  This allows precise reconstruction of UHE-$\nu$ cascade parameters, but is limited to comparisons between the simulated and theoretical $\vec{E}$-fields.
 
-In this work, we present the first fully analytic model in the time-domain that matches the observed voltage traces.  In practice, it is common to compute the Hilbert envelope of voltage traces from RF channels before cross-correlating them.  This is done to remove oscillations introduced by the RF antennas in the channels, which can confuse cross-channel timing and reconstruction.  Our calculations include both the voltage trace, and the Hilbert envelope of the trace.  In Sec. xxx, we introduce ... In Sec. yyy, we ...
+Askaryan-class detectors actually observe voltage traces that represent the RF detection channel response, convolved with $\vec{E}$-fields that have propagated through kilometers of polar ice.  NuRadioMC accounts for these effects by incorporating measurements from years of lab field work \cite{10.1016/j.astropartphys.2014.09.002,10.3189/2015jog14j214,10.3189/2015jog15j057,saltzberg,10.1103/PhysRevD.74.043002,ask_ice,10.1140/epjc/s10052-020-7612-8,Barwick:2018497,ALLISON201963,10.1088/1748-0221/15/09/p09039,deaconu2018measurements-182,welling2024brief-b47}.  In this work, we present the first fully analytic Askaryan model in the time-domain that matches the observed voltage traces.  In practice, it is common to compute the Hilbert envelope of voltage traces from RF channels before cross-correlating them.  This is done to remove oscillations introduced by the RF antennas in the channels, which can confuse cross-channel timing and reconstruction.  Our calculations include both the voltage trace, and the Hilbert envelope of the trace.  The work is organized as follows.  Units, definitions, and notational conventions are given in Sec. \ref{sec:unit}. In Sec. \ref{sec:onc}, the calculations of the observed voltage trace and Hilbert envelope of the trace are given.  These results are compared to NuRadioMC output in Sec. \ref{sec:sim}.  In Sec. \ref{sec:conc}, the key findings are summarized.
 
 \section{Units, Definitions, and Conventions}
 \label{sec:unit}
 
-\begin{itemize}
-\item The result for $\mathcal{E}_{r*s}(t)$, Eqs. \ref{eq:final} and \ref{eq:final2}, depends on the model for $s(t)$, Eq. \ref{eq:s}.  Equation \ref{eq:s} is a simplified version of Eq. 28 in the analysis presented by Hanson and Hartig (HH) \cite{PhysRevD.105.123019}.  The $E_0$ simply represents all time-independent amplitude factors.  The full expression for $s(t)$ is
+The analysis is based on two analytic functions: the Askaryan signal, $s(t)$, and the RF channel response, $r(t)$.  The observed voltage trace in an Askaryan-class detector is $r(t) * s(t)$, the convolution of $r(t)$ and $s(t)$.  Let $\hat{s}(t)$ represent the Hilbert transform of $s(t)$, and let $j=\sqrt{-1}$.  The \textit{analytic signal} and \textit{signal envelope} are defined by 
+
+\begin{align}
+s_a(t) &= s(t) + j\hat{s}(t) \\
+\mathcal{E}_s(t) &= |s_a(t)|
+\end{align}
+
+The signal envelope actually observed by Askaryan-class detectors is the envelope of $r(t) * s(t)$, written as $\mathcal{E}_{r*s}(t)$.  The result for $\mathcal{E}_{r*s}(t)$ depends on the model for $s(t)$, taken to be Eq. 28 in (HH) \cite{PhysRevD.105.123019}:
 \begin{equation}
 r\vec{E}(t_{\rm r},\theta) = -\frac{E_0\omega_0 \sin(\theta)}{8\pi p}t_{\rm r}e^{-\frac{t_{\rm r}^2}{4p}+p\omega_0^2}\erfc(\sqrt{p}\omega_0) \label{eq:s_full}
 \end{equation}
-\begin{table*}
+\begin{table}
 \begin{tabular}{| c | c | c |} \hline
 \textbf{Variable} & \textbf{Definition} & \textbf{Units}\\ \hline
 $c$ & speed of light in medium & m ns$^{-1}$ \\ 
@@ -57,17 +63,13 @@ $\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(\sin\theta)$ 
 $\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{10.1016/j.astropartphys.2017.03.008}) & m$^{-1}$ \\ \hline
 \end{tabular}
 \caption{\label{tab:param} Parameters relevant for Eq. \ref{eq:s_full}.}
-\end{table*}
+\end{table}
 
 The parameters of Eq. \ref{eq:s_full} are shown in Tab. \ref{tab:param}.  Though Ralston and Buniy (RB) \cite{10.1103/physrevd.65.016003} used $c$ for the vaccuum value of the speed of light, the formulae for $r \vec{E}$ presented in \cite{10.1103/physrevd.65.016003} refer to the wavenumber $k$ in the medium, which is proptional to the index of refraction. Thus, the use of $c$ in this work refers to the speed of light in the medium.  For example, a phase factor of $\exp(j k r)$ could also be written $\exp(j r \omega/c)$, if $c$ refers to the value in the medium.  The distance $r$ is between the observer and the radiating charge at the cascade peak.  The longitudinal length over which $\Delta r < \lambda$, the RF wavelength in ice, is named the \textit{coherence zone} $\Delta z_{\rm coh}$ in the RB model.  The $\Delta z_{\rm coh}$ is limited by what RB call the ``acceleration argument,'' that $r(t)$ is accelerating while keeping $\Delta r < \lambda$.
 
-The longitudinal cascade length, $a$, is set by the cascade physics.  The ratio $\eta = (a/\Delta z_{\rm coh})^2$ corresponds to the far-field limit as $\eta \to 0$, but this is not a requirement of the RB model.  In fact, the RB equations are valid when $\eta > 1$.  Hanson and Connolly (JCH+AC) have shown that $\eta$ corresponds to low-pass filter with cutoff $\omega_{\rm C}$ that limits the RF emissions, $\eta = \omega/\omega_{\rm C}$ \cite{10.1016/j.astropartphys.2017.03.008}.  JCH+AC also studied $\omega_{\rm C}$ over the frequency and $a$ parameter space, because this parameter space is relevant for the LPM effect.
+The time $t$ is the independent variable of the inverse Fourier transform of the equations in \cite{10.1103/physrevd.65.016003}. The delayed time is $t_{\rm r} = t-r/c$.  The speed $c$ is equal to the vacuum value, $c_0$, divided by the index of refraction $n$.  For the RF bandwidth in solid ice, $n=1.78$ and $\theta_{\rm C} = 55.8$ degrees.  The viewing angle $\theta$ is the zenith angle in spherical coordinates, if the cascade axis is taken to be the z-axis in Cartesian coordinates.  The Cherenkov angle is a special zenith angle, $\cos\theta_{\rm C} = 1/n$ for relativistic cascade particles.  The longitudinal cascade length, $a$, is set by the cascade physics.  The ratio $\eta = (a/\Delta z_{\rm coh})^2$ corresponds to the far-field limit as $\eta \to 0$, but this is not a requirement of the RB model.  In fact, the RB equations are valid when $\eta > 1$.  JCH+AC have shown that $\eta$ corresponds to low-pass filter with cutoff $\omega_{\rm C}$ that limits the RF emissions, $\eta = \omega/\omega_{\rm C}$ \cite{10.1016/j.astropartphys.2017.03.008}.  JCH+AC also studied $\omega_{\rm C}$ over the frequency and $a$ parameter space, because this parameter space is relevant for the LPM effect.
 
-The time $t$ is the independent variable of the inverse Fourier transform of the equations in \cite{10.1103/physrevd.65.016003}. The delayed time is $t_{\rm r} = t-r/c$.  The Cherenkov angle $\theta_{\rm C}$ is set by the index of refraction, $n$, via $\cos\theta_{\rm C} = 1/n$.  The value for the RF bandwidth in solid ice ($n=1.78$) is 55.8 degrees.  More detail on the index of refraction in polar ice is given in \cite{Barwick:2018497,ALLISON201963}.  The viewing angle $\theta$ is measured relative to the cascade axis, and Askaryan radiation is concentrated for $\theta \approx \theta_{\rm C}$.  The $n_{\rm max}$ parameter is the maximum excess negative cascade charge, and the overall RF amplitude, $E_{\rm 0}$, is propotional to $n_{\rm max} a$.
-
-JCH+AC and Hanson and Hartig (HH) demonstrate how the cutoff frequency $\omega_{\rm 0}$ is related to the instantaneous charge distribution (ICD) and the cascade form factor \cite{10.1016/j.astropartphys.2017.03.008,PhysRevD.105.123019}.  Monte Carlo simulations have shown that the lateral dependence of the ICD is, to first order, exponentially distributed \cite{zhs,PhysRevD.105.123019}.  In JCH+AC, characterizing the lateral component of the ICD as $\exp(-\sqrt{2\pi}\rho_0 \rho)$ led to an elegant expression for the ICD form factor, $\widetilde{F}(\omega)$.
-
-Hanson and Hartig (HH) have shown that the parameter $p$ is related to $\sigma_t$ \cite{PhysRevD.105.123019}:
+The $n_{\rm max}$ parameter is the maximum excess negative cascade charge, and the overall RF amplitude, $E_{\rm 0}$, is propotional to $n_{\rm max} a$ \cite{10.1103/physrevd.65.016003}.  JCH+AC and HH demonstrated that the cutoff frequency $\omega_{\rm 0}$ is related to the instantaneous charge distribution (ICD) and the cascade form factor \cite{10.1016/j.astropartphys.2017.03.008,PhysRevD.105.123019}.  Monte Carlo simulations have shown that the lateral dependence of the ICD is, to first order, exponentially distributed \cite{zhs,10.1016/j.astropartphys.2017.03.008}.  JCH+AC derived a closed form for the ICD form factor, $\widetilde{F}(\omega)$, by modeling the lateral component of the ICD as $\exp(-\sqrt{2\pi}\rho_0 \rho)$.  Finally, HH have shown that the parameter $p$ is related to $\sigma_t$, the Gaussian pulse width of $s(t)$ \cite{PhysRevD.105.123019}:
 
 \begin{equation}
 \sigma_t = \sqrt{2p} \label{eq:pulse_width}
@@ -79,50 +81,47 @@ The authors of \cite{PhysRevD.105.123019} have shown that, because $\cos\theta -
 a\Delta\theta = \frac{c \sigma_t}{\sin\theta_{\rm C}} \label{eq:uncert}
 \end{equation}
 
-Qualitatively, this notion was identified by RB in Sec. III of \cite{10.1103/physrevd.65.016003}.  HH analyzed the relationship between $a$, the cascade energy $E_{\rm C}$ and the critical energy $E_{\rm crit}$ for electromagnetic and hadronic cascades \cite{PhysRevD.105.123019}.  Let $E_{\rm C}/E_{\rm crit} = \Lambda$.  Assuming the Greisen and Gaisser-Hillas parameterizaions for electromagnetic and hadronic cascades, respectively, HH found the relationship
+Qualitatively, this notion was identified by RB in Sec. III of \cite{10.1103/physrevd.65.016003}.  HH analyzed the relationship between $a$, the cascade energy $E_{\rm C}$ and the critical energy $E_{\rm crit}$ for electromagnetic and hadronic cascades \cite{PhysRevD.105.123019}.  Let $E_{\rm C}/E_{\rm crit} = \Lambda$.  Assuming the Greisen and Gaisser-Hillas parameterizaions for electromagnetic and hadronic cascades, respectively, HH found the following relationships for the $a$-values from electromagentically dominated and hadronically dominated cascades:
 
 \begin{align}
-a &= c_{\rm em} \sqrt{\ln\Lambda} \label{eq:em} \\
-a &= c_{\rm had} \sqrt{\ln\Lambda} \label{eq:had}
+a_{\rm em} &= c_{\rm em} \sqrt{\ln\Lambda} \label{eq:em} \\
+a_{\rm had} &= c_{\rm had} \sqrt{\ln\Lambda} \label{eq:had}
 \end{align}
+
+From Eq. \ref{eq:uncert}, the fractional error in $\ln\Lambda$ is:
 
 \begin{equation}
 \frac{\sigma_{\ln\Lambda}}{\ln\Lambda} = 2\left(\frac{\sigma_a}{a}\right) \label{eq:a_err}
 \end{equation}
 
-Equation \ref{eq:a_err} corresponds to Eq. 42 in \cite{PhysRevD.105.123019}, and has been corrected for units.  Equations \ref{eq:pulse_width}-\ref{eq:a_err} imply measurements of $a$ and $\Delta\theta$ lead to a measurement of the logarithm of the cascade energy $\ln\Lambda$, and that the relative error in $\ln\Lambda$ is proportional to the relative error in $a$.
-\end{itemize}
+Equation \ref{eq:a_err} corresponds to Eq. 42 in \cite{PhysRevD.105.123019}, and has been corrected for units.  Equations \ref{eq:pulse_width}-\ref{eq:a_err} imply measurements of $a$ and $\Delta\theta$ yield $\ln\Lambda$, and that the relative error in $\ln\Lambda$ is proportional to the relative error in $a$.
 
 \section{Collection of Main Results}
 \label{sec:onc}
 
-Here is a list of the basic results and ideas for this paper.
-
-\begin{itemize}
-\item Let the signal model $s(t)$ be
+The parameters in Eq. \ref{eq:s_full} that do not depend on time can be folded into a single constant, $E_0$, leaving only the essential time-dependence.  Let the signal model $s(t)$ be
 \begin{equation}
 s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} \label{eq:s}
 \end{equation}
-This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: the longitudinal length of the UHE-$\nu$-induced cascade, and the angle at which the cascade is observed relative to the Cherenkov angle.  The parameter $E_0$ is the amplitude normalization, and it depends on two parameters: $\sigma_{\rm t}$, and $\omega_{\rm 0}$, the cutoff frequency from the cascade form factor.  In Sec. \ref{sec:onc}, $E_0$ and $\sigma_t$ will be treated as constants, since neither depends on time.
-\item Let $\widehat{s}(t)$ represent the Hilbert transform of $s(t)$.  The \textit{analytic signal} of $s(t)$ is
+This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: $a$ and $\Delta\theta$.  The parameter $E_0$ is the amplitude normalization, and the dependencies on other parameters can be determined from Eq. \ref{eq:s_full} and Tab. \ref{tab:param}.  The \textit{analytic signal} of $s(t)$ is
 \begin{equation}
 s_{\rm a}(t) = s(t) + j \widehat{s}(t)
 \end{equation}
 The magnitude of the analytic signal, $|s_a(t)|$, is the \textit{envelope} of the signal.  The Hilbert transform $\widehat{s}(t)$ is equivalent to the convolution of $s(t)$ and the tempered distribution $h(t) = 1/(\pi t)$.
-\item Let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform of the analytic signal is
+ Let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform of the analytic signal is
 \begin{equation}
 \mathcal{F}\lbrace s_{\rm a}(t) \rbrace_{f} = S_{\rm a}(f) = S(f)(1+\sgn{f}) \label{eq:sa_1}
 \end{equation}
 The sign function, $\sgn$ gives $-1$ if $f<0$, $0$ if $f=0$, and $1$ if $f>1$.
-\item Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
+ Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
 \begin{equation}
 s_{\rm a}(t) = 2\int_{0}^{\infty} S(f) e^{2\pi j f t} df \label{eq:sa_2}
 \end{equation}
-\item The Fourier transform of Eq. \ref{eq:s} is
+ The Fourier transform of Eq. \ref{eq:s} is
 \begin{equation}
 S(f) = E_0 \sigma_t^3 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
 \end{equation}
-\item Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
+ Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
 \begin{equation}
 \sigma_t \sigma_f \geq \frac{1}{2\pi}
 \end{equation}
@@ -134,7 +133,7 @@ Inserting $S(f)$ into Eq. \ref{eq:sa_2}, $s_{\rm a}(t)$ is
 \begin{equation}
 s_{\rm a}(t) = \frac{E_0 \sigma_t^3 (2\pi)^{3/2}}{\pi} \frac{d}{dt}\int_0^{\infty} e^{-\frac{1}{2}\left(f/\sigma_f\right)^2} e^{2\pi j f t} df \label{eq:sa_3}
 \end{equation}
-\item Let $k^2/4 = \frac{1}{2}\left(f/\sigma_f\right)^2$, and $x = t/(\sqrt{2}\sigma_t)$.  Equation \ref{eq:sa_3} can be broken into real and imaginary parts:
+ Let $k^2/4 = \frac{1}{2}\left(f/\sigma_f\right)^2$, and $x = t/(\sqrt{2}\sigma_t)$.  Equation \ref{eq:sa_3} can be broken into real and imaginary parts:
 \begin{align}
 s_{\rm a}(t) &= \frac{E_0 \sigma_{\rm t}}{\sqrt{2\pi}}\frac{dI}{dx} \\
 \Re\lbrace I \rbrace &= \int_0^{\infty} e^{-k^2/4}\cos(kx) dk \\
@@ -148,14 +147,14 @@ The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$} 
 \begin{equation}
 \Im\lbrace I\rbrace = 2 D(x)
 \end{equation}
-\item The overall analytic signal, $s_a(t)$, is
+ The overall analytic signal, $s_a(t)$, is
 \begin{equation}
 s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
 \end{equation}
 The signal envelope is $|s_a(t)|$.  It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.
-\item Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
-\item There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
-\item Let $s(t) * r(t)$ represent the convolution of $s(t)$ and $r(t)$.  Let the envelope of the convolution be $\mathcal{E}_{s * r}(t)$.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
+ Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
+ There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
+ Let $s(t) * r(t)$ represent the convolution of $s(t)$ and $r(t)$.  Let the envelope of the convolution be $\mathcal{E}_{s * r}(t)$.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
 \begin{equation}
 \mathcal{E}_{s * r}(t) = \frac{1}{2}| s_a (t) * r_a(t)| \label{eq:awesome}
 \end{equation}
@@ -176,7 +175,7 @@ Multiplying both sides $1/2$ and taking the magnitude completes the proof:
 \begin{equation}
 \frac{1}{2} |r_a * s_a| = |r * s + j h * r * s| = \mathcal{E}_{s * r}(t) \\
 \end{equation}
-\item Assume that a signal arrives in an RLC damped oscillator at $t=0$.  For $t\geq 0$, the impulse response and corresponding analytic signal are
+ Assume that a signal arrives in an RLC damped oscillator at $t=0$.  For $t\geq 0$, the impulse response and corresponding analytic signal are
 \begin{align}
 r(t) &= R_0 e^{-2 \pi \gamma_f t} \cos(2\pi f_0 t) \label{eq:r} \\
 r_a(t) &= R_0 e^{-2 \pi \gamma_f t} e^{2\pi j f_0 t} \label{eq:ra}
@@ -188,7 +187,7 @@ z_{+} &= f_0 + j \gamma_f \\
 z_{-} &= -f_0 + j \gamma_f
 \end{align}
 Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result. (Check the sign of time here, to ensure that it is positive).
-\item The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
+ The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ R_0 e^{2\pi j f_0 t} e^{-2\pi\gamma t} u(t) * \left(-E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}\right)
 \end{multline}
@@ -220,7 +219,7 @@ The final result is
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right) \label{eq:Re_result}
 \end{multline}
-\item Turning to the convolution of $r_a(t)$ with $\Im(s_a)$,
+ Turning to the convolution of $r_a(t)$ with $\Im(s_a)$,
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \left(R_0 e^{2\pi j f_0 t} e^{-2\pi \gamma t} u(t)\right) * \left(\frac{2 E_0 \sigma_t^2}{\sqrt{\pi}}\frac{dD(t/\sqrt{2}\sigma_t)}{dt} \right)
 \end{multline}
@@ -249,7 +248,7 @@ The remaining integral is the Laplace transform of the shifted Dawson function, 
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:Im_result}
 \end{equation}
 Though a closed analytic form for $\mathcal{L}\lbrace D(u-x)\rbrace_k$ is elusive, finishing this calculation through numerical integration is straightforward.
-\item Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$, since
+ Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$, since
 \begin{equation}
 r_a(t) * s_a(t) = r_a(t) * \Re\lbrace s_a(t)\rbrace + j r_a(t) * \Im\lbrace s_a(t)\rbrace
 \end{equation}
@@ -265,7 +264,7 @@ Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, yields the
 \begin{equation}
 \mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) | \label{eq:final2}
 \end{equation}
-\item It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
+ It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
 \begin{equation}
 s * r = \int_{-\infty}^{\infty} s(t-\tau) r(\tau) d\tau 
 \end{equation}
@@ -297,14 +296,14 @@ From the definition of $q$ and the chain rule, $dw(q)/dx = -jdw(q)/dq$, and $dw(
 \begin{multline}
 s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q) \right\rbrace - \frac{1}{2}e^{-x^2} \Re\left\lbrace -j \frac{d w(q)}{dq} \right\rbrace \right) \label{eq:final3}
 \end{multline}
-\item To illustrate the accuracy of the model, Eqs. \ref{eq:final}-\ref{eq:final2} and \ref{eq:final3}, are shown in Fig. \ref{fig:fig1}.
+ To illustrate the accuracy of the model, Eqs. \ref{eq:final}-\ref{eq:final2} and \ref{eq:final3}, are shown in Fig. \ref{fig:fig1}.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.5\textwidth]{July3rd_plot1.pdf}
 \includegraphics[width=0.5\textwidth]{July3rd_plot2.pdf}
 \caption{\label{fig:fig1} (Top) The thin black line represents $s(t) * r(t)$.  The light gray envelope represents the envelope of $s(t) * r(t)$ computed with the Python3 SciPy function scipy.special.hilbert. The dark gray envelope represents Eq. \ref{eq:final}-\ref{eq:final2}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
-\item To demonstrate that \textit{numerical convolution} of $s(t)$ and $r(t)$ produces the same results as the \textit{mathematical convolution} of $s(t)$ and $r(t)$ (Eq. \ref{eq:final3}), the corresponding waveforms are shown in Fig. \ref{fig:fig2}.
+ To demonstrate that \textit{numerical convolution} of $s(t)$ and $r(t)$ produces the same results as the \textit{mathematical convolution} of $s(t)$ and $r(t)$ (Eq. \ref{eq:final3}), the corresponding waveforms are shown in Fig. \ref{fig:fig2}.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.5\textwidth]{July7th_plot1.pdf}
@@ -312,6 +311,10 @@ s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \left(xe^{-x^2} \Re\left\lbrace w(q) \r
 \caption{\label{fig:fig2} (Top) The thin black line represents $s(t) * r(t)$, produced using the Python3 SciPy function scipy.signal.convolve. The dark gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
 \end{figure}
 
+\section{Comparison between Analytic Calculations and NuRadioMC}
+\label{sec:sim}
+
+\begin{itemize}
 \item A data set was generated using NuRadioMC for UHE-$\nu$ interactions in a cylindrical ice volume (see Tab. \ref{tab:1}).  The 100 PeV interactions included charged and neutral electroweak currents, and the LPM effect.  The Askaryan model used to generate the UHE-$\nu$ signals was ARZ2020 \cite{PhysRevD.101.083005}.  ARZ2020 is a semi-analytic parameterization of the Askaryan effect, in which a vector potential $\vec{A}(\vec{r},t)$ is convolved with the profile of the charged particle cascade caused by the UHE-$\nu$ interaction.  ARZ2020 accounts for sub-cascades and the LPM effect, and it has been validated against MC simulations \cite{zhs,10.1103/physrevd.84.103003}.  The Askaryan signal model used in NuRadioMC for this analysis was \textit{not} HH2022 \cite{PhysRevD.105.123019}.  Thus, the correlation between MC output (ARZ2020) and Eqs. \ref{eq:final}-\ref{eq:final2} (HH2022 and this work) is physical.
 
 The detector was \textit{a single string} of 8 RF dipoles.  The ice volume had a depth and radius of 0.65 km and 0.85 km, respectively, and the dielectric properties of the South Pole.  Each RF channel had a filtered, amplified passband of [0.08-1] GHz, and 256 samples at a 1 GHz sampling rate.  The RF trigger responded when any 3 of the 8 voltage traces exceeded $\pm 3 v_{\rm rms}$ of the thermal noise (233K) within a 256 ns window.  The Hilbert envelope of the coherently summed waveform (CSW) was calculated from the traces and correlated against Eqs. \ref{eq:final}-\ref{eq:final2}.  Each correlation was maximized by varying $\sigma_t$.  A rough optimization over a noiseless data set yielded 0.15 GHz and 0.025 GHz for the $f_0$ and $\gamma$ parameters, respectively.  For each signal, a separate thermal noise trace satisfying the RF trigger was generated and correlated against the best-fit analytic envelope.  The results are shown in Fig. \ref{fig:fig3}.
