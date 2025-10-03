@@ -103,17 +103,11 @@ The parameters in Eq. \ref{eq:s_full} that do not depend on time can be folded i
 \begin{equation}
 s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} \label{eq:s}
 \end{equation}
-This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: $a$ and $\Delta\theta$.  The parameter $E_0$ is the amplitude normalization, and the dependencies on other parameters can be determined from Eq. \ref{eq:s_full} and Tab. \ref{tab:param}.  The \textit{analytic signal} of $s(t)$ is
-\begin{equation}
-s_{\rm a}(t) = s(t) + j \widehat{s}(t)
-\end{equation}
-The magnitude of the analytic signal, $|s_a(t)|$, is the \textit{envelope} of the signal.  The Hilbert transform $\widehat{s}(t)$ is equivalent to the convolution of $s(t)$ and the tempered distribution $h(t) = 1/(\pi t)$.
- Let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform of the analytic signal is
+This is the off-cone field equation from \cite{PhysRevD.105.123019}.  The parameter $\sigma_{\rm t}$ is the pulse width, and it depends two quantities: $a$ and $\Delta\theta$.  The parameter $E_0$ is the amplitude normalization, and the dependencies on other parameters can be determined from Eq. \ref{eq:s_full} and Tab. \ref{tab:param}.  The Hilbert transform $\widehat{s}(t)$ is equivalent to the convolution of $s(t)$ and the tempered distribution $h(t) = 1/(\pi t)$.  The implication in the Fourier domain is that the negative frequencies in the spectrum of $\hat{s}(t)$ vanish, while the positive ones are doubled.  Let the $\sgn(f)$ be $-1$ if $f<0$, $0$ if $f=0$, and $1$ if $f>1$, and let $S(f)$ be the Fourier transform of $s(t)$.  The Fourier transform $S_a(f)$ of the analytic signal $s_a(t)$ is
 \begin{equation}
 \mathcal{F}\lbrace s_{\rm a}(t) \rbrace_{f} = S_{\rm a}(f) = S(f)(1+\sgn{f}) \label{eq:sa_1}
 \end{equation}
-The sign function, $\sgn$ gives $-1$ if $f<0$, $0$ if $f=0$, and $1$ if $f>1$.
- Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
+Thus, if $f<0$, $S_a(f) = 0$, and $S_a(f) = 2S(f)$ if $f\geq 0$.  Taking the inverse Fourier transform of Eq. \ref{eq:sa_1}, the analytic signal may be written in terms of $S(f)$:
 \begin{equation}
 s_{\rm a}(t) = 2\int_{0}^{\infty} S(f) e^{2\pi j f t} df \label{eq:sa_2}
 \end{equation}
@@ -121,7 +115,7 @@ s_{\rm a}(t) = 2\int_{0}^{\infty} S(f) e^{2\pi j f t} df \label{eq:sa_2}
 \begin{equation}
 S(f) = E_0 \sigma_t^3 (2\pi)^{3/2} j f e^{-2\pi^2 f^2 \sigma_t^2}
 \end{equation}
- Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
+Using the gaussian spectral width $\sigma_{\rm f}$ from \cite{10.1016/j.astropartphys.2017.03.008}, and the guassian width of $s(t)$ from \cite{PhysRevD.105.123019}, it was shown in \cite{PhysRevD.105.123019} that the uncertainty principle holds for off-cone signals:
 \begin{equation}
 \sigma_t \sigma_f \geq \frac{1}{2\pi}
 \end{equation}
@@ -143,7 +137,7 @@ The real part of $I$ is even, so it can be extended to $(-\infty,\infty)$ if it 
 \begin{equation}
 \Re\lbrace I \rbrace = \sqrt{\pi} e^{-x^2}
 \end{equation}
-The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$} \cite{NIST:DLMF}:
+The imaginary part of $I$ is proportional to the \textit{Dawson function, $D(x)$} \cite{NIST:DLMF}:
 \begin{equation}
 \Im\lbrace I\rbrace = 2 D(x)
 \end{equation}
@@ -151,8 +145,11 @@ The imaginary part of $I$ is proportional to \textit{Dawson's integral, $D(x)$} 
 \begin{equation}
 s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right) \label{eq:sa_4}
 \end{equation}
-The signal envelope is $|s_a(t)|$.  It is important to note that, though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  Note that $s_a(0) \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.
- Signal data in detectors designed to observe Askaryan pulses is equivalent to the convolution of the signal and detector response functions.  Signal models are convolved with measured detector responses to create \textit{signal templates}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  The oscillations of signal templates and observed data can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
+The envelope of the signal, $\mathcal{E}_s(t)$, is the magnitude of Eq. \ref{eq:sa_4}.  Though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  As expected for $\mathcal{E}_s(t)$, $|s_a(0)| \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.  Rather, $|s_a(0)| \propto \sigma_t$.
+
+Observed signals in Askaryan-class detectors is essentially the convolution of the signal and detector response functions.  TO generate \textit{signal templates}, signal models are convolved with measured RF channel responses to create \textit{signal templates}.  Signal templates are further refined by accounting for frequency-dependent attenuation due to propagation through polar ice \cite{10.1016/j.astropartphys.2014.09.002,10.3189/2015jog14j214}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals. xxxyyyzzz
+
+Oscillations within signal templates and observed data are often introduced by the RF channel response, and can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
  There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
  Let $s(t) * r(t)$ represent the convolution of $s(t)$ and $r(t)$.  Let the envelope of the convolution be $\mathcal{E}_{s * r}(t)$.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
 \begin{equation}
