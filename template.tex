@@ -147,14 +147,15 @@ s_a(t) = -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigm
 \end{equation}
 The envelope of the signal, $\mathcal{E}_s(t)$, is the magnitude of Eq. \ref{eq:sa_4}.  Though $D(x)$ is not evaluated analytically, a high-precision algorithm for computing $D(x)$ was given in \cite{10.1063/1.4822832}.  As expected for $\mathcal{E}_s(t)$, $|s_a(0)| \neq 0$, since $dD(x)/dx = 1 - 2x D(x)$.  Rather, $|s_a(0)| \propto \sigma_t$.
 
-Observed signals in Askaryan-class detectors is essentially the convolution of the signal and detector response functions.  TO generate \textit{signal templates}, signal models are convolved with measured RF channel responses to create \textit{signal templates}.  Signal templates are further refined by accounting for frequency-dependent attenuation due to propagation through polar ice \cite{10.1016/j.astropartphys.2014.09.002,10.3189/2015jog14j214}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals. xxxyyyzzz
+The observed data in Askaryan-class detectors is essentially the convolution of the UHE-$\nu$ signal from the ice and the detector response function.  To generate \textit{signal templates}, Askaryan radiation signals are calculated for the UHE-$\nu$ interaction properties, modified by the frequency-dependent RF attenuation of polar ice, and convolved with the RF channel response \cite{10.1016/j.astropartphys.2014.09.002,10.3189/2015jog14j214}.  Signal templates are cross-correlated with observed data to identify UHE-$\nu$ signals.  RF detection channels based on RF dipole antennas, however, have resonance frequencies that introduce oscillations not present in the original signal.  The oscillations can introduce timing uncertainties.  The problem intensifies when the signal-to-noise ratio (SNR) relative to RF thermal noise decreases.
 
-Oscillations within signal templates and observed data are often introduced by the RF channel response, and can introduce various uncertainties when cross-correlated.  This problem intensifies when the signal-to-noise ratio between Askaryan pulse data and thermal noise decreases.  To reduce these uncertainties, the Hilbert envelope of observed signals is used in cross-correlations instead of the original signals.  We seek an analytic equation for the Hilbert envelope of the data.  That is, we seek the envelope of the convolution of the analytic signal model with a typical detector response.  The RLC damped oscillator is a standard circuit model for the RF dipole antennas used in RNO-G and the proposed IceCube Gen2 \cite{10.1103/PhysRevD.85.062004,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.
- There are two paths to calculating the final result.  The first option involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second option involves computing the envelope of the convolution of $r(t)$ with $s(t)$ directly from $s_a(t)$ and $r_a(t)$.
- Let $s(t) * r(t)$ represent the convolution of $s(t)$ and $r(t)$.  Let the envelope of the convolution be $\mathcal{E}_{s * r}(t)$.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
+To reduce uncertainties, the Hilbert envelope of observed data is used in cross-correlations instead of the original signals.  Thus, an analytic prediction for the Hilbert envelope of the observed data would an effective signal template.  An assumption must be made, however, for the RF channel response.  The RLC damped oscillator is a suitable circuit model for the RF dipole antennas used in RICE, RNO-G, and the proposed IceCube Gen2 \cite{10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}.  In fact, an RLC response was first used by RICE at the South Pole a decade ago \cite{10.1103/PhysRevD.85.062004}.
+
+There are two paths to calculating the final result, $\mathcal{E}_{r*s}(t)$.  The first involves three steps.  First, the detector response, $r(t)$ is convolved with $s(t)$.  Second, the analytic signal of the result is found.  Third, the magnitude of the analytic signal is computed, which can be compared to envelopes of observed signals.  The second path involves computing $\mathcal{E}_{r*s}(t)$ directly from $s_a(t)$ and $r_a(t)$.  The second option is more straightforward, once a special theorem relating $r_a(t)$, $s_a(t)$, and $\mathcal{E}_{r*s}(t)$ is established.  $\mathcal{E}_{s * r}(t)$, $s_a(t)$, and $r_a(t)$ are related by
 \begin{equation}
 \mathcal{E}_{s * r}(t) = \frac{1}{2}| s_a (t) * r_a(t)| \label{eq:awesome}
 \end{equation}
+
 The proof of Eq. \ref{eq:awesome} is based on two ideas.  First, the Hilbert transform of a function $s(t)$ is equivalent to convolving it with the ``tempered distribution'' $h(t) = 1/(\pi t)$.  Second, computing the Hilbert transform twice yields the original function, multiplied by $-1$: $h * h * s = -s$.  Given the definitions of the analytic signal and the Hilbert transform,
 \begin{align}
 (s * r)_a (t) &= s * r + j ~ \widehat{s*r} \\
@@ -172,19 +173,21 @@ Multiplying both sides $1/2$ and taking the magnitude completes the proof:
 \begin{equation}
 \frac{1}{2} |r_a * s_a| = |r * s + j h * r * s| = \mathcal{E}_{s * r}(t) \\
 \end{equation}
- Assume that a signal arrives in an RLC damped oscillator at $t=0$.  For $t\geq 0$, the impulse response and corresponding analytic signal are
+
+Assume that a signal arrives in an RLC damped oscillator at $t=0$.  For $t\geq 0$, the impulse response and corresponding analytic signal are
 \begin{align}
-r(t) &= R_0 e^{-2 \pi \gamma_f t} \cos(2\pi f_0 t) \label{eq:r} \\
-r_a(t) &= R_0 e^{-2 \pi \gamma_f t} e^{2\pi j f_0 t} \label{eq:ra}
+r(t) &= R_0 e^{-2 \pi \gamma t} \cos(2\pi f_0 t) \label{eq:r} \\
+r_a(t) &= R_0 e^{-2 \pi \gamma t} e^{2\pi j f_0 t} \label{eq:ra}
 \end{align}
-The parameters $\gamma_f$ and $f_0$ are the \textit{decay constant} that corresponds to the \textit{fall time} of the output signal, and the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is $R_0 \exp(-2 \pi \gamma_f t)$, as expected.  To prove Eq. \ref{eq:ra}, first compute the Fourier transform of $r(t)$:
+The parameters $\gamma$ and $f_0$ are the decay constant and the resonance frequency.  Note that the envelope of $r(t)$, $|r_a(t)|$, is $R_0 \exp(-2 \pi \gamma t)$, as expected.  To prove Eq. \ref{eq:ra}, first compute the Fourier transform of $r(t)$:
 \begin{align}
 R(f) &= \frac{R_0}{4\pi j} \left( \frac{1}{f - z_{+}} + \frac{1}{1- z_{-}} \right) \\
-z_{+} &= f_0 + j \gamma_f \\
-z_{-} &= -f_0 + j \gamma_f
+z_{+} &= f_0 + j \gamma \\
+z_{-} &= -f_0 + j \gamma
 \end{align}
-Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency components by 0 and the \textit{positive} frequency components by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by extension to the complex plane using the upper infinite semi-circle as a contour, and applying Jordan's lemma.  The residue from the pole at $z_{+}$ drives the final result. (Check the sign of time here, to ensure that it is positive).
- The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
+Given Eq. \ref{eq:sa_2}, the procedure to find $r_a(t)$ is to multiply the \textit{negative} frequency component at $z_{-}$ by 0 and the \textit{positive} frequency component at $z_{+}$ by 2, and take the inverse Fourier transform.  The inverse Fourier transform may be completed by applying Jordan's lemma in the complex plane frequency plane.  The residue from the pole at $z_{+}$ yields the result.
+
+The goal is now to apply Eq. \ref{eq:awesome} by convolving $s_a(t)$ with $r_a(t)$.  The calculation may be split into two parts: $r_a(t) * \Re\lbrace s_a(t) \rbrace$, and $r_a(t) * \Im\lbrace s_a(t) \rbrace$.  Let $u(t)$ represent the Heaviside step function.  Starting with $r_a(t) * \Re\lbrace s_a(t) \rbrace$:
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ R_0 e^{2\pi j f_0 t} e^{-2\pi\gamma t} u(t) * \left(-E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}\right)
 \end{multline}
@@ -192,7 +195,7 @@ Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z = (2\pi j f_0 
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -2R_0 E_0 \sigma_t^2 \int_{-\infty}^{x} e^{z(x-y)} y e^{-y^2} dy
 \end{multline}
-Note that the units for the convolution of $r(t)$ and $s(t)$ correspond to $R_0 E_0 \sigma_t^2$.  Let $u = x-y$, so that $du = -dy$. The result is
+Note that the units for the convolution of $r(t)$ and $s(t)$ are $R_0 E_0 \sigma_t^2$.  Let $u = x-y$, so that $du = -dy$. The result is
 \begin{equation}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = 2R_0 E_0 \sigma_t^2\left(\frac{dI(x,z)}{dz}-xI(x,z)\right)
 \end{equation}
@@ -216,7 +219,8 @@ The final result is
 \begin{multline}
 r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right) \label{eq:Re_result}
 \end{multline}
- Turning to the convolution of $r_a(t)$ with $\Im(s_a)$,
+
+Turning to the convolution of $r_a(t)$ with $\Im(s_a)$,
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \left(R_0 e^{2\pi j f_0 t} e^{-2\pi \gamma t} u(t)\right) * \left(\frac{2 E_0 \sigma_t^2}{\sqrt{\pi}}\frac{dD(t/\sqrt{2}\sigma_t)}{dt} \right)
 \end{multline}
@@ -224,7 +228,7 @@ Note that $f'(t) * g(t) = f(t) * g'(t) = (f(t) * g(t))'$.  Thus,
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dt}\left(e^{2\pi j f_0 t}e^{-2\pi\gamma t} u(t) * D(t/\sqrt{2}\sigma_t) \right)
 \end{multline}
-Accounting for the step function in the convolution gives
+The convolution becomes
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dt} \int_{-\infty}^{t} e^{(2\pi j f_0 - 2\pi\gamma)(t-\tau)}D(\tau/\sqrt{2}\sigma_t)d\tau
 \end{multline}
@@ -232,7 +236,7 @@ Adopting the earlier definitions of $x$, $y$, and $z$ gives
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \frac{d}{dx} \int_{-\infty}^{x} e^{z(x-y)} D(y) dy
 \end{multline}
-Using the fundamental theorem of calculus, and the limiting cases of $D(x)$, 
+Using Leibniz rule for the fundamental theorem of calculus, and the limiting cases of $D(x)$, 
 \begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + z\int_{-\infty}^{x} e^{z(x-y)} D(y) dy \right)
 \end{multline}
@@ -241,15 +245,12 @@ Let $u = x-y$, $z=-k$, and note that $D(x)$ is an odd function.  These substitut
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\int_{0}^{\infty} e^{-ku} D(u-x) du \right)
 \end{multline}
 The remaining integral is the Laplace transform of the shifted Dawson function, $\mathcal{L}\lbrace D(u-x)\rbrace_k$.  The final result is
-\begin{equation}
+\begin{multline}
 r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:Im_result}
-\end{equation}
-Though a closed analytic form for $\mathcal{L}\lbrace D(u-x)\rbrace_k$ is elusive, finishing this calculation through numerical integration is straightforward.
- Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$, since
-\begin{equation}
-r_a(t) * s_a(t) = r_a(t) * \Re\lbrace s_a(t)\rbrace + j r_a(t) * \Im\lbrace s_a(t)\rbrace
-\end{equation}
-which yields
+\end{multline}
+Though a closed analytic form for $\mathcal{L}\lbrace D(u-x)\rbrace_k$ is elusive, evaluating $\mathcal{L}\lbrace D(u-x)\rbrace_k$ numerically is fast and precise.
+
+Combining Eq. \ref{eq:Re_result} and Eq. \ref{eq:Im_result} gives $r_a(t) * s_a(t)$:
 \begin{multline}
 r_a(t) * s_a(t) = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right) + \\ \frac{2j}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:final}
 \end{multline}
@@ -261,7 +262,8 @@ Taking the magnitude of Eq. \ref{eq:final}, and multiplying by $1/2$, yields the
 \begin{equation}
 \mathcal{E}_{r * s}(t) = \frac{1}{2} | r_a(t) * s_a(t) | \label{eq:final2}
 \end{equation}
- It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
+
+xxyyzz It is important to note that the convolution of $s(t)$ and $r(t)$ may be done analytically in the time-domain:
 \begin{equation}
 s * r = \int_{-\infty}^{\infty} s(t-\tau) r(\tau) d\tau 
 \end{equation}
