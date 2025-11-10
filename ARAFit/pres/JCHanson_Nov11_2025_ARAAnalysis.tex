@@ -2,6 +2,13 @@
 \usetheme{metropolis}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{tcolorbox}
+\DeclareMathOperator\erfc{erfc}
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\snr}{SNR}
+\definecolor{box_background}{RGB}{240,240,240}
+\definecolor{box_frame}{RGB}{40,40,40}
 \title{Complex analysis of Askaryan Radiation: UHECR and UHE-$\nu$ Reconstruction with Analytic Signals}
 \author{Jordan Hanson}
 \institute{Whittier College Department of Physics and Astronomy}
@@ -20,9 +27,9 @@
 \footnotesize
 \begin{itemize}
 \footnotesize
-\item \textbf{A fully analytic Askaryan E-field} model in the time-domain \cite{hanson2022complex-5f5}
-\item Based on work begun with Prof. Amy Connolly \cite{hanson2017complex-037}
-\item Based on work begun by J. Ralston and R. Buniy \cite{buniy2001radio-221}
+\item \textbf{A fully analytic Askaryan E-field} model in the time-domain \cite{hh2022}
+\item Based on work begun with Prof. Amy Connolly \cite{jchac2017}
+\item Based on work begun by J. Ralston and R. Buniy \cite{rb}
 \item Advantages: (i) extract UHE-$\nu$ cascade parameters by fitting model to raw voltage traces, (ii) fast and simple, (iii) analytic equations may be embedded as event filter
 \end{itemize}
 \item \alert{\textbf{UHECR and UHE-$\nu$ identification}}:
@@ -36,9 +43,75 @@
 \end{enumerate}
 \end{frame}
 
+\section{UHECR Event Geometry for in the ARA Detector}
+
+\begin{frame}{UHECR Event Geometry for in the ARA Detector}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/ara.png}
+\caption{\label{fig:1} (Top right) UHECR cascade core interacting in ice. (Bottom left) ARA RF detection channels (Vpol and Hpol).}
+\end{figure}
+\end{column}
+\begin{column}{0.5\textwidth}
+\alert{\textbf{ARA detector schematic}}
+\begin{itemize}
+\item Askaryan component of the radiation
+\item Vpol and Hpol channels are dipole antennas
+\item E-field components are radial to the cascade axis
+\item Reference: \url{https://arxiv.org/pdf/2510.21104}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Notations and Definitions}
+
+\begin{frame}{Notations and Definitions}
+\footnotesize
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Askaryan electric field, $\vec{E}(r,t)$, [V m$^{-1}$]}]
+\begin{equation}
+r \vec{E}(t,\theta) = -\frac{E_0 \omega_0 \sin(\theta)}{8 \pi p} t_r e^{-\frac{t_r^2}{4p} + p \omega_0^2}\erfc(\sqrt{p}\omega_0)
+\end{equation}
+\end{tcolorbox}
+\begin{table}
+\scriptsize
+\begin{tabular}{| c | c | c |} \hline
+\textbf{Variable} & \textbf{Definition} & \textbf{Units}\\ \hline
+$c$ & speed of light in medium & m ns$^{-1}$ \\ 
+$r$ & distance to cascade peak & m \\
+$t_{\rm r}$ & $t-r/c$ & ns \\
+$\theta_{\rm C}$ & Cherenkov angle & radians \\ 
+$\theta$ & viewing angle from cascade axis & radians \\ 
+$a$ & longitudinal cascade length (see \cite{rb,jchac2017,hh2022}) & m \\ 
+$n_{max}$ & max excess cascade particles (see \cite{rb,jchac2017,hh2022})  & none \\
+$E_{\rm 0}$ & $\propto n_{\rm max}a$ (see \cite{rb,jchac2017,hh2022}) & V GHz$^{-2}$ \\
+$p$ & $\frac{1}{2}(a/c)^2 \left(\cos\theta - \cos\theta_C\right)^2$ (see \cite{hh2022}) & ns$^2$ \\ 
+$\omega_{\rm 0}$ & $\sqrt{\frac{2}{3}} (c\sqrt{2\pi}\rho_{\rm 0})/(\sin\theta)$ (see \cite{jchac2017,hh2022}) & GHz \\
+$\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{jchac2017,hh2022}) & m$^{-1}$ \\ \hline
+\end{tabular}
+\caption{\label{tab:param} Parameters relevant for $E(t)$.}
+\end{table}
+\end{frame}
+
+\begin{frame}{Notations and Definitions}
+\footnotesize
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Askaryan \textit{signal}, $\vec{s}(t)$, [V m$^{-1}$]}]
+\begin{equation}
+s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}
+\end{equation}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Detector \textit{response}, $\vec{r}(t)$, [m ns$^{-1}$]}]
+\begin{equation}
+r(t) = R_0 e^{-2 \pi \gamma t} \cos(2\pi f_0 t)
+\end{equation}
+\end{tcolorbox}
+\end{frame}
+
 \section{Bibliography}
 
-\begin{frame}{Bibliography}
+\begin{frame}[allowframebreaks]{Bibliography}
 \bibliography{references}
 \end{frame}
 
