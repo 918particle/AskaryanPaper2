@@ -75,25 +75,20 @@ i=0
 n = 512
 data = np.zeros((7,n))
 times = np.arange(0,n)/fs
-good_channels = [0,1,2,3,4,6,7]
+#good_channels = [0,1,2,3,4,6,7] for event starting with 1915
 
 with open(args.filename, newline='') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',')
 	for row in reader:
-		if(i in good_channels):
-			data[i] = list(map(float,row))
-		if(i==6):
-			break
-		else:
-			i+=1
+		data[i] = list(map(float,row))
+		i+=1
 
-csw = get_csw(data,6)
+csw = -1.0*get_csw(data,6)
 model = np.zeros(n)
-env_model = np.zeros(n)
 rho_max = 0
-f0s = [0.170,0.175,0.180,0.185,0.190]
-gammas = [0.011,0.012,0.013,0.014,0.015]
-sigmas = [0.425,0.45,0.475,0.5,0.525,0.55]
+f0s = [0.150,0.155,0.160,0.165,0.170,0.175,0.180,0.185,0.190,0.195,0.200,0.205,0.210]
+gammas = [0.010,0.011,0.012,0.013,0.0135,0.014,0.0145,0.015,0.016,0.017,0.018,0.019,0.020,0.021,0.022]
+sigmas = [0.325,0.35,0.4,0.425,0.45,0.475,0.5,0.525,0.550]
 best_sigma = 0
 best_gamma = 0
 best_f0 = 0
@@ -109,15 +104,11 @@ for f0 in f0s:
 				best_gamma=gamma
 				best_sigma=sigma
 				rho_max = rho
-print("Best fit values")
-print(best_sigma,best_f0,best_gamma,rho_max)
+'''print("Best fit values")
+print(best_sigma,best_f0,best_gamma,rho_max)'''
 print("Data:")
 for i in range(n):
-	model[i] = math_conv(times[i]-154,1,1,best_sigma,best_f0,best_gamma)
-	env_model[i] = math_env(times[i]-154,1,1,best_sigma,best_f0,best_gamma)
+	model[i] = math_conv(times[i]-156.5,1,1,best_sigma,best_f0,best_gamma)
 model = model/np.sqrt(np.inner(model,model))
-env_model = env_model/np.sqrt(np.inner(env_model,env_model))
-csw_env = np.abs(hilbert(np.real(csw)))
-csw_env = csw_env/np.sqrt(np.inner(csw_env,csw_env))
 for i in range(n):
-	print(times[i],csw[i],model[i],env_model[i],csw_env)
+	print(times[i],csw[i],model[i])

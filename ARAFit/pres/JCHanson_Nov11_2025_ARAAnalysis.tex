@@ -8,7 +8,7 @@
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\snr}{SNR}
 \definecolor{box_background}{RGB}{240,240,240}
-\definecolor{box_frame}{RGB}{40,40,40}
+\definecolor{box_frame}{RGB}{50,50,50}
 \title{Complex analysis of Askaryan Radiation: UHECR and UHE-$\nu$ Reconstruction with Analytic Signals}
 \author{Jordan Hanson}
 \institute{Whittier College Department of Physics and Astronomy}
@@ -66,9 +66,9 @@
 \end{columns}
 \end{frame}
 
-\section{Notations and Definitions}
+\section{Notations, Definitions, and Analytic Signals}
 
-\begin{frame}{Notations and Definitions}
+\begin{frame}{Notations, Definitions, and Analytic Signals}
 \footnotesize
 \begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Askaryan electric field, $\vec{E}(r,t)$, [V m$^{-1}$]}]
 \begin{equation}
@@ -95,9 +95,10 @@ $\sqrt{2\pi}\rho_{\rm 0}$ & lateral ICD width (see \cite{jchac2017,hh2022}) & m$
 \end{table}
 \end{frame}
 
-\begin{frame}{Notations and Definitions}
+\begin{frame}{Notations, Definitions, and Analytic Signals}
 \footnotesize
 \begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Askaryan \textit{signal}, $\vec{s}(t)$, [V m$^{-1}$]}]
+Let $E_0$ represent all amplitude factors not dependent on time.  Further, let $\sigma_{\rm t} = \sqrt{2p}$.  The Askaryan E-field is
 \begin{equation}
 s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}
 \end{equation}
@@ -107,6 +108,208 @@ s(t) = -E_0 t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2}
 r(t) = R_0 e^{-2 \pi \gamma t} \cos(2\pi f_0 t)
 \end{equation}
 \end{tcolorbox}
+\begin{itemize}
+\item Impulse response of a causal ($t\geq 0$) damped, driven RLC circuit
+\item First used by the RICE collaboration \cite{10.1103/PhysRevD.85.062004}
+\item RF dipole channels are used in RICE, ARA, RNO-G, and the proposed IceCube Gen2 (radio) \cite{10.1103/PhysRevD.85.062004,10.1103/physrevd.102.043021,10.1016/j.astropartphys.2011.11.010,10.1088/1748-0221/16/03/p03025,10.48550/arxiv.2008.04323}
+\item RF channels must fit inside cylindrical ice boreholes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\footnotesize
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Analytic signal, $s_a(t)$, of $s(t)$.}]
+Let $s_a(t)$ be the \textit{analytic signal} of the signal $s(t)$.  Further, let $\hat{s}(t)$ be the Hilbert transform of $s(t)$.  Finally, let $\mathcal{E}_s(t)$ be the \textit{envelope} of $s(t)$.
+\begin{align}
+s_a(t) &= s(t) + j\hat{s}(t) \\
+\mathcal{E}_s(t) &= |s_a(t)|
+\end{align}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Analytic signals, $s_a(t)$, and $r_a(t)$.}]
+Let $x = t/(\sqrt{2}\sigma_{\rm t})$, and let $D(x)$ be the \textit{Dawson function.}  The analytic signals for $s(t)$ (V m$^{-1}$) and $r(t)$ (m ns$^{-1}$) are
+\begin{align}
+s_a(t) &= -E_0 \left(t e^{-\frac{1}{2}\left(t/\sigma_t\right)^2} - \frac{2 j\sigma_t}{\sqrt{2\pi}} \frac{dD(x)}{dx}\right)  \\
+r_a(t) &= R_0 e^{-2 \pi \gamma t} e^{2\pi j f_0 t}
+\end{align}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title={Detected signals, $r(t) * s(t)$, [V]}]
+\begin{equation}
+r(t) * s(t) = \int_{-\infty}^{\infty} r(\tau) s(t-\tau) d\tau
+\end{equation}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title=Theorem: the envelope of detected signal]
+Let $\mathcal{E}_{r * s}(t)$ represent the \textit{envelope} of the convolution of $r(t)$ and $s(t)$.  If $s_a(t)$ and $r_a(t)$ are the analytic signals of $s(t)$ and $r(t)$, respectively, then
+\begin{equation}
+\mathcal{E}_{r*s}(t) = \frac{1}{2}|r_a(t) * s_a(t)|
+\end{equation}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title=$\mathcal{E}_{r*s}(t)$: part I]
+Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z = (2\pi j f_0 - 2\pi\gamma)\sqrt{2}\sigma_t$. Let $w(q)$ be the \textit{Faddeeva function,} with $b = jq$, $b = x+\frac{1}{2} z$.  The convolution of $r_a(t)$ with $\Re\lbrace s_a(t)\rbrace$ is
+\begin{multline}
+r_a(t) * \Re\lbrace s_a(t) \rbrace = \\ -\sqrt{\pi} R_0 E_0 \sigma_t^2 \left(x e^{-x^2} w(q) + \left(\frac{j}{2}\right) e^{-x^2} \frac{dw(q)}{dq} \right)
+\end{multline}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title=$\mathcal{E}_{r*s}(t)$: part II]
+Let $x=t/(\sqrt{2}\sigma_t)$, $y=\tau/(\sqrt{2}\sigma_t)$, and $z = (2\pi j f_0 - 2\pi\gamma)\sqrt{2}\sigma_t$.  Let $u = x-y$, $z=-k$, and let $\mathcal{L}\lbrace D(u-x)\rbrace_k$ be the Laplace transform of the shifted Dawson function.  The convolution of $r_a(t)$ with $\Im\lbrace s_a(t)\rbrace$ is
+\begin{multline}
+r_a(t) * \Im\lbrace s_a(t) \rbrace = \\ \frac{2}{\sqrt{\pi}} R_0 E_0 \sigma_t^2 \left(D(x) + k\mathcal{L}\lbrace D(u-x)\rbrace_k\right) \label{eq:Im_result}
+\end{multline}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title=$\mathcal{E}_{r*s}(t)$: part III]
+\begin{align}
+\mathcal{E}_{r*s}(t) &= \frac{1}{2}| r_a * s_a| = \frac{1}{2}\left| r_a * \left( \Re\lbrace s_a\rbrace + j\Im\lbrace r_a\rbrace\right)\right| \\
+\mathcal{E}_{r*s}(t) &= \frac{1}{2}\left| r_a * \Re\lbrace s_a\rbrace + j r_a * \Im\lbrace r_a\rbrace \right|
+\end{align}
+\end{tcolorbox}
+\begin{itemize}
+\item We have calculated $r_a(t) * \Re\lbrace s_a(t)\rbrace$ and $r_a(t) * \Im\lbrace s_a(t)\rbrace$
+\item Combine to form the final result
+\item This result is used to predict the \textit{envelope} of the voltage traces and CSWs
+\item Python3 code provided in the paper
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notations, Definitions, and Analytic Signals}
+\begin{tcolorbox}[colback=box_background,colframe=box_frame,title=$\mathcal{E}_{r*s}(t)$: part IV]
+Using prior definitions, it turns out that $s * r$ is
+\begin{multline}
+s * r = -\sqrt{\pi}R_0 E_0 \sigma_t^2 \\ \Re\left\lbrace xe^{-x^2} w(q) - \frac{1}{2}e^{-x^2} \frac{d w(q)}{dx} \right\rbrace
+\end{multline}
+\end{tcolorbox}
+\begin{itemize}
+\item This result is used to predict the voltage traces and CSWs
+\item Python3 code provided in the paper
+\end{itemize}
+\end{frame}
+
+\section{Results: Voltage Traces and Envelopes}
+
+\begin{frame}{Results: Voltage Traces and Envelopes}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.49\textwidth]{figures/July3rd_plot1.pdf}
+\includegraphics[width=0.49\textwidth]{figures/July3rd_plot2.pdf}
+\caption{\label{fig:fig1} (Left) The thin black line represents $s*r$.  The light gray envelope represents the envelope of $s*r$ computed with the Python3 SciPy function scipy.special.hilbert. The black envelope represents $\mathcal{E}_{r*s}(t)$. (Right) Same as left, for different parameter values.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Results: Voltage Traces and Envelopes}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.49\textwidth]{figures/July7th_plot1.pdf}
+\includegraphics[width=0.49\textwidth]{figures/July7th_plot2.pdf}
+\caption{\label{fig:fig2} (Left) The thin black line represents $s$ convolved with $r$ using the Python3 SciPy function scipy.signal.convolve. The gray line represents $s*r$. (Right) Same as left, for different parameter values.}
+\end{figure}
+\end{frame}
+
+\section{Results: Comparisons to NuRadioMC}
+
+\begin{frame}{Results: Comparisons to NuRadioMC}
+\begin{table}
+\small
+\centering
+\begin{tabular}{| c | c | c |}
+\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{Note} \\
+Ice Model & South Pole & 2015 measurements \\
+Signal Model & AHRZ2020 & (see \cite{PhysRevD.101.083005}) \\
+Trigger & 3 of 8 channels & $\pm 3v_{\rm rms}$ \\
+RF channels & 8 & RF bicone (in firn) \\
+Channel filters & [80-1000] MHz & Passband \\
+Noise Temperature & 233K & Sets $v_{\rm rms}$ \\
+Sampling Rate & 1 GHz & $f_{\rm c} = 500$ MHz \\
+Samples per channel & 256 & total time, $256$ ns \\
+Channel depths & [-4,-6,-8,...-18] m & cable delays included \\
+RF cable type & LMR-400 & $\approx -1$ dB at 20 m  \\
+\hline
+\end{tabular}
+\caption{\label{tab:1} Important NuRadioMC parameters.}
+\end{table}
+NuRadioMC was used to generate 15133 UHE-$\nu$ events that triggered the detector with $E_{\rm C} = 100$ PeV.
+\end{frame}
+
+\begin{frame}{Results: Comparisons to NuRadioMC}
+\small
+\alert{\textbf{Bottom line:}} 0.2 noise events pass correlation threshold in 5 years.
+\begin{figure}
+\centering
+\includegraphics[width=0.49\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{figures/Aug15_plot1.pdf}
+\includegraphics[width=0.49\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{figures/Aug15_plot2.pdf}
+\caption{\small \label{fig:fig3} (Left) The black circles represent the noise distribution.  The gray dashed line is a fitting function to noise distribution.  The solid gray line represents the correlation distribution for mathematical envelope to envelope of UHE-$\nu$ signals.  The dashed black line is the correlation threshold. (Right) The correlation coefficient versus SNR.}
+\end{figure}
+\end{frame}
+
+\section{Results: ARA5 UHECR Results}
+
+\begin{frame}{Results: ARA5 UHECR Results}
+\small
+\alert{\textbf{Correlation coefficient}} for ARA5 UHECR candidate and model: \textbf{0.853}.
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{figures/November2nd_plot1.pdf}
+\caption{\small \label{fig:fig4} Fit for analytic $s*r$ to an ARA5 UHECR candidate 1915-26288.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Results: ARA5 UHECR Results}
+\small
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{figures/November10th_plot1.pdf}
+\caption{\small \label{fig:fig5} Fit for analytic $s*r$ to an ARA5 UHECR candidate 1957-13330.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Results: ARA5 UHECR Results}
+\small
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{figures/November10th_plot2.pdf}
+\caption{\small \label{fig:fig6} Fit for analytic $s*r$ to an ARA5 UHECR candidate 2171-31805.}
+\end{figure}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{UHECR and UHE-$\nu$ Reconstruction with Analytic Signals}
+\footnotesize
+\begin{enumerate}
+\footnotesize
+\item \alert{\textbf{Introduction}}: 
+\footnotesize
+\begin{itemize}
+\footnotesize
+\item \textbf{A fully analytic Askaryan E-field} model in the time-domain \cite{hh2022}
+\item Based on work begun with Prof. Amy Connolly \cite{jchac2017}
+\item Based on work begun by J. Ralston and R. Buniy \cite{rb}
+\end{itemize}
+\item \alert{\textbf{UHECR and UHE-$\nu$ identification}}:
+\begin{itemize}
+\footnotesize
+\item \textbf{A fully analytic Askaryan voltage} model, time-domain [this work]
+\item Equations for both voltage trace, and envelope of voltage trace
+\item Verification with NuRadioMC: strong thermal background rejection, signal identification, and (rough) $\log_{\rm 10}(E_{\rm \nu})$ estimate
+\end{itemize}
+\item \alert{\textbf{Correlation with Recent ARA observations of UHECR}}
+\begin{itemize}
+\item Three events reconstructed, with ten more to come
+\item Improvements: noise filter, channel selection
+\item \textbf{Proposal:} short manuscript with equations and fits
+\item Mathematical physics and NuRadioMC comparison has been submitted to \textbf{PRD}
+\end{itemize}
+\end{enumerate}
 \end{frame}
 
 \section{Bibliography}
