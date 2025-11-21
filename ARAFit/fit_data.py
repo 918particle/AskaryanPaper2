@@ -83,7 +83,7 @@ with open(args.filename, newline='') as csvfile:
 		data[i] = list(map(float,row))
 		i+=1
 
-csw = -1.0*get_csw(data,6)
+csw = get_csw(data,6)
 model = np.zeros(n)
 rho_max = 0
 f0s = [0.150,0.155,0.160,0.165,0.170,0.175,0.180,0.185,0.190,0.195,0.200,0.205,0.210]
@@ -104,11 +104,11 @@ for f0 in f0s:
 				best_gamma=gamma
 				best_sigma=sigma
 				rho_max = rho
-'''print("Best fit values")
-print(best_sigma,best_f0,best_gamma,rho_max)'''
-print("Data:")
-for i in range(n):
+print("Best fit values")
+print(best_sigma,best_f0,best_gamma,rho_max)
+
+'''for i in range(n):
 	model[i] = math_conv(times[i]-156.5,1,1,best_sigma,best_f0,best_gamma)
 model = model/np.sqrt(np.inner(model,model))
 for i in range(n):
-	print(times[i],csw[i],model[i])
+	print(times[i],csw[i],model[i])'''
