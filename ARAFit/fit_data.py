@@ -73,7 +73,7 @@ args = parser.parse_args()
 fs = 1.5
 i=0
 n = 512
-data = np.zeros((7,n))
+data = np.zeros((16,n))
 times = np.arange(0,n)/fs
 #good_channels = [0,1,2,3,4,6,7] for event starting with 1915
 
@@ -83,7 +83,7 @@ with open(args.filename, newline='') as csvfile:
 		data[i] = list(map(float,row))
 		i+=1
 
-csw = get_csw(data,6)
+csw = get_csw(data,7)
 model = np.zeros(n)
 rho_max = 0
 f0s = [0.150,0.155,0.160,0.165,0.170,0.175,0.180,0.185,0.190,0.195,0.200,0.205,0.210]
