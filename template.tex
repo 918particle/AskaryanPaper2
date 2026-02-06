@@ -18,7 +18,7 @@
 \date{\today}
 
 \begin{abstract}
-The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal in astroparticle physics.  Autonomous, radio-frequency (RF) UHE-$\nu$ detetectors have been deployed in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a UHE-$\nu$ cascade radiates in a dense medium.  UHE-$\nu$ can induce cascades that radiate in the RF bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and matched to simulations and laboratory measurements.  These models describe the Askaryan electromagnetic field, but leave the effects of signal propagation through polar ice and RF channel response to simulations.  In this work, a fully analytic Askaryan model that accounts for these effects is presented.  First, formulas for the observed voltage trace and its Hilbert envelope are calculated.  Second, the analytic model is compared to UHE-$\nu$ signals at 100 PeV from NuRadioMC, a key Monte Carlo toolset in the field.  Correlation coefficients between the analytic signal envelope and MC data in excess of $0.94$ are found, and 99.99\% of UHE-$\nu$ signals pass a correlation threshold of $\rho\geq 0.4$.  Analysis of RF thermal noise reveals that just 0.2 background events have $\rho\geq 0.4$ in 5 years at a 1 Hz thermal trigger rate.  Finally, we present a preliminary reconstruction of the logarithm of the UHE-$\nu$ cascade energy from a single string of RF channels.
+The detection of ultra-high energy neutrinos (UHE-$\nu$), with enegies above 10 PeV, has been a long-time goal in astroparticle physics.  Autonomous, radio-frequency (RF) UHE-$\nu$ detetectors have been deployed in polar regions that rely on the Askaryan effect in ice for the neutrino signal.  The Askaryan effect occurs when the excess negative charge within a UHE-$\nu$ cascade radiates in a dense medium.  UHE-$\nu$ can induce cascades that radiate in the RF bandwidth above thermal backgrounds.  To identify UHE-$\nu$ signals in data from Askaryan-class detectors, analytic models of the Askaryan electromagnetic field have been created and matched to simulations and laboratory measurements.  These models describe the Askaryan electromagnetic field, but leave the effects of signal propagation through polar ice and RF channel response to simulations.  In this work, a fully analytic Askaryan model that accounts for these effects is presented.  First, formulas for the observed voltage trace and its Hilbert envelope are calculated.  Second, the analytic model is compared to UHE-$\nu$ signals at 100 PeV from NuRadioMC, a key Monte Carlo toolset in the field.  Correlation coefficients between the analytic signal envelope and MC data in excess of $0.94$ are found, and 99.99\% of UHE-$\nu$ signals pass a correlation threshold of $\rho\geq 0.4$.  Analysis of RF thermal noise reveals that just 0.2 background events have $\rho\geq 0.4$ in 5 years at a 1 Hz thermal trigger rate.  Finally, we describe future work related to the measurement of the logarithm of the UHE-$\nu$ cascade energy.
 \end{abstract}
 
 \keywords{Ultra-high energy neutrino; Askaryan radiation; Mathematical physics}
@@ -302,13 +302,13 @@ To illustrate the accuracy of the model, the \textit{numerically-computed envelo
 \centering
 \includegraphics[width=0.5\textwidth]{July3rd_plot1.pdf}
 \includegraphics[width=0.5\textwidth]{July3rd_plot2.pdf}
-\caption{\label{fig:fig1} (Top) The thin black line represents Eq. \ref{eq:final3}.  The light gray envelope represents the envelope of Eq. \ref{eq:final3} computed with the Python3 SciPy function scipy.special.hilbert. The black envelope represents Eq. \ref{eq:final}-\ref{eq:final2}. (Bottom) Same as top, for different parameter values.}
+\caption{\label{fig:fig1} (Top) The thin black line represents $s * r$ from Eq. \ref{eq:final3}.  The gray envelope represents the envelope of Eq. \ref{eq:final3} computed with the Python3 SciPy function scipy.special.hilbert. The black envelope represents $\mathcal{E}_{r * s}(t)$ from Eqs. \ref{eq:final}-\ref{eq:final2}. (Bottom) Same as top, different parameters.}
 \end{figure}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.5\textwidth]{July7th_plot1.pdf}
 \includegraphics[width=0.5\textwidth]{July7th_plot2.pdf}
-\caption{\label{fig:fig2} (Top) The thin black line represents Eq. \ref{eq:s} convolved with Eq. \ref{eq:r}, produced using the Python3 SciPy function scipy.signal.convolve. The gray line represents Eq. \ref{eq:final3}. (Bottom) Same as top, for different parameter values.}
+\caption{\label{fig:fig2} (Top) The thin black line represents $s(t)$ from Eq. \ref{eq:s} convolved with $r(t)$ from Eq. \ref{eq:r}, using the Python3 SciPy function scipy.signal.convolve. The gray line represents $s * r$ from Eq. \ref{eq:final3}. (Bottom) Same as top, different parameters.}
 \end{figure}
 
 \section{Comparison between Analytic Calculations and NuRadioMC}
@@ -318,7 +318,7 @@ NuRadioMC was used to generate UHE-$\nu$ interactions in a cylindrical ice volum
 
 The detector was \textit{a single string} of 8 RF dipoles, each with the same (x,y)-coordinates and regularly-spaced z-coordinates.  The ice had a depth and radius of 0.65 km and 0.85 km, respectively, and the accounted for measurements of the attenuation length versus frequency collected from the South Pole region \cite{Barwick_Besson_Gorham_Saltzberg_2005,allison2012design-cd3}.  Each RF channel had a filtered, amplified passband of [0.08-1] GHz, 256 samples, and a 1 GHz sampling rate.  The RF trigger responded when any 3 of the 8 voltage traces exceeded $+3$ times \textit{and} $-3$ times the rms voltage ($v_{\rm rms}$) of the thermal noise within 256 ns (256 samples).  The rms voltage, $v_{\rm rms}$, is characterized in NuRadioMC via the \textit{noise temperature}, which was set to 233 K.
 
-The Hilbert envelope of the coherently summed waveform (CSW) was calculated from the traces and cross-correlated with Eqs. \ref{eq:final}-\ref{eq:final2}, producing correlation coefficients.  Each coefficient was maximized by only varying $\sigma_t$.  The RF channel properties, $f_0$ and $\gamma$, were held constant.  To find the optimal $f_0$ and $\gamma$, the noise temperature was set to 3K, so that thermal noise was negligible.  The values for $f_0$ and $\gamma$ that yielded optimal correlation cofficients were 0.15 GHz and 0.025 GHz, respectively. The cross-correlation results are shown in Fig. \ref{fig:fig3}.
+The Hilbert envelope of the coherently summed waveform (CSW) was calculated from the traces and cross-correlated with Eqs. \ref{eq:final}-\ref{eq:final2}, producing correlation coefficients.  Each coefficient was maximized by varying only $\sigma_t$.  The RF channel properties, $f_0$ and $\gamma$, were held constant.  To find the optimal $f_0$ and $\gamma$, the noise temperature was set to 3K, so that thermal noise was negligible.  The values for $f_0$ and $\gamma$ that yielded optimal correlation cofficients were 0.15 GHz and 0.025 GHz, respectively. The cross-correlation results are shown in Fig. \ref{fig:fig3}.
 
 \begin{table}
 \small
@@ -361,7 +361,11 @@ In Fig. \ref{fig:fig3}, the circles represent the normalized histogram of the co
 \caption{\label{fig:example_waveforms} A single-pulse CSW signal (black dots) from a 100 PeV UHE-$\nu$, matched to an analytic envelope (thick black line) with a correlation coefficient $\rho = 0.951$.}
 \end{figure}
 
-The correlation between the optimized analytical envelope and UHE-$\nu$ signals depends on the signal to noise ratio (SNR).  Let $v_{\rm pp}$ represent the peak-to-peak value in the voltage trace.  The SNR (dB) is
+To ensure this result is interpretable, we studied the effect of our NuRadioMC trigger threshold on the thermal trigger rate.  The \textit{in-situ} stations of ARIANNA, ARA, and RNO-G all use majority logic or phased array triggers that record thermal noise events \cite{10.1088/1475-7516/2020/03/053,allison2022lowthreshold-795,agarwal2024instrument-844}.  Individual channels must satisfy the majority logic within a specified gate time.  When a thermal noise fluctuation satisfies the majority logic, the system records data, and a dead-time is required to reset the data acquisition system.
+
+We created a computational tool to estimate the thermal trigger rate.  With a majority logic of 3 of 8, a dead-time of 10 ms, a gate time of 200 ns (the default setting in NuRadioMC), and thresholds of $\approx \pm 3.5 v_{\rm rms}$, we found that Gaussian white noise triggered at $\approx 1$ Hz.  The difference between thresholds of $\pm 3.5 v_{\rm rms}$ and $\approx \pm 3.0 v_{\rm rms}$ is negligible for fitting Eqs. \ref{eq:final}-\ref{eq:final2} to CSWs from UHE-$\nu$ events.  Though we found that such thermal trigger rates allow just 0.2 thermal noise events to pass the correlation threshold in 5 years, this result can be scaled to the appropriate thermal rate, given the details in \cite{10.1088/1475-7516/2020/03/053,allison2022lowthreshold-795,agarwal2024instrument-844}.
+
+The correlation between the optimized analytical envelope and UHE-$\nu$ signals depends on the SNR (dB).  Let $v_{\rm pp}$ represent the peak-to-peak value in the voltage trace.  The SNR (dB) is
 
 \begin{equation}
 \snr_{\rm dB} = 20\log_{10}\left(\frac{1}{2}\frac{v_{\rm pp}}{v_{\rm rms}}\right)
@@ -369,18 +373,18 @@ The correlation between the optimized analytical envelope and UHE-$\nu$ signals 
 
 In Fig. \ref{fig:fig4}, the correlation coefficient is plotted versus the SNR in dB for the data shown in Fig. \ref{fig:fig3}.  The upper and lower distributions correspond to CSWs from UHE-$\nu$ events and thermal noise, respectively.  All RF thermal noise events satisfy the station trigger.  Note that the correlation coefficient for UHE-$\nu$ events is proportional to SNR$_{\rm dB}$.  The SNR of a CSW does not equal the SNR of the individual voltage traces.  Rather, the voltage traces will have SNRs 5-9 dB \textit{lower} than the CSW.  If $N$ voltage traces contain signal, computing the CSW raises the linear SNR by a factor of $\sqrt{N}$, and adds $10\log_{10}(N)$ to SNR$_{\rm dB}$.  For an event with 3 of 8 channels containing signal, $10\log_{10}(3)\approx 5$ dB, while $10\log_{10}(8)\approx 9$ dB.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{Aug18_plot1.pdf}
-\caption{\label{fig:fig5} (Black circles) Viewing angle from NuRadioMC. (Solid black line) Gaussian fit, with $\mu = -1.05$ deg, and $\sigma = 3.02$ deg.  (Black dashed line) Cherenkov angle, $\theta_{\rm C}$.}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth,trim=3.25cm 8.25cm 4.5cm 9.0cm,clip=true]{Aug18_plot1.pdf}
+%\caption{\label{fig:fig5} (Black circles) Viewing angle from NuRadioMC. (Solid black line) Gaussian fit, with $\mu = -1.05$ deg, and $\sigma = 3.02$ deg.  (Black dashed line) Cherenkov angle, $\theta_{\rm C}$.}
+%\end{figure}
 
-Though we compared CSWs to Eqs. \ref{eq:final}-\ref{eq:final2} for this analysis, it is important to note that Eqs. \ref{eq:final}-\ref{eq:final2} can also be matched to individual RF channels.  For example, future work could include a more nuanced analysis that only includes RF channels in the CSW that meet a SNR$_{\rm dB}$ criteria.  This technique applies to all types of RF dipole channels\footnote{The specific type of RF dipole used in this analysis is given in Tab. \ref{tab:2}.}.  xxx The only requirement for the RF channel is that $r(t)$ from Sec. \ref{sec:onc} represents a good model of the impulse response, and that suitable values for $f_0$ and $\gamma$ can be measured.
+Our technique has may be applied in a variety of ways.  Though we compared CSWs to Eqs. \ref{eq:final}-\ref{eq:final2} for this analysis,  Eqs. \ref{eq:final}-\ref{eq:final2} can also be matched to individual RF channels.  Future work could include a nuanced analysis that only includes RF channels in the CSW that meet a SNR$_{\rm dB}$ criteria.  Further, our technique applies to all types of RF dipole channels.  (The specific one used in our analysis is in Tab. \ref{tab:2}).  The only requirement for the RF channel is that $r(t)$ from Sec. \ref{sec:onc} represents a good model of the impulse response, and that suitable values for $f_0$ and $\gamma$ can be measured.  An important use case is to model the RF phased-array channels of RNO-G \cite{agarwal2024instrument-844}.  In the seven deployed stations, the RF dipole channels are located at depths that ensure the index of refraction is constant, meaning $r(t)$ should serve at least as well as it did for the RF channels of the RICE detector \cite{10.1103/PhysRevD.85.062004}.
 
-\section{Reconstruction of $\log_{10}E_{\rm C}$}
+\section{Measurement of $\log_{10}E_{\rm C}$}
 \label{sec:recon}
 
-Equations \ref{eq:uncert}-\ref{eq:a_err} may be used to reconstruct the natural logarithm of the UHE-$\nu$ cascade energy, $\ln\Lambda$.  For Eq. \ref{eq:uncert}, $\sigma_t$ is measured from the optimized analytic envelope, $c$ and $\theta_{\rm C}$ are known constants.  Without a separate fit for $\Delta\theta$, an assumption must be made.  We will make the assumption that $\Delta\theta \approx \Delta\theta_{\rm rms}$.  The MC truth for $\Delta\theta$ in this analysis is shown in Fig. \ref{fig:fig5}, with a Gaussian fit.  The rms and $\sigma$ values are equal for normal distributions with zero mean.  As a rough approximation, we let $\Delta\theta \approx \Delta \theta_{\rm rms}$ and set the fractional error $\sigma_{\Delta\theta}/\Delta\theta$ to 1.0.  Solving Eq. \ref{eq:uncert} for $a$ gives
+In the following analysis, we summarize a technique that yields a measurement of the logarithm of the UHE-$\nu$ cascade energy, $\ln\Lambda$, using Eqs. \ref{eq:uncert}-\ref{eq:a_err}.  For Eq. \ref{eq:uncert}, $\sigma_t$ is measured from the optimized analytic envelope, $c$ and $\theta_{\rm C}$ are known constants.  The $\Delta\theta$ must be measured separately from $\sigma_t$, or assumption must be made about its value.  Suppose that $\Delta\theta$ is distributed normally, with zero mean, so that $\Delta\theta \approx \Delta\theta_{\rm rms}$.  Solving Eq. \ref{eq:uncert} for $a$ gives
 
 \begin{equation}
 a = \frac{c\sigma_t}{\Delta\theta_{\rm rms} \sin\theta_{\rm C}}
@@ -392,13 +396,13 @@ The result for the fractional error in $a$ is found by propagating error from $\
 \frac{\sigma_a}{a} = \left(\left(\frac{\epsilon}{\sigma_t}\right)^2 +  \left(\frac{\sigma_{\Delta\theta}}{\Delta\theta}\right)^2\right)^{1/2} \label{eq:err_prop}
 \end{equation}
 
-The first term is small compared to the second, as it is limited by the scan resolution for $\sigma_t$ and the number of samples per analytic envelope.  The scan resolution is set to 0.2 ns in the optimization, and there are typically $>10$ samples per envelope, or about 10 ns.  Thus, $\left(\epsilon/\sigma_t\right)^2$ is two orders of magnitude smaller than $\left(\sigma_{\Delta\theta}/\Delta\theta\right)^2$, so
+The first term is small compared to the second, as it is limited by the scan resolution for $\sigma_t$ and the number of samples per analytic envelope.  In Sec. \ref{sec:sim}, the scan resolution was set to 0.2 ns.  There are typically $>10$ samples per envelope, or about 10 ns.  The fractional error in $\Delta\theta$ would be $1.0$, because the rms and $\sigma$ values are equal for normal distributions with zero mean.  Thus, $\left(\epsilon/\sigma_t\right)^2$ is two orders of magnitude smaller than $\left(\sigma_{\Delta\theta}/\Delta\theta\right)^2$, so
 
 \begin{equation}
 \frac{\sigma_a}{a} = \left|\frac{\sigma_{\Delta\theta}}{\Delta\theta}\right| = \left|\frac{\Delta\theta_{\rm rms}}{\Delta\theta_{\rm rms}}\right|\approx 1
 \end{equation}
 
-Setting the ratio to 1 is a conservative assumption for $\ln\Lambda$, for inserting it into Eq. \ref{eq:a_err} gives
+Inserting $(\sigma_a/a)\approx 1$ into Eq. \ref{eq:a_err} gives
 
 \begin{equation}
 \frac{\sigma_{\ln\Lambda}}{\ln\Lambda} \approx 2 \label{eq:a_err_2}
@@ -410,34 +414,36 @@ Using Eqs. \ref{eq:em} and \ref{eq:had}, the logarithm of the energy is
 \ln\Lambda = \left( \frac{c\sigma_t}{x_{\rm em/had} \Delta\theta_{\rm rms}\sin\theta_{\rm C}} \right)^2 \label{eq:lnLambda}
 \end{equation}
 
-Using Eqs. 10 and 12 from HH2022 (\cite{PhysRevD.105.123019}), $x_{\rm em}$ and $x_{\rm had}$ were found to be 0.80 and 0.93 meters, respectively (FWHM, $R=0.5$).  Using Eq. \ref{eq:lnLambda}, the $\sigma_t$ results from the optimized envelope fits to UHE-$\nu$ signals may be used to deduce the logarithm of the UHE-$\nu$ cascade, $\log_{10} E_{\rm C}$.  First, converting to the base-10 logarithm introduces a factor of $\ln(10)$ in the denominator of Eq. \ref{eq:lnLambda}.  Second, $\ln\Lambda = \ln(E_{\rm C}/E_{\rm crit})$, where $E_{\rm C}$ is the cascade energy, and $E_{\rm crit}\approx 10^8$ eV is known as the critical energy \cite{PhysRevD.105.123019}.  Since $\ln\Lambda = \ln E_{\rm C} - \ln E_{\rm crit}$, separating this ratio adds $\log_{10} E_{\rm crit}$ to the right hand side of Eq. \ref{eq:lnLambda}.  Third, let $x_{\rm ave}$ be the average of $x_{\rm em}$ and $x_{\rm had}$, accurate to 0.05 m.  The average reflects the unknown hadronic or electromagnetic nature of the cascade.  The modified form of Eq. \ref{eq:lnLambda} is
+Using Eqs. 10 and 12 from HH2022 (\cite{PhysRevD.105.123019}), $x_{\rm em}$ and $x_{\rm had}$ were found to be 0.80 and 0.93 meters, respectively (FWHM, $R=0.5$).  Using Eq. \ref{eq:lnLambda}, the $\sigma_t$ results from the optimized envelope fits to UHE-$\nu$ signals could be used to deduce the logarithm of the UHE-$\nu$ cascade, $\log_{10} E_{\rm C}$.  First, converting to the base-10 logarithm introduces a factor of $\ln(10)$ in the denominator of Eq. \ref{eq:lnLambda}.  Second, $\ln\Lambda = \ln(E_{\rm C}/E_{\rm crit})$, where $E_{\rm C}$ is the cascade energy, and $E_{\rm crit}\approx 10^8$ eV is known as the critical energy \cite{PhysRevD.105.123019}.  Since $\ln\Lambda = \ln E_{\rm C} - \ln E_{\rm crit}$, separating this ratio adds $\log_{10} E_{\rm crit}$ to the right hand side of Eq. \ref{eq:lnLambda}.  Third, let $x_{\rm ave}$ be the average of $x_{\rm em}$ and $x_{\rm had}$, accurate to 0.05 m.  The average reflects the unknown hadronic or electromagnetic nature of the cascade.  The modified form of Eq. \ref{eq:lnLambda} is
 
 \begin{equation}
 \log_{10} E_{\rm C} = \frac{\left( c\sigma_t \right)^2}{\ln 10(x_{\rm ave} \Delta\theta_{\rm rms}\sin\theta_{\rm C})^2} + \log_{10} E_{\rm crit} \label{eq:lnLambda_2}
 \end{equation}
 
-Table \ref{tab:2} contains the results for the reconstruction of $\log_{10}E_{\rm C}$.  The results are consistent with the MC truth.  Note that when applying the change of base formula, factors of $\ln(10)$ cancel in the error ratio of Eq. \ref{eq:a_err_2}, so the error in $\log_{10} E_{\rm C}$ remains $2.0$.  The $\sigma_t$ result is the average value derived from 15133 UHE-$\nu$ events that triggered the detector with $E_{\rm C} = 100$ PeV.  Note that the error in the \textit{average} $\sigma_t$ over all events fluctuates due to varying $\Delta\theta$, while the error in \textit{individual} $\sigma_t$ per CSW is small if the samples per CSW is much greater than 1.  By far, the largest source of systematic error is \textit{reflected signals}.
+In hopes of using Eq. \ref{eq:lnLambda_2} to measure $\log_{10} E_{\rm C}$, we calculated the $\sigma_t$ distribution derived from 15133 UHE-$\nu$ events that triggered the detector with $E_{\rm C} = 100$ PeV.  Though the $\sigma_t$ distribution corresponds to the correlation coefficient distribution in Fig. \ref{fig:fig3}, two effects conspire to cause the measurement of $\log_{10} E_{\rm C}$ to break down.  First, the dependence of $\log_{10} E_{\rm C}$ in Eq. \ref{eq:lnLambda_2} on $\sigma_t$ is \textit{quadratic}, so subtle shifts in $\sigma_t$ amplify error in $\log_{10} E_{\rm C}$.  Second, \textit{reflected signals} lead to extended tails in the $\sigma_t$ distribution that skew measurements of the average of $\log_{10} E_{\rm C}$.
 
-Multiple signals occur within traces either when signals from two ray-tracing paths are available, or when part of the signal reflects from the surface back to the channel.  Signals that propagate directly to the detector are known as \textit{direct signals}, while signals that reflect at the snow-air interface are known as \textit{reflected signals}.  Complex RF signal propagation in polar ice has been studied, and even proposed as a UHE-$\nu$ energy reconstruction technique \cite{Barwick:2018497,anker2019neutrino-734,deaconu2018measurements-182}.  When two signals are present in the voltage trace, the fitting algorithm favors $\sigma_t$ values that are unphysically larger than the average quoted in Tab. \ref{tab:2}.  This systematically overestimates $\log_{10} E_{\rm C}$.  Though adding a second analytic envelope to the fit algorithm to account for pulse reflection is straightforward, this added complexity was beyond the scope of this work.  An example CSW event with direct and reflected signals fit by an analytic envelope is shown in Fig. \ref{fig:example_waveforms_2}.
+Reflected signals occur within traces either when signals from two ray-tracing paths are available, or when part of the signal reflects from the surface back to the RF channel.  Signals that propagate directly to the detector are known as \textit{direct signals}, while signals that reflect at the snow-air interface are known as \textit{reflected signals}.  Complex RF signal propagation in polar ice has been studied, and even proposed as a UHE-$\nu$ energy reconstruction technique \cite{Barwick:2018497,anker2019neutrino-734,deaconu2018measurements-182}.
 
-\begin{table}[hb]
-\centering
-\begin{tabular}{| c | c |}
-\hline
-\textbf{Parameter} & \textbf{Average Value} \\ \hline
-MC Truth, $E_{\rm C}$ [eV] & $10^{17}$ \\
-MC Truth, $\log_{10}E_{\rm C}$ & $17$ \\
-$c$ & $0.3/1.78$ m ns$^{-1}$ \\
-$\overline{\sigma_t}$ & $1.229 \pm 0.004$ ns \\
-$c_{\rm ave}$ & 0.85 m \\
-$\Delta\theta_{\rm rms}$ & $3.78$ degrees \\
-$E_{\rm crit}$ & 100 MeV \\
-$\sin\theta_{\rm C}$ & 0.8271 \\ \hline
-\textbf{Reconstructed} $\mathbf{\log_{10}E_{\rm C}}$ & $16.7\pm 2.0$ \\
-\hline
-\end{tabular}
-\caption{\label{tab:2} Energy reconstruction parameters used to calculate the logarithm of the UHE-$\nu$ cascade energy, $\log_{10}E_{\rm C}$.}
-\end{table}
+When reflected signals are present in the CSW, the fitting algorithm compensates with unphysical $\sigma_t$ values corresponding to a single pulse (see Fig. \ref{fig:example_waveforms_2}).  This compensation leads to an overestimation of $\log_{10} E_{\rm C}$.  To account for reflected signals, we would have to assume two independent copies of Eqs. \ref{eq:final}-\ref{eq:final3} for each UHE-$\nu$ event, and scan for two $\sigma_t$ values and two pulse locations within the waveform.  Though not conceptually difficult, we felt the technique was beyond the scope of this work.
+
+%\begin{table}[hb]
+%\centering
+%\begin{tabular}{| c | c |}
+%\hline
+%\textbf{Parameter} & \textbf{Average Value} \\ \hline
+%MC Truth, $E_{\rm C}$ [eV] & $10^{17}$ \\
+%MC Truth, $\log_{10}E_{\rm C}$ & $17$ \\
+%$c$ & $0.3/1.78$ m ns$^{-1}$ \\
+%$\overline{\sigma_t}$ & $1.229 \pm 0.004$ ns \\
+%$c_{\rm ave}$ & 0.85 m \\
+%$\Delta\theta_{\rm rms}$ & $3.78$ degrees \\
+%$E_{\rm crit}$ & 100 MeV \\
+%$\sin\theta_{\rm C}$ & 0.8271 \\ \hline
+%\textbf{Reconstructed} $\mathbf{\log_{10}E_{\rm C}}$ & $16.7\pm 2.0$ \\
+%\hline
+%\end{tabular}
+%\caption{\label{tab:2} Energy reconstruction parameters used to calculate the logarithm of the UHE-$\nu$ cascade energy, $\log_{10}E_{\rm C}$.}
+%\end{table}
 
 \begin{figure}
 \centering
@@ -448,13 +454,13 @@ $\sin\theta_{\rm C}$ & 0.8271 \\ \hline
 \section{Conclusion}
 \label{sec:conc}
 
-In Secs. \ref{sec:int} and \ref{sec:unit}, previous work in the utility of analytic Askaryan models was reviewed, and important parameters were defined.  In Sec. \ref{sec:onc}, a fully analytic model for $\mathcal{E}_{\rm s*r}(t)$ and $s(t) * r(t)$ was presented and checked for accuracy.  In Sec. \ref{sec:sim}, the analytic model was shown to reject all but 0.2 RF thermal triggers in a 5 year run at a 1 Hz thermal trigger rate using a correlation threshold of $\rho\geq 0.4$.  The threshold $\rho\geq 0.4$ preserves 99.99\% of UHE-$\nu$ signals at 100 PeV.  The correlation distribution for UHE-$\nu$ signals peaked at 0.94, and some values even exceed 0.94.  Finally, in Sec. \ref{sec:recon}, a first attempt to reconstruct $\log_{10}E_{\rm C}$ using the CSW fit with data from a \textit{a single-string detector} was presented.  Though the error range for $\log_{10}E_{\rm C}$ was large, the average value was correct: $\log_{10}E_{\rm C} = 16.7 \pm 2.0$ for 100 PeV.
+In Secs. \ref{sec:int} and \ref{sec:unit}, previous work in the utility of analytic Askaryan models was reviewed, and important parameters were defined.  In Sec. \ref{sec:onc}, a fully analytic model for $\mathcal{E}_{\rm s*r}(t)$ and $s(t) * r(t)$ was presented and checked for accuracy.  In Sec. \ref{sec:sim}, the analytic model was shown to reject all but 0.2 RF thermal triggers in a 5 year run at a 1 Hz thermal trigger rate using a correlation threshold of $\rho\geq 0.4$.  The threshold $\rho\geq 0.4$ preserves 99.99\% of UHE-$\nu$ signals at 100 PeV.  The correlation distribution for UHE-$\nu$ signals peaked at 0.94, and some values even exceed 0.94.  Finally, in Sec. \ref{sec:recon}, we sketched a technique to calculate the average $\log_{10} E_{\rm C}$ from data from \textit{a single-string detector}.  The technique breaks down without explicitly accounting for signal reflections.
 
-There are three logical steps for this work in the future.  First, we must account for multiple pulses in the algorithm used to fit the analytic envelope to CSWs from NuRadioMC.  The authors of \cite{anker2019neutrino-734} have shown how direct and reflected (DnR) signals may be used to constrain the UHE-$\nu$ energy.  This procedure should be combined with the analytic envelope fit to advance UHE-$\nu$ energy reconstruction.  Though this is not difficult to implement, it was beyond the scope of this work.
+There are three logical steps for this work in the future.  First, we must account for reflected signals  when fitting analytic envelopes to CSWs from UHE-$\nu$.  The authors of \cite{anker2019neutrino-734} have shown how direct and reflected (DnR) signals may be used to constrain the UHE-$\nu$ energy.  This procedure should be combined with the analytic envelope fit to advance UHE-$\nu$ energy reconstruction.  Though this is not difficult, it was beyond the scope of this work.
 
-Second, we should be able to incorporate a separate fit for $\Delta\theta$.  This parameter may be constrained by using the spectral cutoff, which is inversely correlated to $\Delta\theta$ \cite{10.1016/j.astropartphys.2017.03.008}.  With a separate fit for $\Delta\theta$, the $a$-value could be constrained without making any assumption about $\Delta\theta$.  This step would improve the precision of the $a$-value by lowering the fractional error in $a$-values in Eq. \ref{eq:err_prop}.  This procedure was completed in HH2022, but it is restricted to comparisons between $\vec{E}$-fields and not observed CSWs.
+Second, a separate fit for $\Delta\theta$ should be included.  This parameter may be constrained by using the spectral cutoff of the voltage traces, which are inversely correlated to $\Delta\theta$ \cite{10.1016/j.astropartphys.2017.03.008}.  With a separate fit for $\Delta\theta$, the $a$-value could be constrained without making any assumption about $\Delta\theta$.  This step would improve the precision of the $a$-value by lowering the fractional error in $a$-values in Eq. \ref{eq:err_prop}.  This procedure was completed in \cite{PhysRevD.105.123019}, but it is restricted to comparisons between $\vec{E}$-fields and not observed CSWs.
 
-Third, it is interesting to note that the model in this work relies on the \textit{off-cone} ($\theta \neq \theta_{\rm C}$) version of $s(t)$.  HH2022 also includes an \textit{on-cone} version of $s(t)$ that is used when $\Delta\theta = 0$, and can be used as $\Delta\theta\to 0$.  The on-cone model could provide a better fit between $\mathcal{E}_{\rm s*r}(t)$ for events with $\Delta\theta \lesssim 1$ degree \cite{PhysRevD.105.123019}.  Further, the on-cone model is defined in a piecewise fashion by rising and falling exponential functions, making the convolution with Eq. \ref{eq:r} easier than the procedure used to arrive at Eqs. \ref{eq:final}-\ref{eq:final2}.
+Third, it is interesting to note that the model in this work relies on the \textit{off-cone} ($\theta \neq \theta_{\rm C}$) version of $s(t)$.  The authors of HH2022 \cite{PhysRevD.105.123019} also include an \textit{on-cone} version of $s(t)$ that is used when $\Delta\theta = 0$, and can be used as $\Delta\theta\to 0$.  The on-cone model could provide a better fit between $\mathcal{E}_{\rm s*r}(t)$ for events with $\Delta\theta \lesssim 1$ degree \cite{PhysRevD.105.123019}.  Further, the on-cone model is defined in a piecewise fashion by rising and falling exponential functions, simplifying the procedure used to arrive at Eqs. \ref{eq:final}-\ref{eq:final2}.
 
 We would like to thank Prof. Steve Barwick, and Prof. Mark Kozek for useful background discussions.  We are grateful to the authors of RB, Profs. John Ralston and Roman Buniy, for inspiring us in this line of research \cite{10.1103/physrevd.65.016003}.  We would like to thank Prof. Dave Besson for encouragement and wisdom while we continued to develop the model.  Most of all, we would like to thank Prof. Amy Connolly for inspiring us and encouraging us to master more advanced applications of complex analysis to mathematical physics.  We hope the model will help identify the first UHE-$\nu$ via the Askaryan effect, especially in light of potential UHE-$\nu$ observations \cite{collaboration2025observation-22f}.
 
