@@ -2,7 +2,7 @@ import csv
 import numpy
 import argparse
 import numpy as np
-from scipy.signal import convolve,hilbert
+from scipy.signal import convolve,hilbert,butter,filtfilt
 from scipy.special import dawsn as D
 from scipy.special import wofz as w
 from scipy.integrate import quad
@@ -64,14 +64,18 @@ def get_csw(trace_set,index,good_channels):
 	norm = np.sqrt(np.inner(sum_trace,sum_trace))
 	sum_trace/=norm
 	return sum_trace
+def lowpass_butter(x,cutoff,fs,order=4):
+    nyq = 0.5*fs
+    b,a = butter(order,cutoff/nyq,btype='low')
+    return filtfilt(b,a,x)
 def load_csv_data(csvfile,trace_length,n_channels):
 	data = np.zeros((n_channels,trace_length))
 	reader = csv.reader(csvfile,delimiter=',')
 	i=0
 	for row in reader:
 		data_row = list(map(float,row))
-		norm = np.sqrt(np.inner(data_row,data_row))
-		data[i] = data_row/norm
+		data_row = lowpass_butter(data_row,0.35,1.5)
+		data[i] = data_row/np.sqrt(np.inner(data_row,data_row))
 		i+=1
 		if(i==n_channels):
 			break
