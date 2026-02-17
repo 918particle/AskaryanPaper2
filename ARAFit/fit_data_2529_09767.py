@@ -21,7 +21,7 @@ times = np.arange(0,trace_length)/fs
 f0 = 0.190
 gamma = 0.02
 secondary_amplitude = 0.1
-plot_delay = 112.25
+plot_delay = 119.5
 model = np.zeros(trace_length)
 
 if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplitude):
@@ -29,13 +29,13 @@ if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplit
 		model[i] = utility.math_conv(times[i]-plot_delay,1,1,args.first_sigma,f0,gamma)
 		model[i] += utility.math_conv(times[i]-args.the_delay-plot_delay,1,1,args.second_sigma,f0,gamma)*args.the_amplitude
 	model = model/np.sqrt(np.inner(model,model))
-	print(np.max(np.abs(correlate(model,csw))))
-	#for i in range(trace_length):
-	#	print(times[i],csw[i],model[i])
+	#print(np.max(np.abs(correlate(model,csw))))
+	for i in range(trace_length):
+		print(times[i],csw[i],model[i])
 else:
 	rho_max = 0
-	sigmas = np.arange(0.3,3.0,0.1)
-	delays = np.arange(30,40,0.5)
+	sigmas = np.arange(0.2,3.0,0.1)
+	delays = np.arange(20,30,0.25)
 	amplitudes = np.arange(0.01,0.5,0.05)
 	best_sigma_main = 0
 	best_sigma_reflection = 0
@@ -58,7 +58,7 @@ else:
 						best_sigma_reflection=sigma_2
 						best_delay = delay
 						rho_max = rho
-	'''for amp in amplitudes:
+	for amp in amplitudes:
 		for i in range(trace_length):
 			model[i] = utility.math_conv(times[i]-plot_delay,1,1,best_sigma_main,f0,gamma)
 			model[i] += utility.math_conv(times[i]-best_delay-plot_delay,1,1,best_sigma_reflection,f0,gamma)*amp
@@ -66,5 +66,5 @@ else:
 		deltaP = np.mean(np.square(model-csw))
 		if(deltaP<best_deltaP):
 			best_deltaP = deltaP
-			best_amplitude = amp'''
+			best_amplitude = amp
 	print(rho_max,best_sigma_main,best_sigma_reflection,best_delay,best_amplitude)
