@@ -21,7 +21,7 @@ times = np.arange(0,trace_length)/fs
 f0 = 0.190
 gamma = 0.02
 secondary_amplitude = 0.01
-plot_delay = 92
+plot_delay = 114
 model = np.zeros(trace_length)
 
 if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplitude):
@@ -29,9 +29,9 @@ if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplit
 		model[i] = utility.math_conv(times[i]-plot_delay,1,1,args.first_sigma,f0,gamma)
 		model[i] += utility.math_conv(times[i]-args.the_delay-plot_delay,1,1,args.second_sigma,f0,gamma)*args.the_amplitude
 	model = model/np.sqrt(np.inner(model,model))
-	print(np.max(np.abs(correlate(model,csw))))
-	#for i in range(trace_length):
-	#	print(times[i],csw[i],model[i])
+	#print(np.max(np.abs(correlate(model,csw))))
+	for i in range(trace_length):
+		print(times[i],csw[i],model[i])
 else:
 	rho_max = 0
 	sigmas = np.arange(0.3,3.0,0.1)
