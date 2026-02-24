@@ -29,13 +29,13 @@ if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplit
 		model[i] = utility.math_conv(times[i]-plot_delay,1,1,args.first_sigma,f0,gamma)
 		model[i] += utility.math_conv(times[i]-args.the_delay-plot_delay,1,1,args.second_sigma,f0,gamma)*args.the_amplitude
 	model = model/np.sqrt(np.inner(model,model))
-	#print(np.max(np.abs(correlate(model,csw))))
-	for i in range(trace_length):
-		print(times[i],csw[i],model[i])
+	print(np.max(np.abs(correlate(model,csw))))
+	#for i in range(trace_length):
+	#	print(times[i],csw[i],model[i])
 else:
 	rho_max = 0
-	sigmas = np.arange(0.5,0.7,0.1)
-	delays = np.arange(17,22,0.25)
+	sigmas = np.arange(0.3,3.0,0.1)
+	delays = np.arange(18,30,0.25)
 	amplitudes = np.arange(0.01,0.5,0.05)
 	best_sigma_main = 0
 	best_sigma_reflection = 0
