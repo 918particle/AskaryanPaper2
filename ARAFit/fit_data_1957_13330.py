@@ -16,12 +16,12 @@ fs = 1.5
 trace_length = 512
 n_channels = 7
 data = utility.load_csv_data(open(args.filename,newline=''),trace_length,n_channels)
-csw = utility.get_csw(data,6,[0,1,2,3,4,5,6])
+csw = utility.get_csw(data,3,[0,1,2,3,4,5,6])
 times = np.arange(0,trace_length)/fs
 f0 = 0.190
 gamma = 0.02
 secondary_amplitude = 0.1
-plot_delay = 144
+plot_delay = 99.5
 model = np.zeros(trace_length)
 
 if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplitude):
@@ -30,12 +30,12 @@ if(args.first_sigma and args.second_sigma and args.the_delay and args.the_amplit
 		model[i] += utility.math_conv(times[i]-args.the_delay-plot_delay,1,1,args.second_sigma,f0,gamma)*args.the_amplitude
 	model = model/np.sqrt(np.inner(model,model))
 	print(np.max(np.abs(correlate(model,csw))))
-	for i in range(trace_length):
-		print(times[i],csw[i],model[i])
+	#for i in range(trace_length):
+	#	print(times[i],csw[i],model[i])
 else:
 	rho_max = 0
-	sigmas = np.arange(0.2,3.0,0.1)
-	delays = np.arange(20,30,0.25)
+	sigmas = np.arange(0.4,3.0,0.1)
+	delays = np.arange(10,20,0.25)
 	amplitudes = np.arange(0.01,0.5,0.01)
 	best_sigma_main = 0
 	best_sigma_reflection = 0
