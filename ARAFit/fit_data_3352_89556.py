@@ -16,7 +16,7 @@ fs = 1.5
 trace_length = 512
 n_channels = 7
 data = utility.load_csv_data(open(args.filename,newline=''),trace_length,n_channels)
-csw = utility.get_csw(data,2,[0,1,2,3,4,5,6])
+csw = utility.get_csw(data,1,[1,2,3,4,5,6,7])
 times = np.arange(0,trace_length)/fs
 f0 = 0.190
 gamma = 0.02
