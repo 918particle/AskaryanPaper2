@@ -11,7 +11,7 @@ set lmargin 10
 set rmargin 5
 set tmargin 1
 set bmargin 4
-set key right top box on font "Courier,14" width 1.1 spacing 1.1 at 312.5,0.45
+set key right top box on font "Courier,14" width 1.1 spacing 1.1 at 237.5,0.45
 set style line 1 lw 2.0 lc rgb "#AAAAAA"
 set style line 2 lw 1.0 lc rgb "#000000"
 set multiplot
