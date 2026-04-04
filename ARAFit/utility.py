@@ -8,6 +8,8 @@ from scipy.special import wofz as w
 from scipy.integrate import quad
 from scipy.signal import correlate,correlation_lags
 
+def s(t,s_t,E0):
+	return -E0*t*np.exp(-0.5*(t/s_t)*(t/s_t))
 def shifted_laplace_transform(f,s,t0,t_max=1000):
     real_integral = quad(lambda t: np.exp(-s.real*t)*np.cos(s.imag*t)*f(t-t0),0,t_max)[0]
     imag_integral = quad(lambda t: np.exp(-s.real*t)*np.sin(s.imag*t)*f(t-t0),0,t_max)[0]
